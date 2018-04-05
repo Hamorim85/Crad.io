@@ -1,0 +1,23 @@
+
+<%= simple_form_for(@influencer) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :username %>
+    <%= f.input :email %>
+    <%= f.input :country %>
+    <%= f.input :followers_count %>
+    <%= f.input :following_count %>
+    <%= f.input :bio %>
+    <%= f.input :media_count %>
+    <%= f.input :igid %>
+    <%= f.input :photo %>
+    <%= f.input :full_name %>
+    <%= f.input :verified %>
+    <%= f.input :external_url %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
