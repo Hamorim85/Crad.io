@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180405134449) do
+ActiveRecord::Schema.define(version: 20180405204341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20180405134449) do
     t.integer "following_count"
     t.text "bio"
     t.integer "media_count"
-    t.integer "igid"
+    t.string "igid"
     t.string "photo"
     t.string "full_name"
     t.boolean "verified"
