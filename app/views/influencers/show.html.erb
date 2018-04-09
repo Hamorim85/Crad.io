@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @influencer.username %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @influencer.email %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @influencer.country %>
+</p>
+
+<p>
+  <strong>Followers count:</strong>
+  <%= @influencer.followers_count %>
+</p>
+
+<p>
+  <strong>Following count:</strong>
+  <%= @influencer.following_count %>
+</p>
+
+<p>
+  <strong>Bio:</strong>
+  <%= @influencer.bio %>
+</p>
+
+<p>
+  <strong>Media count:</strong>
+  <%= @influencer.media_count %>
+</p>
+
+<p>
+  <strong>Igid:</strong>
+  <%= @influencer.igid %>
+</p>
+
+<p>
+  <strong>Photo:</strong>
+  <%= @influencer.photo %>
+</p>
+
+<p>
+  <strong>Full name:</strong>
+  <%= @influencer.full_name %>
+</p>
+
+<p>
+  <strong>Verified:</strong>
+  <%= @influencer.verified %>
+</p>
+
+<p>
+  <strong>External url:</strong>
+  <%= @influencer.external_url %>
+</p>
+
+<%= link_to 'Edit', edit_influencer_path(@influencer) %> |
+<%= link_to 'Back', influencers_path %>
