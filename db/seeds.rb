@@ -41,13 +41,13 @@ greenpeace.categories << enviroment
 p 'Adding matches to users'
 Influencer.first(4).each do |influencer|
   enviroment_match = InfluencerCategory.new(category: enviroment)
-  enviroment_match.nodes << wwf
-  enviroment_match.nodes << greenpeace
+  enviroment_match.node_ids << wwf.id
+  enviroment_match.node_ids << greenpeace.id
   enviroment_match.influencer = influencer
   enviroment_match.save
 
   animal_rights_match = InfluencerCategory.new(category: animal_rights)
-  animal_rights_match.nodes << wwf
+  animal_rights_match.node_ids << wwf.id
   animal_rights_match.influencer = influencer
   animal_rights_match.save
 end
@@ -55,7 +55,7 @@ end
 # Adding one random node to the last 6
 Influencer.last(6).each do |influencer|
   enviroment_match = InfluencerCategory.new(category: enviroment)
-  enviroment_match.nodes << greenpeace
+  enviroment_match.node_ids << greenpeace.id
   enviroment_match.influencer = influencer
   enviroment_match.save
 end

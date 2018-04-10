@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180410024006) do
+ActiveRecord::Schema.define(version: 20180410174122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20180410024006) do
     t.bigint "influencer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "nodes"
+    t.string "node_ids"
     t.index ["category_id"], name: "index_influencer_categories_on_category_id"
     t.index ["influencer_id"], name: "index_influencer_categories_on_influencer_id"
   end

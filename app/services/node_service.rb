@@ -3,17 +3,16 @@
 # app/services/node_service.rb
 class NodeService
   def initialize(node)
-    @url = node.url
-    @categories = node.categories
+    @node = node
     visit_page
   end
 
   private
 
   def visit_page
-    p "Visiting #{@url}"
+    p "Visiting #{@node.url}"
     driver = Selenium::WebDriver.for :chrome
-    driver.navigate.to "http://instagram.com/#{@url}/followers"
+    driver.navigate.to "http://instagram.com/#{@node.url}/followers"
 
     # Login as an user to instagram
     login(driver, 'hannaschmitz069', 'qwertz123456')
@@ -24,7 +23,7 @@ class NodeService
     wait.until { driver.find_element(class: '_mainc') }
 
     # Then we click on the FOLLOWERS link
-    clickable_link = "/#{@url}/followers/"
+    clickable_link = "/#{@node.url}/followers/"
     followers_link = driver.find_element(:css, "a[href='#{clickable_link}']")
     followers_link.click
 
@@ -52,7 +51,7 @@ class NodeService
     end
 
     # Then we try to save them
-    gather_list(display_followers(driver, @url))
+    gather_list(display_followers(driver, @node.url))
     sleep 5
   end
 
@@ -86,42 +85,62 @@ class NodeService
     puts "Grabing info from #{followers_list.size} profiles..."
     byebug
 
-    followers_list.each do |profile|
-      research(profile)
+    followers_list.each do |username|
+      save_info(username)
+      # research(profile) # This will be called later by a parser
       sleep 3
     end
   end
 
-  def research(username)
-    puts "Saving #{username}"
+  def save_info(username)
     url = "https://www.instagram.com/#{username}?__a=1"
-    # open the url, read it what gives you a huge string. then trough JSON.
-    # your turn the huge string into a hash.
 
-    # create a new influencer in our database
-    influencer = Influencer.find_by_username(username) || Influencer.new
+    # create or call influencer in our database
+    influencer = Influencer.find_or_initialize_by(username: username)
 
-    return unless !influencer.persisted? || (Date.today - influencer.updated_at) < 30.days
-    page = JSON.parse(open(url).read)
+    @node.categories.each do |category|
+      category_match = InfluencerCategory.find_or_initialize_by(category: category, influencer: influencer)
+      next if category_match.nodes.includes?(@node)
+      category_match.nodes << @node
+      category_match.influencer = influencer
+      category_match.save
+    end
 
-    # define the attributes
-    ig = page['graphql']['user']
-    influencer.username = ig['username']
-
-    email_regex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/
-    influencer.email = email_regex.match(ig['biography'])
-
-    influencer.photo = ig['profile_pic_url_hd']
-    influencer.bio = ig['biography']
-    influencer.full_name = ig['full_name']
-    influencer.external_url = ig['external_url']
-    influencer.followers_count = ig['edge_followed_by']['count']
-    influencer.following_count = ig['edge_follow']['count']
-    influencer.media_count = ig['edge_owner_to_timeline_media']['count']
-    influencer.igid = ig['id']
-    influencer.verified = ig['is_verified']
-
-    # Only save if the user has more than 1000 followers
-    influencer.save if ig['edge_followed_by']['count'].to_i > 5000
+    influencer.save
   end
+
+  # def research(username)
+  #   puts "Saving #{username}"
+  #   url = "https://www.instagram.com/#{username}?__a=1"
+  #   # open the url, read it what gives you a huge string. then trough JSON.
+  #   # your turn the huge string into a hash.
+  #
+  #   # create a new influencer in our database
+  #   influencer = Influencer.find_by_username(username) || Influencer.new
+  #
+  # Return if user already persisted and recently updated
+  # return if influencer.persisted? && (Date.today - influencer.updated_at) < 30.days
+  #
+  # page = HTTParty.get(url)
+  #
+  # # define the attributes
+  # ig = page['graphql']['user']
+  # influencer.username = ig['username']
+  #
+  # email_regex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/
+  # influencer.email = email_regex.match(ig['biography'])
+  #
+  # influencer.photo = ig['profile_pic_url_hd']
+  # influencer.bio = ig['biography']
+  # influencer.full_name = ig['full_name']
+  # influencer.external_url = ig['external_url']
+  # influencer.followers_count = ig['edge_followed_by']['count']
+  # influencer.following_count = ig['edge_follow']['count']
+  # influencer.media_count = ig['edge_owner_to_timeline_media']['count']
+  # influencer.igid = ig['id']
+  # influencer.verified = ig['is_verified']
+  #
+  # # Only save if the user has more than 1000 followers
+  # influencer.save if ig['edge_followed_by']['count'].to_i > 5000
+  # end
 end
