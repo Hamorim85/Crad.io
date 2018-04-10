@@ -39,9 +39,10 @@ class NodeService
       break if last_child == driver.find_element(:css, 'ul div li:last-child')
       last_child = driver.find_element(:css, 'ul div li:last-child')
       driver.execute_script(scroll)
-      count = 0
-      puts "#{count} - Scrolling into view... "
+      scroll_count = 0
+      puts "#{scroll_count += 1} - Scrolling into view... "
 
+      count = 0
       while last_child == driver.find_element(:css, 'ul div li:last-child')
         count += 1
         sleep 1
@@ -51,7 +52,6 @@ class NodeService
 
     # Then we try to save them
     gather_list(display_followers(driver, @node.url))
-    sleep 5
   end
 
   def display_followers(driver, usr)
