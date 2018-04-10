@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180409192908) do
+ActiveRecord::Schema.define(version: 20180410024006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20180409192908) do
     t.bigint "influencer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nodes"
     t.index ["category_id"], name: "index_influencer_categories_on_category_id"
     t.index ["influencer_id"], name: "index_influencer_categories_on_influencer_id"
   end
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(version: 20180409192908) do
     t.string "followers_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "url"
   end
 
   add_foreign_key "influencer_categories", "categories"
