@@ -1,0 +1,13 @@
+<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url(<%= asset_path 'first_banner.png' %>);">
+  <div class="banner-content">
+    <h1>Cradio</h1>
+    <p>Spread a cause</p>
+    <%= form_tag boats_path, :method => :get, class: 'form-inline' do %>
+      <div class="form-group form-group-lg" style="font-size: 0">
+        <%= select_tag :city, options_for_select(Boat::CITIES, nil), :include_blank => 'Any city', class: "form-control" %>
+        <%= select_tag :price, "<option value=''>Any price</option><option value='100'>< $100</option><option value='300'>< $300</option><option value='500'>< $500</option>".html_safe, class: "form-control" %>
+        <%= submit_tag "Search", class: 'btn btn-primary btn-lg'%>
+      </div>
+      <% end %>
+  </div>
+</div>
