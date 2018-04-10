@@ -1,0 +1,40 @@
+<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url(<%= asset_path 'first_banner.png' %>);">
+  <div class="banner-content">
+    <h1>Cradio</h1>
+    <p>Spread a cause</p>
+    <%= form_tag influencers_path, :method => :get, class: 'form-inline' do %>
+      <div class="form-group form-group-lg" style="font-size: 0">
+        <%= select_tag :categories, options_for_select(Category.all.map{|c| [c.name, c.id]}, nil), :include_blank => 'Any category', class: "form-control" %>
+        <%= select_tag :followers_count, "
+          <option value=''>
+            Any followers_count
+          </option>
+          <option value='1000'>
+            < 1000
+          </option>
+          <option value='3000'>
+            < 3000
+          </option>
+          <option value='5000'>
+            < 5000
+          </option>
+        ".html_safe, class: "form-control" %>
+
+        <%= select_tag :following_count, "
+        <option value=''>
+          Any following_count
+        </option>
+        <option value='1000'>
+          < 1000
+        </option>
+        <option value='3000'>
+          < 3000
+        </option>
+        <option value='5000'>
+          < 5000
+        </option>".html_safe, class: "form-control" %>
+        <%= submit_tag "Search", class: 'btn btn-success btn-lg'%>
+      </div>
+      <% end %>
+  </div>
+</div>
