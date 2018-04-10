@@ -8,6 +8,8 @@ class NodeService
     visit_page
   end
 
+  private
+
   def visit_page
     p "Visiting #{@url}"
     driver = Selenium::WebDriver.for :chrome
@@ -46,7 +48,7 @@ class NodeService
         sleep 1
         break if count >= 30
       end
-      p 'Broke the loop'
+      break # NOTE: REMOVE THIS BEFORE PULL REQUEST!!!!!!!!!!!!!!!!!!!!!
     end
 
     # Then we try to save them
@@ -55,22 +57,23 @@ class NodeService
   end
 
   def display_followers(driver, usr)
-    list = []
+    followers_list = []
     follower_image = "a[style='width: 30px; height: 30px;']"
     followers = driver.find_elements(:css, follower_image)
 
     followers.each do |item|
       username = item.attribute('href').scan(/https:\/\/www.instagram.com\/(.+)\//).flatten.first
       puts "#{username} - #{item.attribute('href')}"
-      list << username
+      followers_list << username
     end
 
-    puts "Total followers found for #{usr}: #{list.size}"
+    puts "Total followers found for #{usr}: #{followers_list.size}"
 
-    list
+    followers_list
   end
 
   def login(driver, usr, psw)
+    p "Logging in as #{usr}..."
     element = driver.find_element(name: 'username')
     element.send_keys usr
     # element.submit
@@ -79,12 +82,11 @@ class NodeService
     element.submit
   end
 
-  def gather_list(list)
-    puts "Searching for #{list.size} profiles"
+  def gather_list(followers_list)
+    puts "Grabing info from #{followers_list.size} profiles..."
+    byebug
 
-    Influencer.destroy_all
-
-    list.each do |profile|
+    followers_list.each do |profile|
       research(profile)
       sleep 3
     end
