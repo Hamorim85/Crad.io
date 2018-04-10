@@ -4,7 +4,7 @@ class InfluencersController < ApplicationController
   # GET /influencers
   # GET /influencers.json
   def index
-    @influencers = Influencer.all
+    @influencers = policy_scope(Influencer).search(params).order(created_at: :desc)
   end
 
   # GET /influencers/1
