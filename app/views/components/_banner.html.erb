@@ -4,7 +4,7 @@
     <p>Spread a cause</p>
     <%= form_tag influencers_path, :method => :get, class: 'form-inline' do %>
       <div class="form-group form-group-lg" style="font-size: 0">
-        <%= select_tag :categories, options_for_select(Category.all.map(&:name), nil), :include_blank => 'Any category', class: "form-control" %>
+        <%= select_tag :categories, options_for_select(Category.all.map{|c| [c.name, c.id]}, nil), :include_blank => 'Any category', class: "form-control" %>
         <%= select_tag :followers_count, "
           <option value=''>
             Any followers_count
