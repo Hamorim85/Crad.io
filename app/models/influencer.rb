@@ -1,4 +1,5 @@
 class Influencer < ApplicationRecord
+  CATEGORIES = %w[Animal\ Protection Rainforest\ Protection Vegan Social].freeze
   has_many :categories, through: :influencer_categories
   has_many :influencer_categories
   validates :username, :followers_count, :following_count, presence: :true

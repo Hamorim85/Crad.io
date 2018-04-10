@@ -2,11 +2,12 @@
   <div class="banner-content">
     <h1>Cradio</h1>
     <p>Spread a cause</p>
-    <%= form_tag boats_path, :method => :get, class: 'form-inline' do %>
+    <%= form_tag influencers_path, :method => :get, class: 'form-inline' do %>
       <div class="form-group form-group-lg" style="font-size: 0">
-        <%= select_tag :city, options_for_select(Boat::CITIES, nil), :include_blank => 'Any city', class: "form-control" %>
-        <%= select_tag :price, "<option value=''>Any price</option><option value='100'>< $100</option><option value='300'>< $300</option><option value='500'>< $500</option>".html_safe, class: "form-control" %>
-        <%= submit_tag "Search", class: 'btn btn-primary btn-lg'%>
+        <%= select_tag :categories, options_for_select(Influencer::CATEGORIES, nil), :include_blank => 'Any category', class: "form-control" %>
+        <%= select_tag :followers_count, "<option value=''>Any followers_count</option><option value='1000'>< 1000</option><option value='3000'>< 3000</option><option value='5000'>< 5000</option>".html_safe, class: "form-control" %>
+        <%= select_tag :following_count, "<option value=''>Any following_count</option><option value='1000'>< 1000</option><option value='3000'>< 3000</option><option value='5000'>< 5000 followers</option>".html_safe, class: "form-control" %>
+        <%= submit_tag "Search", class: 'btn btn-success btn-lg'%>
       </div>
       <% end %>
   </div>
