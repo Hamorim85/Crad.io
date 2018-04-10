@@ -2,5 +2,5 @@ class InfluencerCategory < ApplicationRecord
   belongs_to :category
   belongs_to :influencer
 
-  serialize :nodes, Node
+  serialize :nodes, Array
 end

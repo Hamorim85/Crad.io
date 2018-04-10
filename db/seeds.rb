@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+p 'Deleting join tables'
+InfluencerCategory.destroy_all
+NodeCategory.destroy_all
+
 p 'Deleting influencers'
 Influencer.destroy_all
 
@@ -36,20 +40,22 @@ greenpeace.categories << enviroment
 # Adding both nodes to first 4 influencers
 p 'Adding matches to users'
 Influencer.first(4).each do |influencer|
-  influencer_category = InfluencerCategory.new(
-    category: wwf.category,
-    node: [wwf, greenpeace]
-  )
-  influencer.influencer_categories << influencer_category
+  enviroment_match = InfluencerCategory.new(category: enviroment)
+  enviroment_match.nodes << wwf
+  enviroment_match.nodes << greenpeace
+  influencer.influencer_categories << enviroment_match
+  influencer.save
+
+  animal_rights_match = InfluencerCategory.new(category: animal_rights)
+  animal_rights_match.nodes << wwf
+  influencer.influencer_categories << animal_rights_match
   influencer.save
 end
 
 # Adding one random node to the last 6
 Influencer.last(6).each do |influencer|
-  influencer_category = InfluencerCategory.new(
-    category: wwf.category,
-    node: [Node.all.sample]
-  )
-  influencer.influencer_categories << influencer_category
+  animal_rights_match = InfluencerCategory.new(category: animal_rights)
+  animal_rights_match.nodes << wwf
+  influencer.influencer_categories << animal_rights_match
   influencer.save
 end
