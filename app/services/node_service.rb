@@ -47,7 +47,6 @@ class NodeService
         sleep 1
         break if count >= 30
       end
-      break # NOTE: REMOVE THIS BEFORE PULL REQUEST!!!!!!!!!!!!!!!!!!!!!
     end
 
     # Then we try to save them
@@ -83,64 +82,22 @@ class NodeService
 
   def gather_list(followers_list)
     puts "Grabing info from #{followers_list.size} profiles..."
-    byebug
 
     followers_list.each do |username|
       save_info(username)
-      # research(profile) # This will be called later by a parser
-      sleep 3
     end
   end
 
   def save_info(username)
-    url = "https://www.instagram.com/#{username}?__a=1"
-
-    # create or call influencer in our database
     influencer = Influencer.find_or_initialize_by(username: username)
+    influencer.save unless influencer.persisted?
 
     @node.categories.each do |category|
       category_match = InfluencerCategory.find_or_initialize_by(category: category, influencer: influencer)
-      next if category_match.nodes.includes?(@node)
-      category_match.nodes << @node
+      next if category_match.node_ids.include?(@node.id)
+      category_match.node_ids << @node.id
       category_match.influencer = influencer
       category_match.save
     end
-
-    influencer.save
   end
-
-  # def research(username)
-  #   puts "Saving #{username}"
-  #   url = "https://www.instagram.com/#{username}?__a=1"
-  #   # open the url, read it what gives you a huge string. then trough JSON.
-  #   # your turn the huge string into a hash.
-  #
-  #   # create a new influencer in our database
-  #   influencer = Influencer.find_by_username(username) || Influencer.new
-  #
-  # Return if user already persisted and recently updated
-  # return if influencer.persisted? && (Date.today - influencer.updated_at) < 30.days
-  #
-  # page = HTTParty.get(url)
-  #
-  # # define the attributes
-  # ig = page['graphql']['user']
-  # influencer.username = ig['username']
-  #
-  # email_regex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/
-  # influencer.email = email_regex.match(ig['biography'])
-  #
-  # influencer.photo = ig['profile_pic_url_hd']
-  # influencer.bio = ig['biography']
-  # influencer.full_name = ig['full_name']
-  # influencer.external_url = ig['external_url']
-  # influencer.followers_count = ig['edge_followed_by']['count']
-  # influencer.following_count = ig['edge_follow']['count']
-  # influencer.media_count = ig['edge_owner_to_timeline_media']['count']
-  # influencer.igid = ig['id']
-  # influencer.verified = ig['is_verified']
-  #
-  # # Only save if the user has more than 1000 followers
-  # influencer.save if ig['edge_followed_by']['count'].to_i > 5000
-  # end
 end
