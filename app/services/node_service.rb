@@ -3,11 +3,8 @@
 # app/services/node_service.rb
 class NodeService
   def initialize(node)
-    # TODO: to be later used
-    # @url = node.url
-    # @categories = node.categories
-    @url = node # here for inital testing, shouln't be pushed
-    # (if I did, I'm sry - Caio)
+    @url = node.url
+    @categories = node.categories
     visit_page
   end
 
