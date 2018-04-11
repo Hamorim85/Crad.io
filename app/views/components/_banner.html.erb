@@ -9,8 +9,11 @@
             <option value="<%= c.id %>"><%= c.name %></option>
           <% end %>
         </select>
-        <input id="defaultSlider" type="range" min="0" max="500" />
-        <p class="note">Current value: <span id="currentValue">0</span></p>
+        <input id="followers" type="range" min="0" max="10000" step="10"/>
+        <p class="note">Followers: <span id="currentValue">0</span></p>
+        <br>
+        <input id="followings" type="range" min="0" max="10000" step="10"/>
+        <p class="note">Followings: <span id="currentValue2">0</span></p>
         <%#= select_tag :categories, options_for_select(Category.all.map{|c| [c.name, c.id]}, nil), :include_blank => 'Any category', class: "form-control" %>
         <%= select_tag :followers_count, "
           <option value=''>
