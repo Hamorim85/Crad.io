@@ -50,18 +50,15 @@ p 'Randomly adding categories to nodes'
   node.save
 end
 
-p 'Adding random matches'
+p 'Adding random categories to users'
 500.times do
   influencer = Influencer.all.sample
   node = Node.all.sample
 
   node.categories.each do |category|
-    random_match = InfluencerCategory.new(
+    random_match = InfluencerCategory.create(
       category: category,
       influencer: influencer
     )
-
-    random_match.node_ids << node.id
-    random_match.save
   end
 end
