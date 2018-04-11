@@ -49,7 +49,6 @@ p 'Randomly adding categories to nodes'
   node.save
 end
 
-
 p 'Adding random matches'
 1000.times do
   influencer = Influencer.all.sample
