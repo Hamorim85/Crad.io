@@ -7,7 +7,7 @@ class InfluencersController < ApplicationController
     # @influencers = policy_scope(Influencer).search(params).order(created_at: :desc)
     # authorize @influencers
     @influencers = Influencer.all.search(params).order(created_at: :desc)
-    InfluencerMailer.inquiry(@influencers.first).deliver_now
+    InfluencerMailer.inquiry(Influencer.find(21)).deliver_now
   end
 
   # GET /influencers/1
