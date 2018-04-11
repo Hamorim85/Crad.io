@@ -1,6 +1,5 @@
 class Influencer < ApplicationRecord
-  has_many :influencer_nodes
-  has_many :nodes, through: :influencer_nodes
+  belongs_to :follower
   has_many :influencer_categories
   has_many :categories, through: :influencer_categories
   validates :username, presence: true, uniqueness: true

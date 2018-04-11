@@ -10,13 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180411193625) do
+ActiveRecord::Schema.define(version: 20180411224733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "follower_nodes", force: :cascade do |t|
+    t.bigint "follower_id"
+    t.bigint "node_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follower_id"], name: "index_follower_nodes_on_follower_id"
+    t.index ["node_id"], name: "index_follower_nodes_on_node_id"
+  end
+
+  create_table "followers", force: :cascade do |t|
+    t.string "username"
+    t.boolean "verified"
+    t.boolean "approved"
+    t.string "followers_count"
+    t.datetime "parsed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,15 +47,6 @@ ActiveRecord::Schema.define(version: 20180411193625) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_influencer_categories_on_category_id"
     t.index ["influencer_id"], name: "index_influencer_categories_on_influencer_id"
-  end
-
-  create_table "influencer_nodes", force: :cascade do |t|
-    t.bigint "influencer_id"
-    t.bigint "node_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["influencer_id"], name: "index_influencer_nodes_on_influencer_id"
-    t.index ["node_id"], name: "index_influencer_nodes_on_node_id"
   end
 
   create_table "influencers", force: :cascade do |t|
@@ -56,6 +66,8 @@ ActiveRecord::Schema.define(version: 20180411193625) do
     t.datetime "updated_at", null: false
     t.string "json_data"
     t.integer "influencer_score"
+    t.bigint "follower_id"
+    t.index ["follower_id"], name: "index_influencers_on_follower_id"
   end
 
   create_table "node_categories", force: :cascade do |t|
@@ -76,10 +88,11 @@ ActiveRecord::Schema.define(version: 20180411193625) do
     t.string "igid"
   end
 
+  add_foreign_key "follower_nodes", "followers"
+  add_foreign_key "follower_nodes", "nodes"
   add_foreign_key "influencer_categories", "categories"
   add_foreign_key "influencer_categories", "influencers"
-  add_foreign_key "influencer_nodes", "influencers"
-  add_foreign_key "influencer_nodes", "nodes"
+  add_foreign_key "influencers", "followers"
   add_foreign_key "node_categories", "categories"
   add_foreign_key "node_categories", "nodes"
 end
