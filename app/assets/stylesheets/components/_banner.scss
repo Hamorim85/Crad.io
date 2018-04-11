@@ -4,7 +4,7 @@
   height: calc(100vh - 70px);
   background-size: cover !important;
   display: flex;
-  align-items: center;
+  align-items: right;
   justify-content: center;
 }
 
@@ -21,9 +21,9 @@
   opacity: 0.6;
   margin-bottom: 30px;
 }
-
-.bannerboat {
-  height: 500px;
-  background-size: cover !important;
-  background-position-y: center;
+.banner-content {
+  background-color: rgba(255,255,255,0.2);
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+  padding: 50px;
+  margin: 30px auto;
 }

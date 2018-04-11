@@ -1,51 +1,27 @@
-<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url(<%= asset_path 'first_banner.png' %>);">
-  <div class="banner-content">
-    <h1>Cradio</h1>
-    <p>Spread a cause</p>
-    <%= form_tag influencers_path, :method => :get, class: '' do %>
-      <div class="form-group form-group-lg">
-        <select class="selections" name="categories[]" multiple="multiple" placeholder="Select your categories">
-          <% Category.all.each do |c| %>
-            <option value="<%= c.id %>"><%= c.name %></option>
-          <% end %>
-        </select>
-        <input id="followers" type="range" min="0" max="10000" step="10"/>
-        <p class="note">Followers: <span id="currentValue">0</span></p>
-        <br>
-        <input id="followings" type="range" min="0" max="10000" step="10"/>
-        <p class="note">Followings: <span id="currentValue2">0</span></p>
-        <%#= select_tag :categories, options_for_select(Category.all.map{|c| [c.name, c.id]}, nil), :include_blank => 'Any category', class: "form-control" %>
-        <%= select_tag :followers_count, "
-          <option value=''>
-            Any followers_count
-          </option>
-          <option value='1000'>
-            < 1000
-          </option>
-          <option value='3000'>
-            < 3000
-          </option>
-          <option value='5000'>
-            < 5000
-          </option>
-        ".html_safe, class: "form-control" %>
+<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url(<%= asset_path 'jordan-bauer.jpg' %>);">
 
-        <%= select_tag :following_count, "
-        <option value=''>
-          Any following_count
-        </option>
-        <option value='1000'>
-          < 1000
-        </option>
-        <option value='3000'>
-          < 3000
-        </option>
-        <option value='5000'>
-          < 5000
-        </option>".html_safe, class: "form-control" %>
-        <%= submit_tag "Search", class: 'btn btn-success btn-lg'%>
-      </div>
-      <% end %>
+  <div class="col-sm-4 col-sm-offset-8">
+    <div class="banner-content">
+      <h1>Cradio</h1>
+      <p>Spread a cause</p>
+      <%= form_tag influencers_path, :method => :get, class: '' do %>
+        <div class="form-group form-group-lg">
+          <select class="selections" name="categories[]" multiple="multiple" placeholder="Select your categories">
+            <% Category.all.each do |c| %>
+              <option value="<%= c.id %>"><%= c.name %></option>
+            <% end %>
+          </select>
+
+          <input id="followers" name="followers_count" type="range" min="0" max="10000" step="10"/>
+          <p class="note">Followers: <span id="currentValue">5000</span></p>
+
+          <input id="followings" name="following_count" type="range" min="0" max="5000" step="10"/>
+          <p class="note">Followings: <span id="currentValue2">2500</span></p>
+          <%#= select_tag :categories, options_for_select(Category.all.map{|c| [c.name, c.id]}, nil), :include_blank => 'Any category', class: "form-control" %>
+          <%= submit_tag "Search", class: 'btn btn-success btn-lg'%>
+        </div>
+        <% end %>
+    </div>
   </div>
 </div>
 

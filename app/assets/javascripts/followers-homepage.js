@@ -1,4 +1,4 @@
-var p = document.getElementById("followers"),
+const p = document.getElementById("followers"),
     res = document.getElementById("currentValue");
 
 p.addEventListener("input", function() {
