@@ -25,37 +25,30 @@ Influencer.create(username: 'mnguyenkhac',      followers_count: 740,   followin
 Influencer.create(username: 'elbaml',           followers_count: 257,   following_count: 343)
 Influencer.create(username: 'cembycem',         followers_count: 7309,  following_count: 465)
 
-p 'Adding nodes'
-wwf = Node.create(name: 'WWF Brasil', url: 'wwfbrasil')
-greenpeace = Node.create(name: 'Greenpeace Brasil', url: 'greenpeacebrasil')
-
 p 'Adding categories'
-animal_rights = Category.create(name: 'Animal Rights')
-environment = Category.create(name: 'Environment')
-
-p 'Adding categories to nodes'
-wwf.categories << animal_rights << environment
-greenpeace.categories << environment
-
-# Adding both nodes to first 4 influencers
-p 'Adding matches to users'
-Influencer.first(4).each do |influencer|
-  environment_match = InfluencerCategory.new(category: environment)
-  environment_match.nodes << wwf
-  environment_match.nodes << greenpeace
-  influencer.influencer_categories << environment_match
-  influencer.save
-
-  animal_rights_match = InfluencerCategory.new(category: animal_rights)
-  animal_rights_match.nodes << wwf
-  influencer.influencer_categories << animal_rights_match
-  influencer.save
+10.times do
+  Category.create(name: 'Animal Rights')
 end
 
-# Adding one random node to the last 6
-Influencer.last(6).each do |influencer|
-  environment_match = InfluencerCategory.new(category: environment)
-  environment_match.nodes << greenpeace
-  influencer.influencer_categories << environment_match
-  influencer.save
+p 'Adding nodes'
+Node.create(name: 'WWF Brasil', url: 'wwfbrasil', category: Category.all.sample)
+
+p 'Randomly adding categories to nodes'
+10.times do
+  node = Node.all.sample.categories << Category.all.sample
+  node.save
+end
+
+
+p 'Adding random matches'
+seed_number.times do
+  influencer = Influencer.all.sample
+  node = Nodes.all.sample
+  random_match = InfluencerCategory.new(
+    category: node.category,
+    influencer: influencer,
+  )
+
+  random_match.nodes << node
+  random_match.save
 end
