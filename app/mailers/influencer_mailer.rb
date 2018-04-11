@@ -6,10 +6,8 @@ class InfluencerMailer < ApplicationMailer
   #   en.influencer_mailer.inquiry.subject
   #
   def inquiry(influencer)
-     user = Influencer.first
-    InfluencerMailer.welcome(influencer)
-    # @influencer = influencer
-    # mail(to: @influencer.email, subject: "Influencer Marketing Inquiry")
+    @influencer = influencer
+    mail(to: @influencer.email, subject: "Influencer Marketing Inquiry")
   end
 
   # class TestMailer < ActionMailer::Base
