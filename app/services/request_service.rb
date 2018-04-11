@@ -31,7 +31,7 @@ class RequestService
     followers = doc['edges']
 
     # Iterates through followers and adds them to the DB
-    add_influencers(followers)
+    add_followers(followers)
 
     @next_page_key = doc['page_info']['end_cursor']
     keep_going
@@ -49,28 +49,20 @@ class RequestService
       followers = doc['edges']
 
       # Iterates through followers and adds them to the DB
-      add_influencers(followers)
+      add_followers(followers)
 
       @next_page_key = doc['page_info']['end_cursor']
 
       break if @next_page_key.nil?
       p "Next key is: #{@next_page_key}"
     end
-
-    new_arr = @first_arr && @second_arr
-    p new_arr.count
   end
 
-  def add_influencers(followers)
+  def add_followers(followers)
     followers.each do |follower|
-      influencer = Influencer.find_or_initialize_by(username: follower['username'])
-      influencer.nodes << @node unless influencer.nodes.include?(@node)
-      influencer.update(
-        igid: follower['id'],
-        full_name: follower['full_name'],
-        photo: follower['profile_pic_url'],
-        verified: follower['is_verified']
-      )
+      follower = Follower.find_or_initialize_by(username: follower['username'])
+      follower.nodes << @node unless follower.nodes.include?(@node)
+      follower.update(verified: follower['is_verified'])
     end
   end
 end
