@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.4.3'
 
 gem "letter_opener", group: :development
+gem 'postmark-rails'
 
 gem 'selenium-webdriver'
 gem 'nokogiri'
