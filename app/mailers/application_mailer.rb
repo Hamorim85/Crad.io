@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'info@crad.io'
+  default from: 'contact@crad.io'
   layout 'mailer'
 end
