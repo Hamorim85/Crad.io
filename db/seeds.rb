@@ -14,41 +14,54 @@ p 'Deleting categories'
 Category.destroy_all
 
 p 'Adding influencers'
-Influencer.create(username: 'anna.melkonyan2',  followers_count: 3815,  following_count: 313)
-Influencer.create(username: 'vibellabonnie',    followers_count: 140,   following_count: 702, full_name: 'Virgine Morangier', external_url: 'wwww.katzamis.etsy.com')
-Influencer.create(username: 'rebekka.corcodel', followers_count: 3213,  following_count: 460)
-Influencer.create(username: 'valterinhow95',    followers_count: 759,   following_count: 577)
-Influencer.create(username: 'jujuperez',        followers_count: 793,   following_count: 527)
-Influencer.create(username: 'brittdown',        followers_count: 493,   following_count: 1094)
-Influencer.create(username: 'wiwmec',           followers_count: 4624,  following_count: 5479)
-Influencer.create(username: 'mnguyenkhac',      followers_count: 740,   following_count: 1187)
-Influencer.create(username: 'elbaml',           followers_count: 257,   following_count: 343)
-Influencer.create(username: 'cembycem',         followers_count: 7309,  following_count: 465)
+200.times do
+  name = Faker::Name.name
+  username = Faker::Internet.user_name(name)
+  Influencer.create(
+    followers_count: rand(20_000),
+    following_count: rand(1200),
+    full_name: name,
+    username: username,
+    external_url: "wwww.#{username}.com"
+  )
+end
 
 p 'Adding categories'
-10.times do
-  Category.create(name: 'Animal Rights')
+15.times do
+  Category.create(name: Faker::Book.genre)
 end
 
 p 'Adding nodes'
-Node.create(name: 'WWF Brasil', url: 'wwfbrasil', category: Category.all.sample)
+30.times do
+  name = Faker::Book.publisher
+  url = Faker::Internet.user_name(name)
+  node = Node.create(
+    name: name,
+    url: url
+  )
+  node.categories << Category.all.sample
+end
 
 p 'Randomly adding categories to nodes'
-10.times do
-  node = Node.all.sample.categories << Category.all.sample
+12.times do
+  node = Node.all.sample
+  node.categories << Category.all.sample
   node.save
 end
 
 
 p 'Adding random matches'
-seed_number.times do
+1000.times do
   influencer = Influencer.all.sample
-  node = Nodes.all.sample
-  random_match = InfluencerCategory.new(
-    category: node.category,
-    influencer: influencer,
-  )
+  node = Node.all.sample
 
-  random_match.nodes << node
-  random_match.save
+  node.categories.each do |category|
+    random_match = InfluencerCategory.new(
+      category: category,
+      influencer: influencer
+    )
+
+    random_match.node_ids << node.id
+    random_match.save
+  end
 end
