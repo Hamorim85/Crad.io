@@ -35,11 +35,12 @@ p 'Adding nodes'
 30.times do
   name = Faker::Book.publisher
   url = Faker::Internet.user_name(name)
-  node = Node.create(
+  node = Node.new(
     name: name,
     url: url
   )
   node.categories << Category.all.sample
+  node.save
 end
 
 p 'Randomly adding categories to nodes'
@@ -50,7 +51,7 @@ p 'Randomly adding categories to nodes'
 end
 
 p 'Adding random matches'
-1000.times do
+500.times do
   influencer = Influencer.all.sample
   node = Node.all.sample
 
