@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DeviseCreateBrands < ActiveRecord::Migration[5.1]
+class DeviseCreateBrandsAndMailings < ActiveRecord::Migration[5.1]
   def change
     create_table :brands do |t|
       ## Database authenticatable
@@ -34,6 +34,13 @@ class DeviseCreateBrands < ActiveRecord::Migration[5.1]
 
 
       t.timestamps null: false
+    end
+
+    create_table :mailings do |t|
+      t.string :content
+      t.references :brand, foreign_key: true
+
+      t.timestamps
     end
 
     add_index :brands, :email,                unique: true
