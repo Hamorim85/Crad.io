@@ -4,3 +4,16 @@
   color: grey;
   width: 500px;
 }
+
+.messenger {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.messenger_statistics {
+height: 400px;
+width: 600px;
+background-color: lightgrey;
+}
+
