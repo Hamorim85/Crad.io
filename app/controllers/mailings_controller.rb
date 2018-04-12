@@ -24,7 +24,7 @@ class MailingsController < ApplicationController
     @influencers = Influencer.all.limit(3)
 
     @influencers.each do |influencer|
-    InfluencerMailer.inquiry(influencer)
+    InfluencerMailer.inquiry(influencer).deliver_now
     end
 
     # @mailing.influencers << @influencers
