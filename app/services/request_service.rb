@@ -60,11 +60,10 @@ class RequestService
 
   def add_followers(followers)
     followers.each do |follower|
-      # byebug
       follower_info = follower['node']
-      follower = Follower.find_or_initialize_by(username: follower_info['username'])
+      follower = Follower.find_or_initialize_by(igid: follower_info['id'])
       follower.nodes << @node unless follower.nodes.include?(@node)
-      follower.update(verified: follower_info['is_verified'])
+      follower.update(verified: follower_info['is_verified'], username: follower_info['username'])
     end
   end
 end
