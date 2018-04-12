@@ -4,4 +4,8 @@ class Follower < ApplicationRecord
   has_one :influencer
 
   validates :username, :igid, presence: true, uniqueness: true
+
+  def json
+    JSON.parse(json_data)
+  end
 end
