@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180412030649) do
+ActiveRecord::Schema.define(version: 20180412142831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20180412030649) do
     t.datetime "parsed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "igid"
+    t.string "igid"
     t.index ["igid"], name: "index_followers_on_igid"
   end
 

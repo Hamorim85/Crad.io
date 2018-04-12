@@ -37,7 +37,8 @@ p 'Adding nodes'
   url = Faker::Internet.user_name(name)
   node = Node.new(
     name: name,
-    url: url
+    url: url,
+    igid: rand(999_999).to_s
   )
   node.categories << Category.all.sample
   node.save
