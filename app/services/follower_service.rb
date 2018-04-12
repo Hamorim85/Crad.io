@@ -6,7 +6,7 @@ class FollowerService
     url = "https://www.instagram.com/#{follower.username}?__a=1"
     doc = HTTParty.get(url)['graphql']['user']
 
-    followers_count = doc['edge_follow']['count']
+    followers_count = doc['edge_followed_by']['count']
     follower.update(
       followers_count: followers_count,
       approved: followers_count > 5_000,
