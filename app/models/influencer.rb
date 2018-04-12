@@ -1,5 +1,5 @@
 class Influencer < ApplicationRecord
-  belongs_to :follower
+  belongs_to :follower, optional: true # Temporary solution
   has_many :influencer_categories
   has_many :categories, through: :influencer_categories
   validates :username, presence: true, uniqueness: true
