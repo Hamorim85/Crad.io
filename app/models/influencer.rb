@@ -1,4 +1,5 @@
 class Influencer < ApplicationRecord
+  belongs_to :follower
   has_many :influencer_categories
   has_many :categories, through: :influencer_categories
   validates :username, presence: true, uniqueness: true

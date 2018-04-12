@@ -1,0 +1,50 @@
+
+.card {
+  height: 250px;
+  background-size: cover !important;
+  background-position: center;
+  color: white;
+  position: relative;
+  margin-bottom: 20px;
+  padding: 0px;
+  box-shadow: 2px 1px 17px 0px rgba(143,143,143,0.67);
+}
+
+.card-description {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width:100%;
+  background-color:white;
+  height:50px;
+
+}
+.card-description h2 {
+  font-size: 18px;
+  margin: 0px;
+  color:#11303e
+};
+
+.card-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2;
+  background: black;
+  opacity: 0;
+}
+.card-link:hover {
+  opacity: 0.1;
+}
+
+
+
+
+
+
+
