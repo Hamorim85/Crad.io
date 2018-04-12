@@ -7,6 +7,8 @@ gem 'postmark-rails'
 gem 'selenium-webdriver'
 gem 'nokogiri'
 
+gem 'devise'
+
 gem 'figaro'
 gem 'jbuilder', '~> 2.0'
 gem 'pg', '~> 0.21'
