@@ -16,8 +16,4 @@ class FollowerService
       json_data: doc.to_json.gsub('=>', ':').gsub('nil', 'null')
     )
   end
-
-  def method_name
-    Follower.where()
-  end
 end
