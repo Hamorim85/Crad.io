@@ -2,102 +2,68 @@
 
 # app/services/node_service.rb
 class NodeService
-  def initialize(node)
+  def initialize(node, user_hash, options = {})
+    # @node = node
+    # @next_page_key = ''
+
+    @followers = []
     @node = node
-    visit_page
+    @user_hash = user_hash
+    @next_page_key = options[:page_key]
+
+    # @node.igid = '248701561'
+    # @user_hash = '37479f2b8209594dde7facb0d904896a'
+    @followers_per_request = 5500
+    # @curl = "https://www.instagram.com/graphql/query/?query_hash=#{@user_hash}&variables={'id':'#{@node.igid}','first':#{@followers_per_request}}"
+    @curl = "https://www.instagram.com/graphql/query/?query_hash=#{@user_hash}&variables=%7B%22id%22%3A%22#{@node.igid}%22%2C%22first%22%3A#{@followers_per_request}%7D"
+    @headers = {
+      cookie: 'csrftoken=9Ap16hxUPvUvXiF6ty9bqBL4EKcET1LH; mid=WsPmowAEAAElyaSAVGMYolTRQLa1; _js_datr=ooTLWv0eRYgs5fEmyZycQO6e; rur=FTW; ig_vw=1879; ig_pr=1; ig_vh=982; ig_or=landscape-primary; urlgen="{\"time\": 1523459409\054 \"185.210.217.141\": 9009}:1f6MDz:fk783yZI-M2Iq4Q2leXrLAX6DSM"; fbm_124024574287414=base_domain=.instagram.com; shbid=1598; ds_user_id=525171759; sessionid=IGSC0564083aaaa790d9232bdfddbb99961c435ace39d6ea44e29177b998e8369618%3AyejRMV1UUo9ISBbP1uhlW0WFwvxgMeNl%3A%7B%22_auth_user_id%22%3A525171759%2C%22_auth_user_backend%22%3A%22accounts.backends.CaseInsensitiveModelBackend%22%2C%22_auth_user_hash%22%3A%22%22%2C%22_platform%22%3A4%2C%22_token_ver%22%3A2%2C%22_token%22%3A%22525171759%3ANvcrE0urwtWsLtMb5klGyDgupBMNYh0i%3A53387db6cdcc64f3ac6e236986ced77e1c8e20a66c6e13d2762e1b1c6f4dfebb%22%2C%22last_refreshed%22%3A1523459793.5128288269%7D; fbsr_124024574287414=db_WqwDSNCCyHnZj7-6PfVuHDXMw_GFKZifYBzjWS6s.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImNvZGUiOiJBUUNYcDB4RnJRWjEtN0ZWWTJHdUkwNHVMT1pUaE5tVlFrNjVkZmtiT2hxbTltVzhTZkhIOEVEQmFHSkkzY0hUMmdmajdoMzI3NWdva01CeFRQLUtZbE1veGctbTk1SzB0am1scEhibjRLaUt6Y0h0SER6T1dfLUpGa3F6ci1LRDdLMjl3ekI3Vjc3WUVOTmJXRjJ0bmttYlJYNE8tQllDeXZKWjc3eWRSMHRpa0JZdUlpWllRcDJxNl9TbTlDSnRreU5GWWFwa0xNampJcTdCYjlmQ0ZTVHZTbnZ2czNuYTBVVUxEQkVNSUk1Ni1DcnR3TzRuTzV4Skp0a0djWVZpQ3hqY1ctVmxfUURpQ0RPNDJuT3pzQzlwVFZrU0ZwYVhWaEF4T0NyYjZEZDdrQVVRRnVfMUJmNjRGWGx1TlpWaVlUSE9ZVU9lbm4tc0dXU3FXZ2VEeV9lVyIsImlzc3VlZF9hdCI6MTUyMzQ3Nzc4MSwidXNlcl9pZCI6IjUyMTg4MTExMSJ9'
+    }
+    @next_page_key ? keep_going : start
   end
 
   private
 
-  def visit_page
-    p "Visiting #{@node.url}"
-    driver = Selenium::WebDriver.for :chrome
-    driver.navigate.to "http://instagram.com/#{@node.url}/followers"
+  def start
+    p 'Requesting first page...'
+    doc = HTTParty.get(@curl, headers: @headers)
+    doc = doc['data']['user']['edge_followed_by']
+    followers = doc['edges']
 
-    # Login as an user to instagram
-    login(driver, 'hannaschmitz069', 'qwertz123456')
+    # Iterates through followers and adds them to the DB
+    add_followers(followers)
 
-    wait = Selenium::WebDriver::Wait.new(timeout: 8) # seconds
+    @next_page_key = doc['page_info']['end_cursor']
+    keep_going
+  end
 
-    # Wait until instagram redirect us to the followers page
-    wait.until { driver.find_element(class: '_mainc') }
-
-    # Then we click on the FOLLOWERS link
-    clickable_link = "/#{@node.url}/followers/"
-    followers_link = driver.find_element(:css, "a[href='#{clickable_link}']")
-    followers_link.click
-
-    # Waiting until the followers popup shows up
-    # (in that case, his elements shows up)
-    follower_image = "a[style='width: 30px; height: 30px;']"
-    wait.until { driver.find_element(:css, follower_image) }
-
-    # Scroll until timeout
-    last_child = ''
-    scroll = 'document.querySelector("ul div li:last-child").scrollIntoView()'
+  def keep_going
+    counter = 0
     loop do
-      break if last_child == driver.find_element(:css, 'ul div li:last-child')
-      last_child = driver.find_element(:css, 'ul div li:last-child')
-      driver.execute_script(scroll)
-      scroll_count = 0
-      puts "#{scroll_count += 1} - Scrolling into view... "
+      p "Request \##{counter += 1}..."
+      # @curl = "https://www.instagram.com/graphql/query/?query_hash=#{@user_hash}&variables={'id':'#{@node.igid}','first':#{@followers_per_request},'after':'#{@next_page_key}'}"
+      @curl = "https://www.instagram.com/graphql/query/?query_hash=#{@user_hash}&variables=%7B%22id%22%3A%22#{@node.igid}%22%2C%22first%22%3A#{@followers_per_request}%2C%22after%22%3A%22#{@next_page_key}%22%7D"
 
-      count = 0
-      while last_child == driver.find_element(:css, 'ul div li:last-child')
-        count += 1
-        sleep 1
-        break if count >= 30
-      end
-    end
+      doc = HTTParty.get(@curl, headers: @headers)
+      doc = doc['data']['user']['edge_followed_by']
+      followers = doc['edges']
 
-    # Then we try to save them
-    gather_list(display_followers(driver, @node.url))
-  end
+      # Iterates through followers and adds them to the DB
+      add_followers(followers)
 
-  def display_followers(driver, usr)
-    followers_list = []
-    follower_image = "a[style='width: 30px; height: 30px;']"
-    followers = driver.find_elements(:css, follower_image)
+      @next_page_key = doc['page_info']['end_cursor']
 
-    followers.each do |item|
-      username = item.attribute('href').scan(/https:\/\/www.instagram.com\/(.+)\//).flatten.first
-      puts "#{username} - #{item.attribute('href')}"
-      followers_list << username
-    end
-
-    puts "Total followers found for #{usr}: #{followers_list.size}"
-
-    followers_list
-  end
-
-  def login(driver, usr, psw)
-    p "Logging in as #{usr}..."
-    element = driver.find_element(name: 'username')
-    element.send_keys usr
-    # element.submit
-    element = driver.find_element(name: 'password')
-    element.send_keys psw
-    element.submit
-  end
-
-  def gather_list(followers_list)
-    puts "Grabing info from #{followers_list.size} profiles..."
-
-    followers_list.each do |username|
-      save_info(username)
+      break if @next_page_key.nil?
+      p "Next key is: #{@next_page_key}"
     end
   end
 
-  def save_info(username)
-    influencer = Influencer.find_or_initialize_by(username: username)
-    influencer.save unless influencer.persisted?
-
-    @node.categories.each do |category|
-      category_match = InfluencerCategory.find_or_initialize_by(category: category, influencer: influencer)
-      next if category_match.node_ids.include?(@node.id)
-      category_match.node_ids << @node.id
-      category_match.influencer = influencer
-      category_match.save
+  def add_followers(followers)
+    followers.each do |follower|
+      follower_info = follower['node']
+      follower = Follower.find_or_initialize_by(igid: follower_info['id'])
+      follower.nodes << @node unless follower.nodes.include?(@node)
+      follower.update(verified: follower_info['is_verified'], username: follower_info['username'])
     end
   end
 end
