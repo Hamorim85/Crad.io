@@ -15,6 +15,14 @@ class Follower < ApplicationRecord
     JSON.parse(json_data)
   end
 
+  def self.approved
+    Follower.where(approved: true).order('length(followers_count) DESC, followers_count DESC')
+  end
+
+  def self.unvisited
+    Follower.where(visited_at: nil)
+  end
+
   def self.visit_task
     count = 0
     started = Time.now
@@ -34,5 +42,3 @@ class Follower < ApplicationRecord
     end
   end
 end
-
-# Follower.where(approved: true).select(:username, :followers_count).order('length(followers_count), followers_count')
