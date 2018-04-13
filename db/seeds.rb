@@ -28,10 +28,9 @@ p 'Adding influencers'
 end
 
 p 'Adding categories'
-15.times do
-  random_name = Faker::Book.genre
-  Category.create!(name: random_name) unless Category.find_by(name: random_name).present?
-end
+Category.create(name: 'Animal Rights')
+Category.create(name: 'Environment')
+Category.create(name: 'Vegan')
 
 p 'Adding nodes'
 30.times do
