@@ -2,29 +2,38 @@
 
 # app/services/node_service.rb
 class FollowerService
-  def initialize(follower)
+  def initialize(follower, opt = {})
     @follower = follower
-    url = "https://www.instagram.com/#{@follower.username}?__a=1"
-    @doc = HTTParty.get(url)
 
-    case @doc.code
-    when 403 then fallback_request
+    opt[:fallback_mode] ? fallback_request : request
+
+    case @code
+    when 403 then fallback_mode
     when 404 then remove_follower
-    else
-      update_follower(@doc['graphql']['user'])
+    when 200 then update_follower(@doc['graphql']['user'])
     end
   end
 
   private
 
-  def fallback_request
-    p "FORBIDDEN: Requesting fallback"
+  def fallback_mode
+    p 'Starting fallback mode'
+    false
+  end
 
-    @doc = Nokogiri::HTML(HTTParty.get("https://www.instagram.com/#{@follower.username}/"))
+  def request
+    @doc = HTTParty.get("https://www.instagram.com/#{@follower.username}?__a=1")
+    @code = @doc.code
+  end
+
+  def fallback_request
+    @doc = HTTParty.get("https://www.instagram.com/#{@follower.username}/")
+    @code = @doc.code
+
+    @doc = Nokogiri::HTML(@doc)
     @doc = JSON.parse(
       @doc.at('body').at('script').children.first.text.gsub('window._sharedData = ', '').chomp(';')
     )['entry_data']['ProfilePage'].first
-    update_follower(@doc['graphql']['user'])
   end
 
   def remove_follower
