@@ -25,6 +25,9 @@ class Follower < ApplicationRecord
       break if follower.nil?
       p "Visited #{count += 1} - Running for #{((Time.now - started) / 60).round} minutes"
 
+      # Tries to return to normal mode every 50 tries
+      fallback_mode = false if (count % 50).zero?
+
       # Starts fallback_mode if returns false
       next unless follower.visit(fallback_mode: fallback_mode)
       fallback_mode = true
