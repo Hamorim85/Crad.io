@@ -19,8 +19,20 @@ class Follower < ApplicationRecord
     Follower.where(approved: true).order('length(followers_count) DESC, followers_count DESC')
   end
 
+  def self.visited
+    Follower.where.not(visited_at: nil)
+  end
+
   def self.unvisited
     Follower.where(visited_at: nil)
+  end
+
+  def self.verified
+    Follower.where(verified: true)
+  end
+
+  def self.unvisited_verified
+    Follower.where(verified: true, visited_at: nil)
   end
 
   def self.visit_task
