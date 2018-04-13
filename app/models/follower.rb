@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Follower < ApplicationRecord
-  has_many :follower_nodes
+  has_many :follower_nodes, dependent: :destroy
   has_many :nodes, through: :follower_nodes
   has_one :influencer
 
@@ -17,10 +19,13 @@ class Follower < ApplicationRecord
     count = 0
     started = Time.now
     loop do
-      follower = Follower.find_by_visited_at(nil)
+      offset = rand(Follower.where('visited_at IS null').count)
+      follower = Follower.where('visited_at IS null').offset(offset).first
       break if follower.nil?
       follower.visit
       p "Visited #{count += 1} - Running for #{((Time.now - started) / 60).round} minutes"
     end
   end
 end
+
+# Follower.where(approved: true).select(:username, :followers_count).order('length(followers_count), followers_count')
