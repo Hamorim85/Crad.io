@@ -12,9 +12,7 @@
   </head>
   <body>
     <%= render "components/NavBar" %>
-
-   <p class="notice"><%= notice %></p>
-   <p class="alert"><%= alert %></p>
+    <%= render "components/flashes" %>
     <%= yield %>
     <%= render "components/Footer" %>
     <%= javascript_include_tag 'application' %>
