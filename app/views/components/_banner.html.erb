@@ -1,18 +1,19 @@
 <div class="banner" style="background-image: url(<%= asset_path 'slack-imgs.jpg' %>);">
-  <div class="row">
-    <div class="col-sm-12 col-md-6">
-      <div class="card1">
-      <h1>Spread a cause</h1>
-      <p>Find influencers that have a mutual cause with your brand.</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-6">
+        <div class="card1">
+          <h1>Spread a cause</h1>
+          <p>Find influencers that have a mutual cause with your brand.</p>
+        </div>
       </div>
-    </div>
-    <div class="col-sm-12 col-md-6">
-      <div class="banner-content">
-        <%= form_tag influencers_path, :method => :get, class: '' do %>
+      <div class="col-sm-12 col-md-6">
+        <div class="banner-content">
+          <%= form_tag influencers_path, :method => :get, class: '' do %>
           <div class="form-group form-group-lg">
             <select class="form-group selections" name="categories[]" multiple="multiple" placeholder="Select your categories">
               <% Category.all.each do |c| %>
-                <option value="<%= c.id %>"><%= c.name %></option>
+              <option value="<%= c.id %>"><%= c.name %></option>
               <% end %>
             </select>
 
@@ -24,7 +25,8 @@
             <%#= select_tag :categories, options_for_select(Category.all.map{|c| [c.name, c.id]}, nil), :include_blank => 'Any category', class: "form-control" %>
             <%= submit_tag "Search", class: 'btn btn-success btn-lg'%>
           </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
