@@ -17,23 +17,26 @@ p 'Adding influencers'
 200.times do
   name = Faker::Name.name
   username = Faker::Internet.user_name(name)
-  Influencer.create(
+  Influencer.create!(
     followers_count: rand(20_000),
     following_count: rand(1200),
+    email: "inw.bergmann@gmail.com",
     full_name: name,
     username: username,
     external_url: "wwww.#{username}.com"
-  )
+  ).errors
 end
 
 p 'Adding categories'
 15.times do
-  Category.create(name: Faker::Book.genre)
+  random_name = Faker::Book.genre
+  Category.create!(name: random_name) unless Category.find_by(name: random_name).present?
 end
 
 p 'Adding nodes'
 30.times do
   name = Faker::Book.publisher
+  next if Node.find_by(name: name).present?
   url = Faker::Internet.user_name(name)
   node = Node.new(
     name: name,
@@ -41,14 +44,14 @@ p 'Adding nodes'
     igid: rand(999_999).to_s
   )
   node.categories << Category.all.sample
-  node.save
+  node.save!
 end
 
 p 'Randomly adding categories to nodes'
 12.times do
   node = Node.all.sample
   node.categories << Category.all.sample
-  node.save
+  node.save!
 end
 
 p 'Adding random categories to users'
@@ -57,7 +60,7 @@ p 'Adding random categories to users'
   node = Node.all.sample
 
   node.categories.each do |category|
-    random_match = InfluencerCategory.create(
+    random_match = InfluencerCategory.create!(
       category: category,
       influencer: influencer
     )
