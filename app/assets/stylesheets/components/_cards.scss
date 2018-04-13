@@ -21,12 +21,16 @@
   background-color:white;
   height:50px;
 
+  .btn btn-primary {
+    position: absolute;
+  }
+
 }
 .card-description h2 {
   font-size: 18px;
   margin: 0px;
-  color:#11303e
-};
+  color:#11303e;
+}
 
 .card-link {
   position: absolute;
@@ -34,7 +38,7 @@
   bottom: 0;
   right: 0;
   width: 100%;
-  z-index: 2;
+  z-index: -2 !important;
   background: black;
   opacity: 0;
 }
@@ -42,9 +46,43 @@
   opacity: 0.1;
 }
 
+.card-user {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 40px;
+  border-radius: 50%;
+}
 
+.form-selectbox {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border-radius: 50%;
+  background-color: white;
+}
 
+.selection_field{
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: black;
+  z-index: 5 !important;
+  cursor: pointer;
+}
 
+.selection-field-circle {
+  border-radius: 50%;
+  border-color: #EA338C;
+  border-width: 4px;
+}
+
+// .selection_field:hover{
+//    background-color: green;
+// }
+// # the selectbox should have a hover effect
 
 
 
