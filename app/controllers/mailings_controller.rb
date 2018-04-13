@@ -13,7 +13,10 @@ class MailingsController < ApplicationController
     # , faking a influencer selection
     # For Example:
     # @influencers = Influencer.all.limit(3)
-    @influencers = Influencer.all.limit(3)
+    if params[:influencers_ids].present?
+      @influencers = Influencer.where(id: params[:influencers_ids].split(","))
+    end
+
     @mailing = Mailing.new
   end
 
