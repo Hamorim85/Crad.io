@@ -6,7 +6,8 @@ class FollowerService
     @follower = follower
 
     opt[:fallback_mode] ? fallback_request : request
-
+    p @doc
+    p @code
     case @code
     when 403 then fallback_mode
     when 404 then remove_follower

@@ -15,6 +15,10 @@ class Follower < ApplicationRecord
     JSON.parse(json_data)
   end
 
+  def instagram_path
+    "http://www.instagram.com/#{username}"
+  end
+
   def self.approved
     Follower.where(approved: true).order('length(followers_count) DESC, followers_count DESC')
   end
@@ -31,6 +35,12 @@ class Follower < ApplicationRecord
     Follower.where(verified: true)
   end
 
+  def self.visit_new_verified
+    Follower.unvisited_verified.each do |follower|
+      follower.visit(fallback_mode: true)
+    end
+  end
+
   def self.unvisited_verified
     Follower.where(verified: true, visited_at: nil)
   end
@@ -39,18 +49,24 @@ class Follower < ApplicationRecord
     count = 0
     started = Time.now
     fallback_mode = false
-    loop do
-      offset = rand(Follower.where('visited_at IS null').count)
-      follower = Follower.where('visited_at IS null').offset(offset).first
-      break if follower.nil?
-      p "Visited #{count += 1} - Running for #{((Time.now - started) / 60).round} minutes"
+    begin
+      loop do
+        offset = rand(Follower.where('visited_at IS null').count)
+        follower = Follower.where('visited_at IS null').offset(offset).first
+        break if follower.nil?
+        p "Visited #{count += 1} - Running for #{((Time.now - started) / 60).round} minutes"
 
-      # Tries to return to normal mode every 50 tries
-      fallback_mode = false if (count % 50).zero?
+        # Tries to return to normal mode every 50 tries
+        fallback_mode = false if (count % 50).zero?
 
-      # Starts fallback_mode if returns false
-      next unless follower.visit(fallback_mode: fallback_mode)
-      fallback_mode = true
+        # Starts fallback_mode if returns false
+        next unless follower.visit(fallback_mode: fallback_mode)
+        fallback_mode = true
+      end
+    rescue
+      p 'Failed. Waiting 30 seconds'
+      sleep 45
+      retry
     end
   end
 end
