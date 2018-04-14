@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# app/models/follower.rb
 class Follower < ApplicationRecord
   has_many :follower_nodes, dependent: :destroy
   has_many :nodes, through: :follower_nodes
@@ -7,8 +8,8 @@ class Follower < ApplicationRecord
 
   validates :username, :igid, presence: true, uniqueness: true
 
-  def visit(opt = {})
-    FollowerService.new(self, opt)
+  def visit
+    FollowerService.new(self)
   end
 
   def json
@@ -17,6 +18,10 @@ class Follower < ApplicationRecord
 
   def instagram_path
     "http://www.instagram.com/#{username}"
+  end
+
+  def promote
+    Influencer.new(follower: self)
   end
 
   def self.approved
@@ -36,9 +41,7 @@ class Follower < ApplicationRecord
   end
 
   def self.visit_new_verified
-    Follower.unvisited_verified.each do |follower|
-      follower.visit(fallback_mode: true)
-    end
+    Follower.unvisited_verified.each(&:visit)
   end
 
   def self.unvisited_verified

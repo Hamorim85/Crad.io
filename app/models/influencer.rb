@@ -1,11 +1,13 @@
 class Influencer < ApplicationRecord
   belongs_to :follower, optional: true # Temporary solution
-  has_many :influencer_categories
+  has_many :influencer_categories, dependent: :destroy
   has_many :categories, through: :influencer_categories
-  validates :username, presence: true, uniqueness: true
+  validates :username, uniqueness: true
+  validates :username, :followers_count, :following_count,
+            :ig_pic_url, presence: true
 
   def follow_ratio
-    self.followers_count / self.following_count.to_f
+    followers_count / following_count.to_f
   end
 
   def self.search(params)
@@ -16,5 +18,20 @@ class Influencer < ApplicationRecord
     search_result = search_result.where("followers_count > ?", params[:followers_count].to_i) if params[:followers_count].present?
 
     search_result
+  end
+
+  def parse!
+    data = follower.json
+    update(
+      username: data['username'],
+      full_name: data['full_name'],
+      bio: data['biography'],
+      external_url: data['external_url'],
+      followers_count: data['edge_followed_by']['count'],
+      following_count: data['edge_follow']['count'],
+      igid: data['id'],
+      ig_pic_url: data['profile_pic_url_hd'],
+      verified: data['is_verified']
+    )
   end
 end

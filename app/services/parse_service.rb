@@ -9,9 +9,10 @@ class ParseService
     loop do
       followers = Follower.where(approved: false, parsed_at: nil)
       offset = rand(followers.count)
-      influencer = Influencer.new(follower: followers.offset(offset).first)
+      influencer = followers.offset(offset).first.promote!
       break if followers.nil?
-      influencer.parse
+      influencer.parse_all
+      influencer.save
     end
   rescue
     byebug
