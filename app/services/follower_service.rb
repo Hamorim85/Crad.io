@@ -23,8 +23,9 @@ class FollowerService
         break if follower.nil?
         follower.visit
         count = starting_count - followers.count
-        p "Updated #{count} - Live for #{((Time.now - started) / 60).round} min"
-        sleep 1
+        live_time = Time.now - started
+        p "Updated #{count} | #{(count / live_time).round(2)}/s | Live for #{(live_time / 60).round} min"
+        sleep 0.5
       end
     rescue StandardError
       wait_time = 60
