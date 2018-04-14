@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# app/services/node_service.rb
+# app/services/follower_service.rb
 class FollowerService
   def initialize(follower, opt = {})
     @follower = follower
@@ -13,6 +13,30 @@ class FollowerService
     when 404 then remove_follower
     when 200 then update_follower(@doc['graphql']['user'])
     end
+  end
+
+  def self.call
+    count = 0
+    started = Time.now
+    fallback_mode = false
+    loop do
+      followers = Follower.where('visited_at IS null')
+      offset = rand(followers.count)
+      follower = followers.offset(offset).first
+      break if follower.nil?
+      p "Visited #{count += 1} - Running for #{((Time.now - started) / 60).round} minutes"
+
+      # Tries to return to normal mode every 50 tries
+      fallback_mode = false if (count % 50).zero?
+
+      # Starts fallback_mode if returns false
+      next unless follower.visit(fallback_mode: fallback_mode)
+      fallback_mode = true
+    end
+  rescue
+    p 'Failed. Waiting 30 seconds'
+    sleep 45
+    retry
   end
 
   private
