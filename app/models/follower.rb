@@ -20,8 +20,8 @@ class Follower < ApplicationRecord
     "http://www.instagram.com/#{username}"
   end
 
-  def promote
-    Influencer.new(follower: self)
+  def promote!
+    Influencer.new(follower: self).parse
   end
 
   def self.approved

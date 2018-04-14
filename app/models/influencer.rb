@@ -20,7 +20,7 @@ class Influencer < ApplicationRecord
     search_result
   end
 
-  def parse!
+  def parse
     data = follower.json
     update(
       username: data['username'],
