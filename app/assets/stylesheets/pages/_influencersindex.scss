@@ -1,0 +1,22 @@
+.secondary_filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  position: fixed;
+  z-index: 6;
+  width: 100%;
+}
+
+.searchresults {
+  width: 100%;
+  float:right;
+  align-items: center;
+}
+
+#stupid_button {
+float: right;
+margin-top: 20px;
+margin-right: 20px;
+}
