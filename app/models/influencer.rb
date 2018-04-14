@@ -19,19 +19,4 @@ class Influencer < ApplicationRecord
 
     search_result
   end
-
-  def parse
-    data = follower.json
-    update(
-      username: data['username'],
-      full_name: data['full_name'],
-      bio: data['biography'],
-      external_url: data['external_url'],
-      followers_count: data['edge_followed_by']['count'],
-      following_count: data['edge_follow']['count'],
-      igid: data['id'],
-      ig_pic_url: data['profile_pic_url_hd'],
-      verified: data['is_verified']
-    )
-  end
 end

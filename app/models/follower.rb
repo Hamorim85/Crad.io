@@ -21,7 +21,18 @@ class Follower < ApplicationRecord
   end
 
   def promote!
-    Influencer.new(follower: self).parse
+    Influencer.create(
+      follower: self,
+      username: json['username'],
+      full_name: json['full_name'],
+      bio: json['biography'],
+      external_url: json['external_url'],
+      followers_count: json['edge_followed_by']['count'],
+      following_count: json['edge_follow']['count'],
+      igid: json['id'],
+      ig_pic_url: json['profile_pic_url_hd'],
+      verified: json['is_verified']
+    )
   end
 
   def self.approved
