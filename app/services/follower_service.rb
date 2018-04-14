@@ -25,10 +25,10 @@ class FollowerService
         count = starting_count - followers.count
         live_time = Time.now - started
         p "Updated #{count} | #{(count / live_time).round(2)}/s | Live for #{(live_time / 60).round} min"
-        sleep 0.5
+        sleep 0.21
       end
     rescue StandardError
-      wait_time = 60
+      wait_time = 30
       p "RESCUED!!! Waiting #{wait_time} seconds"
       sleep wait_time
       retry

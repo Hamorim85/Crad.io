@@ -12,6 +12,7 @@ class Follower < ApplicationRecord
   scope :visited, -> { where.not(visited_at: nil) }
   scope :unvisited, -> { where(visited_at: nil) }
   scope :verified, -> { where(verified: true) }
+  scope :unparsed, -> { approved.where(parsed_at: nil) }
 
   def visit
     FollowerService.new(self)
