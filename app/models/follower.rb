@@ -8,6 +8,11 @@ class Follower < ApplicationRecord
 
   validates :username, :igid, presence: true, uniqueness: true
 
+  scope :approved, -> { where(approved: true).order('length(followers_count) DESC, followers_count DESC') }
+  scope :visited, -> { where.not(visited_at: nil) }
+  scope :unvisited, -> { where(visited_at: nil) }
+  scope :verified, -> { where(verified: true) }
+
   def visit
     FollowerService.new(self)
   end
@@ -32,33 +37,9 @@ class Follower < ApplicationRecord
       followers_count: json['edge_followed_by']['count'],
       following_count: json['edge_follow']['count'],
       ig_pic_url: json['profile_pic_url_hd'],
-      verified: json['is_verified'],
+      verified: json['is_verified']
     )
     update(parsed_at: Time.now)
-  end
-
-  def self.approved
-    Follower.where(approved: true).order('length(followers_count) DESC, followers_count DESC')
-  end
-
-  def self.visited
-    Follower.where.not(visited_at: nil)
-  end
-
-  def self.unvisited
-    Follower.where(visited_at: nil)
-  end
-
-  def self.verified
-    Follower.where(verified: true)
-  end
-
-  def self.visit_new_verified
-    Follower.unvisited_verified.each(&:visit)
-  end
-
-  def self.unvisited_verified
-    Follower.where(verified: true, visited_at: nil)
   end
 
   def self.progress
