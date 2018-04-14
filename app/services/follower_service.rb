@@ -27,7 +27,7 @@ class FollowerService
         sleep 1
       end
     rescue StandardError
-      wait_time = 30
+      wait_time = 60
       p "RESCUED!!! Waiting #{wait_time} seconds"
       sleep wait_time
       retry

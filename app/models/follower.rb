@@ -21,18 +21,20 @@ class Follower < ApplicationRecord
   end
 
   def promote!
-    Influencer.create(
-      follower: self,
+    Influencer.find_or_initialize_by(
+      follower: self
+    ).update(
+      igid: json['id'],
       username: json['username'],
       full_name: json['full_name'],
       bio: json['biography'],
       external_url: json['external_url'],
       followers_count: json['edge_followed_by']['count'],
       following_count: json['edge_follow']['count'],
-      igid: json['id'],
       ig_pic_url: json['profile_pic_url_hd'],
-      verified: json['is_verified']
+      verified: json['is_verified'],
     )
+    update(parsed_at: Time.now)
   end
 
   def self.approved
@@ -57,5 +59,9 @@ class Follower < ApplicationRecord
 
   def self.unvisited_verified
     Follower.where(verified: true, visited_at: nil)
+  end
+
+  def self.progress
+    (Follower.visited.count / Follower.count.to_f * 100).round(1).to_s + '%'
   end
 end
