@@ -1,35 +1,50 @@
+// Container and outer spacings
+$inf-gutter: 24px;
+$inf-cards-per-row: 4;
+
+// Cards
+$inf-card-padding: 8px;
+$inf-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+$inf-card-divider: 1px solid #eee;
+
 .inf-container {
   display: flex;
-  padding: 32px;
+  padding: $inf-gutter;
 }
 
 .inf-data {
-  width: 200px;
+  width: 400px;
 }
 
 // Separate above on a different file later
 
 .inf-card-grid {
+  flex-grow: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 24px;
+  grid-template-columns: repeat($inf-cards-per-row, 1fr);
+  grid-gap: $inf-gutter;
 }
 
 .inf-card {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: $inf-card-shadow;
 }
 
 .inf-header {
   display: flex;
-  padding: 8px;
-  border-bottom: 1px solid #eee;
+  padding: $inf-card-padding;
+  border-bottom: $inf-card-divider;
 
   .avatar {
-    margin-right: 8px;
+    margin-right: $inf-card-padding;
   }
 }
 
+.inf-content {
+  border-bottom: $inf-card-divider;
+  padding: $inf-card-padding $inf-card-padding 0;
+}
+
 .inf-footer {
-  padding: 8px;
+  padding: $inf-card-padding;
   color: $faded-text;
 }
