@@ -61,9 +61,13 @@ $inf-card-strong-weight: 600;
   position: relative;
 
   .avatar {
-    width: 40px;
+    width: $inf-avatar-size;
     margin-right: $inf-card-padding;
   }
+}
+
+.inf-title {
+  padding-right: ($inf-avatar-size / 2) + $inf-card-padding
 }
 
 .inf-selector {

@@ -1,8 +1,11 @@
 <div class="inf-card">
   <div class="inf-header">
-    <%= image_tag 'http://placehold.it/80', class: 'avatar' %>
+    <%= image_tag 'http://placehold.it/80', class: 'avatar', alt: "#{influencer.name} picture" %>
     <div class="inf-title">
       <%= influencer.name %>
+      <% if influencer.verified %>
+        <i class="fas fa-check-circle" title='Verified User'></i>
+      <% end %>
       <div class="inf-info">
         <%= link_to influencer.instagram_path, target: '_blank' do %>
           <i class="fab fa-instagram"></i>
