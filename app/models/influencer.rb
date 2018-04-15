@@ -6,6 +6,10 @@ class Influencer < ApplicationRecord
   validates :username, :followers_count, :following_count,
             :ig_pic_url, presence: true
 
+  def instagram_path
+    "http://www.instagram.com/#{username}"
+  end
+
   def follow_ratio
     followers_count / following_count.to_f
   end
