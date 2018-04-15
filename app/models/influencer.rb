@@ -12,7 +12,7 @@ class Influencer < ApplicationRecord
     search_result = self
 
     search_result = search_result.joins(:categories).where(categories: {id: params[:categories]}).distinct if params[:categories].present?
-    search_result = search_result.where("following_count > ?", params[:following_count].to_i) if params[:following_count].present?
+    search_result = search_result.where("following_count < ?", params[:following_count].to_i) if params[:following_count].present?
     search_result = search_result.where("followers_count > ?", params[:followers_count].to_i) if params[:followers_count].present?
 
     search_result
