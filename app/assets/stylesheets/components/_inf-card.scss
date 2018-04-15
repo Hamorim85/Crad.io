@@ -3,8 +3,9 @@ $inf-gutter: 24px;
 $inf-cards-per-row: 4;
 
 // Cards
-$inf-card-padding: 8px;
-$inf-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+$inf-avatar-size: 40px;
+$inf-card-padding: 12px;
+$inf-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 $inf-card-divider: 1px solid #f0f0f0;
 $inf-card-strong-weight: 600;
 
@@ -14,7 +15,8 @@ $inf-card-strong-weight: 600;
 }
 
 .inf-data {
-  width: 400px;
+  flex-shrink: 0;
+  width: 360px;
 }
 
 // Separate above on a different file later
@@ -31,6 +33,10 @@ $inf-card-strong-weight: 600;
   font-size: 16px;
   font-family: $instagram-font-family;
 
+  img {
+    max-width: 100%;
+  }
+
   strong {
     font-weight: $inf-card-strong-weight;
   }
@@ -39,11 +45,12 @@ $inf-card-strong-weight: 600;
 .inf-header {
   display: flex;
   align-items: center;
-  padding: $inf-card-padding;
-  border-bottom: $inf-card-divider;
+  padding: $inf-card-padding $inf-card-padding 0;
+  // border-bottom: $inf-card-divider;
   line-height: 18px;
 
   .avatar {
+    width: 40px;
     margin-right: $inf-card-padding;
   }
 }
@@ -60,6 +67,8 @@ $inf-card-strong-weight: 600;
 
 .inf-content-data {
   line-height: 18px;
+  padding-left: $inf-avatar-size + $inf-card-padding;
+  margin-bottom: $inf-card-padding;
 
   li {
     display: inline-block;
