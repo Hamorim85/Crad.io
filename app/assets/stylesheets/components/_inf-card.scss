@@ -4,8 +4,9 @@ $inf-cards-per-row: 4;
 
 // Cards
 $inf-card-padding: 8px;
-$inf-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-$inf-card-divider: 1px solid #eee;
+$inf-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+$inf-card-divider: 1px solid #f0f0f0;
+$inf-card-strong-weight: 600;
 
 .inf-container {
   display: flex;
@@ -28,6 +29,11 @@ $inf-card-divider: 1px solid #eee;
 .inf-card {
   box-shadow: $inf-card-shadow;
   font-size: 16px;
+  font-family: $instagram-font-family;
+
+  strong {
+    font-weight: $inf-card-strong-weight;
+  }
 }
 
 .inf-header {
@@ -35,6 +41,7 @@ $inf-card-divider: 1px solid #eee;
   align-items: center;
   padding: $inf-card-padding;
   border-bottom: $inf-card-divider;
+  line-height: 18px;
 
   .avatar {
     margin-right: $inf-card-padding;
@@ -49,6 +56,18 @@ $inf-card-divider: 1px solid #eee;
 .inf-content {
   border-bottom: $inf-card-divider;
   padding: $inf-card-padding $inf-card-padding 0;
+}
+
+.inf-content-data {
+  line-height: 18px;
+
+  li {
+    display: inline-block;
+  }
+
+  li + li {
+    margin-left: 40px;
+  }
 }
 
 .inf-footer {

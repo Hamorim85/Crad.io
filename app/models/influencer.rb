@@ -10,8 +10,20 @@ class Influencer < ApplicationRecord
     followers_count / following_count.to_f
   end
 
+  def name
+    full_name.empty? ? username : full_name
+  end
+
   def ig_followers
+    return "#{(followers_count / 1_000_000.0).round(1)}m" if followers_count > 999_999
+    return "#{(followers_count / 1_000.0).round(1)}k" if followers_count > 999
     followers_count
+  end
+
+  def ig_following
+    return "#{(following_count / 1_000_000.0).round(1)}m" if following_count > 999_999
+    return "#{(following_count / 1_000.0).round(1)}k" if following_count > 999
+    following_count
   end
 
   def self.search(params)

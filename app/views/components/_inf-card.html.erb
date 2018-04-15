@@ -2,7 +2,7 @@
   <div class="inf-header">
     <%= image_tag 'http://placehold.it/120', class: 'avatar' %>
     <div class="inf-title">
-      <%= influencer.full_name %>
+      <%= influencer.name %>
       <div class="inf-info">
         <i class="fab fa-instagram"></i>
         <%= influencer.username %>
@@ -11,7 +11,10 @@
   </div>
 
   <div class="inf-content">
-    <p><%= influencer.ig_followers %> followers</p>
+    <ul class="inf-content-data">
+      <li><strong><%= influencer.ig_followers %></strong> followers</li>
+      <li><strong><%= influencer.ig_following %></strong> following</li>
+    </ul>
   </div>
 
   <div class="inf-footer">
