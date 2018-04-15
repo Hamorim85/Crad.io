@@ -48,11 +48,22 @@ $inf-card-strong-weight: 600;
   padding: $inf-card-padding $inf-card-padding 0;
   // border-bottom: $inf-card-divider;
   line-height: 18px;
+  position: relative;
 
   .avatar {
     width: 40px;
     margin-right: $inf-card-padding;
   }
+}
+
+.inf-selector {
+  border-radius: $inf-avatar-size / 8;
+  border: 1px solid #ccc;
+  position: absolute;
+  top: $inf-card-padding;
+  right: $inf-card-padding;
+  height: $inf-avatar-size / 2;
+  width: $inf-avatar-size / 2;
 }
 
 .inf-info {
