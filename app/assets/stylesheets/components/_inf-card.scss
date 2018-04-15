@@ -27,16 +27,23 @@ $inf-card-divider: 1px solid #eee;
 
 .inf-card {
   box-shadow: $inf-card-shadow;
+  font-size: 16px;
 }
 
 .inf-header {
   display: flex;
+  align-items: center;
   padding: $inf-card-padding;
   border-bottom: $inf-card-divider;
 
   .avatar {
     margin-right: $inf-card-padding;
   }
+}
+
+.inf-info {
+  color: $faded-text;
+  font-size: 14px;
 }
 
 .inf-content {

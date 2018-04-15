@@ -10,6 +10,10 @@ class Influencer < ApplicationRecord
     followers_count / following_count.to_f
   end
 
+  def ig_followers
+    followers_count
+  end
+
   def self.search(params)
     search_result = order(followers_count: :DESC)
     search_result = search_result.joins(:categories).where(categories: {id: params[:categories]}).distinct if params[:categories].present?
