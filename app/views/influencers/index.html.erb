@@ -3,6 +3,7 @@
   </div>
 </div> -->
 
+<%= paginate @influencers %>
 <div class="inf-container">
   <div class="inf-card-grid">
     <% @influencers.each do |influencer| %>
@@ -10,9 +11,10 @@
     <% end %>
   </div>
   <div class="inf-data">
-    <%= link_to "Select", new_mailing_path, class: "btn btn-primary", id: "stupid_button" %>    
+    <%= link_to "Select", new_mailing_path, class: "btn btn-primary", id: "stupid_button" %>
   </div>
 </div>
+<%= paginate @influencers %>
 
 <!-- - Make the button hidden, show it after the guy selects one influencer
 - Make the influencer go out of the array when de-selects
