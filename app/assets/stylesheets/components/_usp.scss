@@ -1,0 +1,66 @@
+.usp_card {
+  height: 175px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  background-size: cover !important;
+  background-position: center;
+  color: blue;
+  position: relative;
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 200px;
+
+}
+
+.usp_symbol {
+ color: #FEFEFE;
+ margin-top: 100px;
+}
+
+.usp_card-description {
+
+  h2 {
+    color: black;
+    text-align: center;
+    text-shadow: none;
+  }
+}
+.margin-top-zero {
+  margin-top: 0px;
+}
+
+.usp_card-description h2 {
+  font-size: 26px;
+  line-height: 0.9;
+}
+.usp_card-description p {
+  font-size: 17px;
+  opacity: 1;
+  font-weight: lighter;
+  color: rgba(170,170,170,1)
+}
+
+.text {
+  text-align: center;
+  margin-top: 20px;
+  line-height: 1.8;
+  display: inline-block;
+  max-width: 75%;
+}
+.fa-leaf, .fa-gem, .fa-envelope{
+  color: #FF1467;
+}
+
+.usp_container {
+  height: 600px;
+  background-color: white;
+  padding-top: 50px;
+  padding-bottom: 20px;
+  overflow: hidden;
+  margin-top: 30px;
+
+  h1 { text-align: center }
+  h3 {
+    text-align: center;
+    font-weight: lighter;
+   }
+}
