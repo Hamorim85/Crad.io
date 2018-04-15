@@ -1,15 +1,16 @@
 <!-- <div class="secondary_filter">
   <div class="searchresults">
-    <%= link_to "Select", new_mailing_path, class: "btn btn-primary", id: "stupid_button" %>
   </div>
 </div> -->
 
 <div class="inf-container">
-  <div class="inf-data"></div>
   <div class="inf-card-grid">
     <% @influencers.each do |influencer| %>
       <%= render 'components/inf-card', influencer: influencer %>
     <% end %>
+  </div>
+  <div class="inf-data">
+    <%= link_to "Select", new_mailing_path, class: "btn btn-primary", id: "stupid_button" %>    
   </div>
 </div>
 

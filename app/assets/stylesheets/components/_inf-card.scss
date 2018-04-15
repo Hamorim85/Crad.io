@@ -33,6 +33,16 @@ $inf-card-strong-weight: 600;
   font-size: 16px;
   font-family: $instagram-font-family;
 
+  &:hover {
+    box-shadow: 0 1px 2px transparentize($brand-primary, 0.45);
+    background-color: lighten($brand-primary, 41%);
+    color: darken($brand-primary, 30%);
+
+    .inf-selector {
+      border-color: $brand-primary;
+    }
+  }
+
   img {
     max-width: 100%;
   }
