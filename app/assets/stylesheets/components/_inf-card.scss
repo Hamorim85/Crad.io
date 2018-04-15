@@ -71,12 +71,12 @@ $inf-card-strong-weight: 600;
   font-size: 14px;
 }
 
-.inf-content {
+.inf-subheader {
   border-bottom: $inf-card-divider;
   padding: $inf-card-padding $inf-card-padding 0;
 }
 
-.inf-content-data {
+.inf-subheader-data {
   line-height: 18px;
   padding-left: $inf-avatar-size + $inf-card-padding;
   margin-bottom: $inf-card-padding;
@@ -90,7 +90,7 @@ $inf-card-strong-weight: 600;
   }
 }
 
-.inf-footer {
-  padding: $inf-card-padding;
+.inf-content {
+  // padding: $inf-card-padding;
   color: $faded-text;
 }
