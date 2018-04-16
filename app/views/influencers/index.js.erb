@@ -1,0 +1,8 @@
+<% @influencers.each do |influencer| %>
+  document.getElementById('card-grid').insertAdjacentHTML(
+    'beforeend',
+    "<%= j render 'components/inf-card', influencer: influencer %>"
+  );
+<% end %>
+window.addEventListener("scroll", infiniteScroll);
+infLoader.style.display = 'none';

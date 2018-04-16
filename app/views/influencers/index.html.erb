@@ -2,10 +2,8 @@
   <div class="searchresults">
   </div>
 </div> -->
-
-<%= paginate @influencers %>
 <div class="inf-container">
-  <div class="inf-card-grid">
+  <div id="card-grid" class="inf-card-grid">
     <% @influencers.each do |influencer| %>
       <%= render 'components/inf-card', influencer: influencer %>
     <% end %>
@@ -14,7 +12,10 @@
     <%= link_to "Select", new_mailing_path, class: "btn btn-primary", id: "stupid_button" %>
   </div>
 </div>
-<%= paginate @influencers %>
+<%= render 'components/loader', id: 'inf' %>
+
+<% conditions = {page: params[:page] || 1, followers_count: params[:followers_count], following_count: params[:following_count]} %>
+<%= link_to 'More', influencers_path(conditions), remote: true, format: :js, id: "pagination-ajax" %>
 
 <!-- - Make the button hidden, show it after the guy selects one influencer
 - Make the influencer go out of the array when de-selects
@@ -40,5 +41,22 @@
       }
 
     });
+
+    let page = 1;
+    const infLoader = document.getElementById('inf-loader');
+
+    infiniteScroll = (event) => {
+      if (document.documentElement.scrollHeight - window.innerHeight - event.pageY < 600) {
+        window.removeEventListener("scroll", infiniteScroll);
+        infLoader.style.display = 'block';
+
+        $.get({
+          url: "<%= "#{influencers_path}?followers_count=""#{params[:followers_count]}&followers_count=#{params[:following_count]}&page=" %>" + ++page,
+          dataType: 'jsonp'
+        });
+      }
+    }
+    window.addEventListener("scroll", infiniteScroll);
+
   </script>
 <% end %>
