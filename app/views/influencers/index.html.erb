@@ -26,7 +26,15 @@
     document.querySelectorAll(".inf-selector").forEach((field) => {
       field.addEventListener("click", (event) => {
         event.currentTarget.classList.toggle("active");
-        myArray.push(field.id);
+        // myArray.push(field.id);
+
+        if (myArray.includes(field.id)) {
+          let x = myArray.findIndex(x => x == field.id);
+          myArray.splice(x, 1);
+        } else {
+          myArray.push(field.id);
+        };
+
       });
     });
 
