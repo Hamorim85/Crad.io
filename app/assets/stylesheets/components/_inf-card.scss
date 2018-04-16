@@ -66,15 +66,28 @@ $inf-card-strong-weight: 600;
   // border-bottom: $inf-card-divider;
   line-height: 18px;
   position: relative;
+  cursor: pointer;
 
   .avatar {
     width: $inf-avatar-size;
     margin-right: $inf-card-padding;
   }
+
+  // Pink circle around avatars. Needs more work
+  // &:after {
+  //   position: absolute;
+  //   top: 7px;
+  //   left: 7px;
+  //   content: '';
+  //   height: 50px;
+  //   width: 50px;
+  //   border: 2px solid $pink;
+  //   border-radius: 50%;
+  // }
 }
 
 .inf-title {
-  padding-right: ($inf-avatar-size / 2) + $inf-card-padding
+  margin-right: ($inf-avatar-size / 2) + $inf-card-padding
 }
 
 .inf-selector {
