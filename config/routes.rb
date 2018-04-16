@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :brands
   resources :influencers
+
   resources :mailings, except: [:edit, :update, :destroy]
   root to: 'pages#home'
 
