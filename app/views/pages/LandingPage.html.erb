@@ -2,28 +2,47 @@
     </div>
 
 <div class="landingpage container ">
-      <header class="header">
-        <h2>Finding Influencers by Mutual Cause.</h2>
-      </header>
+  <header class="header">
+    <h2>Finding Influencers by Mutual Cause.</h2>
+  </header>
 
-      <section class="countdown-wrapper">
-        <ul id="back-countdiown">
-          <li>
-            <span class="days">00</span>
-            <p>days</p>
-          </li>
-          <li>
-            <span class="hours">00</span>
-            <p>hours </p>
-          </li>
-          <li>
-            <span class="minutes">00</span>
-            <p>minutes</p>
-          </li>
-          <li>
-            <span class="seconds">00</span>
-            <p>seconds</p>
-          </li>
-        </ul><!-- #back-countdiown -->
-      </section><!-- .countdown-wrapper -->
+  <section class="countdown-wrapper">
+    <ul id="back-countdiown">
+      <li>
+        <span class="days">00</span>
+        <p>days</p>
+      </li>
+      <li>
+        <span class="hours">00</span>
+        <p>hours </p>
+      </li>
+      <li>
+        <span class="minutes">00</span>
+        <p>minutes</p>
+      </li>
+      <li>
+        <span class="seconds">00</span>
+        <p>seconds</p>
+      </li>
+    </ul><!-- #back-countdiown -->
+  </section><!-- .countdown-wrapper -->
 </div>
+
+<% content_for(:after_js) do %>
+  <script>
+    $(function(){
+
+      'use strict';
+      (function () {
+        $("#back-countdiown").countdown({
+            date: "30  2018 12:00:00",
+            format: "on"
+        });
+      }());
+    }); // JQuery end
+
+    $(document).on('click', '.m-menu .dropdown-menu', function(e) {
+      e.stopPropagation()
+    })
+  </script>
+<% end %>

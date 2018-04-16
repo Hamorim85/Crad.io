@@ -70,4 +70,4 @@ function($) {
     interval = setInterval(countdown_proc, 1000);
 
   }
-}) (jQuery);
+} (jQuery);
