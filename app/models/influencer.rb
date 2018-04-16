@@ -1,11 +1,13 @@
 class Influencer < ApplicationRecord
   belongs_to :follower, optional: true # Temporary solution
-  has_many :influencer_categories
+  has_many :influencer_categories, dependent: :destroy
   has_many :categories, through: :influencer_categories
-  validates :username, presence: true, uniqueness: true
+  validates :username, uniqueness: true
+  validates :username, :followers_count, :following_count,
+            :ig_pic_url, presence: true
 
   def follow_ratio
-    self.followers_count / self.following_count.to_f
+    followers_count / following_count.to_f
   end
 
   def self.search(params)
