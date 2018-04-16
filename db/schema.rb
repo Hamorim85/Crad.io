@@ -13,7 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20180414160558) do
 
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,7 +53,7 @@ ActiveRecord::Schema.define(version: 20180414160558) do
     t.boolean "verified", default: false, null: false
     t.boolean "approved", default: false, null: false
     t.string "followers_count"
-    t.datetime "parsed_at"
+    t.datetime "visited_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "igid"
@@ -96,7 +95,6 @@ ActiveRecord::Schema.define(version: 20180414160558) do
     t.string "external_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "json_data"
     t.integer "influencer_score"
     t.bigint "follower_id"
     t.string "ig_pic_url"

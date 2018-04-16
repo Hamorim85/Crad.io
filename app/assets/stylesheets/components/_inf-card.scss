@@ -1,0 +1,123 @@
+// Container and outer spacings
+$inf-gutter: 24px;
+$inf-cards-per-row: 4;
+
+// Cards
+$inf-avatar-size: 40px;
+$inf-card-padding: 12px;
+$inf-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+$inf-card-divider: 1px solid #f0f0f0;
+$inf-card-strong-weight: 600;
+
+.inf-container {
+  display: flex;
+  padding: $inf-gutter;
+}
+
+.inf-data {
+  flex-shrink: 0;
+  width: 360px;
+}
+
+// Separate above on a different file later
+
+.inf-card-grid {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat($inf-cards-per-row, 1fr);
+  grid-gap: $inf-gutter;
+}
+
+.inf-card {
+  box-shadow: $inf-card-shadow;
+  font-size: 16px;
+  font-family: $instagram-font-family;
+
+  label {
+    font-weight: normal;
+    display: block;
+    margin: 0;
+  }
+
+  &:hover {
+    box-shadow: 0 1px 2px transparentize($brand-primary, 0.65);
+    background-color: lighten($brand-primary, 41%);
+    color: darken($brand-primary, 30%);
+
+    .inf-selector {
+      border-color: lighten($pink, 20%);
+      border-width: 2px;
+    }
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  strong {
+    font-weight: $inf-card-strong-weight;
+  }
+}
+
+.inf-header {
+  display: flex;
+  align-items: center;
+  padding: $inf-card-padding $inf-card-padding 0;
+  // border-bottom: $inf-card-divider;
+  line-height: 18px;
+  position: relative;
+
+  .avatar {
+    width: $inf-avatar-size;
+    margin-right: $inf-card-padding;
+  }
+}
+
+.inf-title {
+  padding-right: ($inf-avatar-size / 2) + $inf-card-padding
+}
+
+.inf-selector {
+  border-radius: $inf-avatar-size / 8;
+  border: 1px solid #ccc;
+  margin: 0;
+  position: absolute;
+  top: $inf-card-padding;
+  right: $inf-card-padding;
+  height: $inf-avatar-size / 2;
+  width: $inf-avatar-size / 2;
+
+  &.active {
+    background-color: $pink;
+    // border: 1px solid $pink;
+  }
+}
+
+.inf-info {
+  color: $faded-text;
+  font-size: 14px;
+}
+
+.inf-subheader {
+  border-bottom: $inf-card-divider;
+  padding: $inf-card-padding $inf-card-padding 0;
+}
+
+.inf-subheader-data {
+  line-height: 18px;
+  padding-left: $inf-avatar-size + $inf-card-padding;
+  margin-bottom: $inf-card-padding;
+
+  li {
+    display: inline-block;
+  }
+
+  li + li {
+    margin-left: 40px;
+  }
+}
+
+.inf-content {
+  // padding: $inf-card-padding;
+  color: $faded-text;
+}
