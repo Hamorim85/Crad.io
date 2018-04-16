@@ -2,12 +2,10 @@
 
 # app/services/parse_service.rb
 class ParseService
-  def self.all_fields(influencer)
-    influencer = influencer.influencer if influencer.is_a?(Follower)
-    json = influencer.json
-
+  def self.promote!(follower)
+    json = follower.json
     Influencer.find_or_initialize_by(
-      follower: influencer.follower
+      follower: follower
     ).update(
       igid: json['id'],
       username: json['username'],
@@ -19,7 +17,7 @@ class ParseService
       ig_pic_url: json['profile_pic_url_hd'],
       verified: json['is_verified']
     )
-    influencer.follower.update(parsed_at: Time.now)
+    follower.update(parsed_at: Time.now)
   end
 
   def self.email(influencer)

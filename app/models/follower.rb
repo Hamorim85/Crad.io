@@ -27,7 +27,7 @@ class Follower < ApplicationRecord
   end
 
   def promote!
-    ParseService.all_fields(self)
+    ParseService.promote!(self)
   end
 
   def self.progress
