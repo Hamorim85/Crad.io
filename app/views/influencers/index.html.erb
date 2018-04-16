@@ -26,7 +26,13 @@
     const myArray = [];
     const bindSelector = (event) => {
       element = event.target;
-      if (element.classList.contains('inf-selector')) {
+      if (element.classList.contains('inf-card-grid')) {
+        element = event.target;
+      } else if (!element.classList.contains('inf-selector')) {
+        element = event.target.querySelector('.inf-selector');
+      }
+
+      if (element && element.classList.contains('inf-selector')) {
         event.preventDefault();
         element.classList.toggle("active");
         myArray.push(element.id);
