@@ -23,9 +23,9 @@
 <% content_for(:after_js) do %>
   <script>
     const myArray = [];
-    document.querySelectorAll(".selection_field").forEach((field) => {
+    document.querySelectorAll(".inf-selector").forEach((field) => {
       field.addEventListener("click", (event) => {
-        event.currentTarget.classList.toggle("selection-field-circle");
+        event.currentTarget.classList.toggle("active");
         myArray.push(field.id);
       });
     });

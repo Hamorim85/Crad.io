@@ -5,7 +5,7 @@ $inf-cards-per-row: 4;
 // Cards
 $inf-avatar-size: 40px;
 $inf-card-padding: 12px;
-$inf-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+$inf-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
 $inf-card-divider: 1px solid #f0f0f0;
 $inf-card-strong-weight: 600;
 
@@ -33,13 +33,20 @@ $inf-card-strong-weight: 600;
   font-size: 16px;
   font-family: $instagram-font-family;
 
+  label {
+    font-weight: normal;
+    display: block;
+    margin: 0;
+  }
+
   &:hover {
     box-shadow: 0 1px 2px transparentize($brand-primary, 0.65);
     background-color: lighten($brand-primary, 41%);
     color: darken($brand-primary, 30%);
 
     .inf-selector {
-      border-color: $brand-primary;
+      border-color: lighten($pink, 20%);
+      border-width: 2px;
     }
   }
 
@@ -73,11 +80,17 @@ $inf-card-strong-weight: 600;
 .inf-selector {
   border-radius: $inf-avatar-size / 8;
   border: 1px solid #ccc;
+  margin: 0;
   position: absolute;
   top: $inf-card-padding;
   right: $inf-card-padding;
   height: $inf-avatar-size / 2;
   width: $inf-avatar-size / 2;
+
+  &.active {
+    background-color: $pink;
+    // border: 1px solid $pink;
+  }
 }
 
 .inf-info {
