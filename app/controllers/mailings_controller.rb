@@ -24,17 +24,14 @@ class MailingsController < ApplicationController
     @mailing = Mailing.new(mailing_params)
     @mailing.brand = current_brand
 
-    @influencers = Influencer.all.limit(3)
+    @influencers = Influencer.where(id: @mailing.influencers_array.split(","))
 
-    @influencers.each do |influencer|
-    InfluencerMailer.inquiry(influencer).deliver_now
-    end
-
-    # @mailing.influencers << @influencers
-
-
+    @mailing.influencers << @influencers
 
     if @mailing.save
+      @influencers.each do |influencer|
+        InfluencerMailer.inquiry(influencer).deliver_now
+      end
       redirect_to mailing_path(@mailing)
     else
       puts @mailing.errors.full_messages
@@ -45,7 +42,7 @@ class MailingsController < ApplicationController
   private
 
   def mailing_params
-    params.require(:mailing).permit(:content)
+    params.require(:mailing).permit(:content, :influencers_array)
   end
 
 end

@@ -9,6 +9,14 @@
   padding-top: 50px;
   padding-bottom: 200px;
 
+  .text {
+  text-align: center;
+  margin-top: 20px;
+  line-height: 1.8;
+  display: inline-block;
+  max-width: 75%;
+}
+
 }
 
 .usp_symbol {
@@ -39,13 +47,6 @@
   color: rgba(170,170,170,1)
 }
 
-.text {
-  text-align: center;
-  margin-top: 20px;
-  line-height: 1.8;
-  display: inline-block;
-  max-width: 75%;
-}
 .fa-leaf, .fa-gem, .fa-envelope{
   color: #FF1467;
 }
