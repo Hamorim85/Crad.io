@@ -6,6 +6,8 @@ class Influencer < ApplicationRecord
   validates :username, :followers_count, :following_count,
             :ig_pic_url, presence: true
 
+  mount_uploader :photo, PhotoUploader
+
   def instagram_path
     "http://www.instagram.com/#{username}"
   end
@@ -19,22 +21,31 @@ class Influencer < ApplicationRecord
   end
 
   def ig_followers
-    return "#{(followers_count / 1_000_000.0).round(1)}m" if followers_count > 999_999
-    return "#{(followers_count / 1_000.0).round(1)}k" if followers_count > 999
-    followers_count
+    number_humanizer(followers_count)
   end
 
   def ig_following
-    return "#{(following_count / 1_000_000.0).round(1)}m" if following_count > 999_999
-    return "#{(following_count / 1_000.0).round(1)}k" if following_count > 999
-    following_count
+    number_humanizer(following_count)
+  end
+
+  def update_photo
+    self.remote_photo_url = ig_pic_url
+    save
   end
 
   def self.search(params)
     search_result = order(followers_count: :DESC)
     search_result = search_result.joins(:categories).where(categories: {id: params[:categories]}).distinct if params[:categories].present?
-    search_result = search_result.where("following_count > ?", params[:following_count].to_i) if params[:following_count].present?
-    search_result = search_result.where("followers_count > ?", params[:followers_count].to_i) if params[:followers_count].present?
+    search_result = search_result.where('following_count > ?', params[:following_count].to_i) if params[:following_count].present?
+    search_result = search_result.where('followers_count < ?', params[:followers_count].to_i) if params[:followers_count].present?
     search_result
+  end
+
+  private
+
+  def number_humanizer(number)
+    return "#{(number / 1_000_000.0).round(1)}m" if number > 999_999
+    return "#{(number / 1_000.0).round(1)}k" if number > 999
+    number
   end
 end
