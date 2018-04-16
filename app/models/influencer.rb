@@ -33,6 +33,8 @@ class Influencer < ApplicationRecord
   rescue Cloudinary::CarrierWave::UploadError => exs
     p exs.to_s
     follower.visit
+    follower.promote!
+    reload
     retry
   end
 
