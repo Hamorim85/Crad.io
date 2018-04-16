@@ -3,8 +3,7 @@ class Influencer < ApplicationRecord
   has_many :influencer_categories, dependent: :destroy
   has_many :categories, through: :influencer_categories
   validates :username, uniqueness: true
-  validates :username, :followers_count, :following_count,
-            :ig_pic_url, presence: true
+  validates :username, :followers_count, :following_count, presence: true
 
   mount_uploader :photo, PhotoUploader
 
