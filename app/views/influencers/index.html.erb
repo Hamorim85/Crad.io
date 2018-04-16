@@ -24,12 +24,16 @@
 <% content_for(:after_js) do %>
   <script>
     const myArray = [];
-    document.querySelectorAll(".inf-selector").forEach((field) => {
-      field.addEventListener("click", (event) => {
-        event.currentTarget.classList.toggle("active");
-        myArray.push(field.id);
-      });
-    });
+    const bindSelector = (event) => {
+      element = event.target;
+      if (element.classList.contains('inf-selector')) {
+        event.preventDefault();
+        element.classList.toggle("active");
+        myArray.push(element.id);
+      }
+    }
+
+    document.getElementById('card-grid').addEventListener("click", bindSelector);
 
     const button = document.getElementById("stupid_button");
     button.addEventListener("click", (event) => {
