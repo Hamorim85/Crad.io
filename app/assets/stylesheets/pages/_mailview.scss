@@ -1,19 +1,41 @@
 .mail_text_field {
   rows: 10;
-  background-color: lightgrey;
+  background-color: white;
   color: grey;
-  width: 500px;
+  width: 100%;
 }
+
 
 .messenger {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  flex: 0 0 450px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
 }
 
-.messenger_statistics {
-height: 400px;
-width: 600px;
-background-color: lightgrey;
+.mailings-content {
+  display: flex;
+  background-color: #FAFAFA;
+  padding-left: 0px;
+  padding-right: 30px;
+  height: 100vh;
+}
+
+.mailings-list {
+  flex: 0.1 0 auto;
+  padding-top: 3px;
+}
+
+.mailings-form {
+  padding-top: 40px;
+  padding-left: 30px;
+  width: auto;
+  flex: 1 0 auto;
+}
+
+.sticky-mailing {
+  position: fixed;
+  align-self: flex-start;
+  width: 50%;
 }
 

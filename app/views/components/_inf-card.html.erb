@@ -1,4 +1,5 @@
 <% summary = summary || false %>
+<% active  = active || false %>
 <div class="inf-card">
   <label for='<%= influencer.id %>'>
     <div class="inf-header">
@@ -15,7 +16,7 @@
           <% end %>
         </div>
       </div>
-      <%= link_to '', '#', id: influencer.id, type: "checkbox", name: "", value: "", class: 'inf-selector' %>
+      <%= link_to '', '#', id: influencer.id, type: "checkbox", name: "", value: "", class: "inf-selector #{active.present? ? 'active' : ''}" %>
     </div>
     <div class="inf-subheader">
       <ul class="inf-subheader-data">

@@ -35,7 +35,12 @@
       if (element && element.classList.contains('inf-selector')) {
         event.preventDefault();
         element.classList.toggle("active");
-        myArray.push(element.id);
+        if (myArray.includes(element.id)) {
+          let x = myArray.findIndex(x => x == element.id);
+          myArray.splice(x, 1);
+        } else {
+          myArray.push(element.id);
+        };
       }
     }
 
