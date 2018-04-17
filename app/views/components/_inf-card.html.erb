@@ -31,7 +31,10 @@
 
   <% unless summary %>
     <div class="inf-content">
+      <p><strong>E-mail:</strong> <%= influencer.email %></p>
+      <p><%= influencer.bio %></p>
       <p><%= number_to_percentage(influencer.influencer_score, precision: 2) %></p>
+      <p><%= influencer.media_score %></p>
     </div>
   <% end %>
   <% if admin_card %>

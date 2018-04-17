@@ -53,26 +53,13 @@ class Influencer < ApplicationRecord
     retry
   end
 
-  def media
-    JSON.parse(recent_media)['edges']
-  end
-
-  def media_score
-    return 0 if media.empty?
-    interactions = media.inject(0) do |score, medium|
-      node = medium['node']
-      score + node['edge_liked_by']['count'] + node['edge_media_to_comment']['count']
-    end
-    interactions / media.count
-  end
-
   def engagement_rate
-    self.influencer_score = media_score / followers_count.to_f * 100
-    save
+    media_score / followers_count.to_f * 100
   end
 
   def self.search(params)
-    search_result = order(followers_count: :DESC)
+    # search_result = order(followers_count: :DESC)
+    search_result = order(media_score: :DESC)
     search_result = search_result.joins(:categories).where(categories: {id: params[:categories]}).distinct if params[:categories].present?
     search_result = search_result.where('following_count < ?', params[:following_count].to_i) if params[:following_count].present?
     search_result = search_result.where('followers_count > ?', params[:followers_count].to_i) if params[:followers_count].present?

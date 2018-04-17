@@ -4,6 +4,7 @@
 class ParseService
   def self.promote!(follower)
     json = follower.json
+    media = json['edge_owner_to_timeline_media']
 
     Influencer.find_or_initialize_by(
       follower: follower
@@ -17,9 +18,20 @@ class ParseService
       following_count: json['edge_follow']['count'],
       ig_pic_url: json['profile_pic_url_hd'],
       verified: json['is_verified'],
-      recent_media: json['edge_owner_to_timeline_media'].to_json.gsub('=>', ':').gsub('nil', 'null')
+
+      recent_media: media.to_json.gsub('=>', ':').gsub('nil', 'null'),
+      media_score: media_score(media['edges'])
     )
     follower.update(parsed_at: Time.now)
+  end
+
+  def self.media_score(recent_media)
+    return 0 if recent_media.empty?
+    interactions = recent_media.inject(0) do |score, medium|
+      node = medium['node']
+      score + node['edge_liked_by']['count'] + node['edge_media_to_comment']['count']
+    end
+    interactions / recent_media.count
   end
 
   def self.email(influencer)
