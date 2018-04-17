@@ -1,4 +1,4 @@
-class InfluencerPolicy < ApplicationPolicy
+class Admin::InfluencerPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope
@@ -6,6 +6,6 @@ class InfluencerPolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    person.is_a?(Admin)
   end
 end
