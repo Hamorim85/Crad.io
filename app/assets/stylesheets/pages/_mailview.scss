@@ -13,17 +13,19 @@
   top: 0;
 }
 
+
 .mailings-content {
   display: flex;
   background-color: #FAFAFA;
   padding-left: 0px;
   padding-right: 30px;
-  height: 100vh;
+  height: 100%;
 }
 
 .mailings-list {
   flex: 0.1 0 auto;
   padding-top: 3px;
+  height: 700px;
 }
 
 .mailings-form {
@@ -38,4 +40,9 @@
   align-self: flex-start;
   width: 50%;
 }
+
+.link-without-decoration:hover {
+  text-decoration: none;
+}
+
 

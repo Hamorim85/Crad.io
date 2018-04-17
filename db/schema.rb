@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20180417185459) do
     t.bigint "brand_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "subject"
     t.index ["brand_id"], name: "index_mailings_on_brand_id"
   end
 
