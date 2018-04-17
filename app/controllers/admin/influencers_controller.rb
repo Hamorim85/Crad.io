@@ -1,6 +1,6 @@
 class Admin::InfluencersController < ApplicationController
   before_action :set_influencer, only: %i[show edit update destroy]
-  skip_before_action :authenticate_admin!, only: %i[index]
+  skip_before_action :authenticate_admin!, :authenticate_brand!
 
   def index
     @influencers = ParseService.bio_search(params[:search][:bio])
