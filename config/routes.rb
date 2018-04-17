@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :admins, path: ''
+  devise_for :admins
   devise_for :brands
 
   resources :influencers, only: %i[index show]

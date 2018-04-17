@@ -1,4 +1,6 @@
 class MailingsController < ApplicationController
+  skip_before_action :authenticate_admin!
+
   def index
     # All the former mailings that the brand created
   end

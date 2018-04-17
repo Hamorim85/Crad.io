@@ -28,6 +28,13 @@ $inf-card-strong-weight: 600;
   padding: $inf-gutter;
 }
 
+.inf-more-info {
+  font-size: 12px;
+  opacity: 0.7;
+  display: none;
+  line-height: 1;
+}
+
 .inf-card {
   box-shadow: $inf-card-shadow;
   font-size: 16px;
@@ -40,14 +47,11 @@ $inf-card-strong-weight: 600;
   }
 
   &:hover {
-    box-shadow: 0 1px 2px transparentize($brand-primary, 0.65);
-    background-color: lighten($brand-primary, 41%);
-    color: darken($brand-primary, 30%);
-
-    .inf-selector {
-      border-color: lighten($pink, 20%);
-      border-width: 2px;
+    .inf-more-info {
+      display: inline;
     }
+
+    box-shadow: 0 1px 2px transparentize($brand-primary, 0.65);
   }
 
   img {
@@ -62,7 +66,7 @@ $inf-card-strong-weight: 600;
 .inf-header {
   display: flex;
   align-items: center;
-  padding: $inf-card-padding $inf-card-padding 0;
+  padding: $inf-card-padding;
   // border-bottom: $inf-card-divider;
   line-height: 18px;
   position: relative;
@@ -71,6 +75,16 @@ $inf-card-strong-weight: 600;
   .avatar {
     width: $inf-avatar-size;
     margin-right: $inf-card-padding;
+  }
+
+  &:hover {
+    background-color: lighten($brand-primary, 39%);
+    color: darken($brand-primary, 30%);
+
+    .inf-selector {
+      border-color: lighten($pink, 20%);
+      border-width: 2px;
+    }
   }
 
   // Pink circle around avatars. Needs more work
@@ -100,11 +114,16 @@ $inf-card-strong-weight: 600;
   height: $inf-avatar-size / 2;
   width: $inf-avatar-size / 2;
 
-  &.active {
+}
+
+.active {
+  background-color: lighten($brand-primary, 39.5%);
+
+  .inf-selector {
     background-color: $pink;
-    // border: 1px solid $pink;
   }
 }
+
 
 .inf-info {
   color: $faded-text;
