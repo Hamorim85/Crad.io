@@ -28,7 +28,7 @@ gem "pundit"
 gem 'httparty'
 gem 'faker' # Removed it from development to run the seeds for initial test
 # in production
-gem 'jquery-rails'
+
 
 group :development do
   gem 'web-console', '>= 3.3.0'
