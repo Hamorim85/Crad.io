@@ -3,32 +3,24 @@
 <p><%= @mailing.brand.email %></p>
 <p><%= @mailing.content %></p>
 </div> -->
-<div class="container" style="height: 100vh; background-color: #fafafa">
-
-    <% @mailing.influencers.each do |influencer| %>
+<div class="container" style="height: 100%; background-color: #fafafa">
+  <% @mailing.influencers.each do |influencer| %>
     <div class="message">
-      <img class="avatar-large"> <i class="fas fa-envelope fa-3x", style="margin-right: 40px"> </i>
-     <!--  <a class="usp_symbol" href="#"><i class="fas fa-envelope fa-7x"> </i></a> -->
+      <p style="color: #EA338C;"><strong><%= @mailing.created_at.strftime("%B %d, %Y") %></strong></p>
+<!--       <img class="avatar-large"> <i class="fas fa-envelope fa-3x", style="margin-right: 40px"> </i> -->
       <div class="message-name">
         <h3><%= influencer.username %></h3>
-        <p><%= @mailing.created_at.strftime("%B %d, %Y") %></p>
+        <p>Followers: <%= influencer.followers_count %></p>
       </div>
       <div class="message-body">
         <p><strong><%= @mailing.subject %></strong></p>
         <p>
-          <%= @mailing.content %>
+          <%= truncate(@mailing.content, :length => 120 , :separator => ' ') %>
         </p>
       </div>
       <div class="message-status">
-        <p class="status pending">Influencers contacted</p>
-        <p class="Reach"><%= @mailing.influencers.count %></p>
+        <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
+      </div>
     </div>
-</div>
-    <% end %>
-
-
-
-
-
-
+  <% end %>
 </div>
