@@ -1,0 +1,5 @@
+<div id="card-grid" class="inf-card-grid" style="padding: 32px">
+  <% @influencers.each do |influencer| %>
+    <%= render 'components/inf-card', influencer: influencer, admin_card: true %>
+  <% end %>
+</div>

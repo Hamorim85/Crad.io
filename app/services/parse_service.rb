@@ -29,6 +29,6 @@ class ParseService
 
   def self.bio_search(text)
     bio = Influencer.arel_table[:bio]
-    Influencer.where(bio.matches("%#{text}%"))
+    Influencer.where(bio.matches("%#{text}%")).order(followers_count: :DESC)
   end
 end

@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
-  def home
-  end
+  skip_before_action :authenticate_admin!
+
+  def home; end
 end
