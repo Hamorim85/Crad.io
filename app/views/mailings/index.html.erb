@@ -1,2 +1,28 @@
-<h1>Mailings#index</h1>
-<p>Find me in app/views/mailings/index.html.erb</p>
+<div class="container" style="height: 100%; background-color: #fafafa">
+  <div class="container" style="height: 100%; background-color: #fafafa">
+    <ul>
+      <% @mailings.each do |mailing| %>
+        <div class="message">
+          <%= mailing.created_at.strftime("%B %d, %Y") %>
+          <div class="message-name">
+            Email Title
+          </div>
+          <div class="message-body">
+            <%= mailing.content %>
+          </div>
+          <div class="message-status">
+            <% if mailing.influencers.count < 4 %>
+              <% mailing.influencers.each do |influencer| %>
+                <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
+              <% end %>
+            <% else %>
+              <% mailing.influencers[0..2].each do |influencer| %>
+                <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
+                <% end %>
+              <div class="fas fa-plus fa-2x" style="border: solid 1px;"></div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </ul>
+</ul>

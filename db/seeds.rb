@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+
 p 'Deleting join tables'
 InfluencerCategory.destroy_all
 NodeCategory.destroy_all
@@ -14,17 +15,20 @@ p 'Deleting categories'
 Category.destroy_all
 
 p 'Adding influencers'
-200.times do
+50.times do
+  picture = HTTParty.get('https://randomuser.me/api')['results'].first['picture']['thumbnail']
   name = Faker::Name.name
   username = Faker::Internet.user_name(name)
-  Influencer.create!(
+  inf = Influencer.new(
     followers_count: rand(20_000),
     following_count: rand(1200),
     email: "inw.bergmann@gmail.com",
     full_name: name,
     username: username,
-    external_url: "wwww.#{username}.com"
-  ).errors
+    external_url: "wwww.#{username}.com",
+    remote_photo_url: picture
+  )
+  inf.save!
 end
 
 p 'Adding categories'

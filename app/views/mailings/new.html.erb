@@ -20,6 +20,8 @@
 <% content_for(:after_js) do %>
   <script>
     const myArray = "<%= params[:influencers_ids] %>".split(',');
+    document.getElementById("mailing_influencers_array").value = myArray;
+
     document.querySelectorAll(".inf-selector").forEach((field) => {
       field.addEventListener("click", (event) => {
         event.currentTarget.classList.toggle("active");

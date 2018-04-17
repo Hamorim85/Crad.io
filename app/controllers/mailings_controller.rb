@@ -1,6 +1,7 @@
 class MailingsController < ApplicationController
   def index
     # All the former mailings that the brand created
+    @mailings = current_brand.mailings
   end
 
   def show
