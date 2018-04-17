@@ -28,12 +28,14 @@ class Influencer < ApplicationRecord
   end
 
   def update_photo
-    begin
-      self.remote_photo_url = ig_pic_url
-      save
-    rescue Cloudinary::CarrierWave::UploadError => exs
-      p exs.to_s
-    end
+    self.remote_photo_url = ig_pic_url
+    save
+  rescue Cloudinary::CarrierWave::UploadError => exs
+    p exs.to_s
+    follower.visit
+    follower.promote!
+    reload
+    retry
   end
 
   def self.search(params)
