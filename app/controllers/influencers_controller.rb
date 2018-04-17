@@ -3,7 +3,8 @@ class InfluencersController < ApplicationController
   skip_before_action :authenticate_person!
 
   def index
-    @influencers = Influencer.search(params).page(params[:page])
+    @influencers = policy_scope(Influencer).search(params).page(params[:page])
+    authorize @influencers
   end
 
   def show; end
