@@ -3,7 +3,7 @@
 <p><%= @mailing.brand.email %></p>
 <p><%= @mailing.content %></p>
 </div> -->
-<div class="container" style="height: 100%; background-color: #fafafa">
+<div class="container" style="background-color: #fafafa">
   <% @mailing.influencers.each do |influencer| %>
     <div class="message">
       <p style="color: #EA338C;"><strong><%= @mailing.created_at.strftime("%B %d, %Y") %></strong></p>

@@ -31,7 +31,7 @@ class MailingsController < ApplicationController
 
     if @mailing.save
       @influencers.each do |influencer|
-        InfluencerMailer.inquiry(influencer).deliver_now
+        InfluencerMailer.inquiry(influencer, @mailing).deliver_now
       end
       redirect_to mailings_path
     else
