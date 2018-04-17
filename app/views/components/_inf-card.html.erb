@@ -26,10 +26,9 @@
     </div>
   </label>
 
-  <!-- <%# unless summary %>
+  <% unless summary %>
     <div class="inf-content">
-      <p></p>
-      <%#= image_tag 'http://placehold.it/400x150/fafafa/eee/?text=Data' %>
+      <p><%= number_to_percentage(influencer.influencer_score, precision: 2) %></p>
     </div>
-  <%# end %> -->
+  <% end %>
 </div>

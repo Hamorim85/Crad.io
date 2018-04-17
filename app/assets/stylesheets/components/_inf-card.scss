@@ -131,6 +131,6 @@ $inf-card-strong-weight: 600;
 }
 
 .inf-content {
-  // padding: $inf-card-padding;
+  padding: $inf-card-padding $inf-card-padding 0;
   color: $faded-text;
 }

@@ -40,12 +40,18 @@ class Influencer < ApplicationRecord
     JSON.parse(recent_media)['edges']
   end
 
-  def score
+  def media_score
+    return 0 if media.empty?
     interactions = media.inject(0) do |score, medium|
       node = medium['node']
       score + node['edge_liked_by']['count'] + node['edge_media_to_comment']['count']
     end
     interactions / media.count
+  end
+
+  def engagement_rate
+    self.influencer_score = media_score / followers_count.to_f * 100
+    save
   end
 
   def self.search(params)
