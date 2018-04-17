@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # [...]
-  before_action :authenticate_admin!
-  before_action :authenticate_brand!
+  devise_group :person, contains: [:brand, :admin]
+  before_action :authenticate_person! # Ensure someone is logged in
 
   include Pundit
 

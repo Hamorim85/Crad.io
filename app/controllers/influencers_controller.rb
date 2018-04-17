@@ -1,6 +1,6 @@
 class InfluencersController < ApplicationController
   before_action :set_influencer, only: %i[show edit update destroy]
-  skip_before_action :authenticate_admin!, :authenticate_brand!
+  skip_before_action :authenticate_person!
 
   def index
     @influencers = Influencer.search(params).page(params[:page])
