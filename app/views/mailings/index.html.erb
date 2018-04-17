@@ -1,28 +1,51 @@
 <div class="container" style="height: 100%; background-color: #fafafa">
-  <div class="container" style="height: 100%; background-color: #fafafa">
-    <ul>
-      <% @mailings.each do |mailing| %>
-        <div class="message">
-          <%= mailing.created_at.strftime("%B %d, %Y") %>
-          <div class="message-name">
-            Email Title
-          </div>
-          <div class="message-body">
-            <%= mailing.content %>
-          </div>
-          <div class="message-status">
-            <% if mailing.influencers.count < 4 %>
-              <% mailing.influencers.each do |influencer| %>
-                <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
+      <div class="message">
+
+        <p style="color: #EA338C;"><strong>Sending Date</strong></p>
+        <div class="message-name">
+          <p>Followers</p>
+        </div>
+        <div class="message-body" style="padding-right: 30px;">
+          <p><strong>Message</strong></p>
+        </div>
+        <div class="message-avatar">
+          <p>Influencers</p>
+        </div>
+
+    </div>
+
+
+  <% @mailings.each do |mailing| %>
+    <%= link_to mailing_path(mailing), class: "link-without-decoration"  do %>
+      <div class="message">
+
+        <p style="color: #EA338C;"><strong><%= mailing.created_at.strftime("%B %d, %Y") %></strong></p>
+        <div class="message-name">
+          <% followerscount = 0 %>
+          <% mailing.influencers.each do |influencer| %>
+            <% followerscount = followerscount + influencer.followers_count.to_i %>
+          <% end %>
+          <p><%= followerscount %></p>
+        </div>
+        <div class="message-body" style="padding-right: 30px;">
+          <p><strong><%= mailing.subject %></strong></p>
+          <p class="Reach"><%= truncate(mailing.content, :length => 100 , :separator => ' ') %></p>
+        </div>
+        <div class="message-avatar">
+          <% if mailing.influencers.count < 6 %>
+            <% mailing.influencers.each do |influencer| %>
+              <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
               <% end %>
             <% else %>
-              <% mailing.influencers[0..2].each do |influencer| %>
-                <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
-                <% end %>
-              <div class="fas fa-plus fa-2x" style="border: solid 1px;"></div>
+            <% mailing.influencers[0..5].each do |influencer| %>
+              <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
             <% end %>
-          </div>
+            <div><div class="fas fa-plus-circle fa-2x" style="margin-top: 4px;"></div></div>
+
+          <% end %>
         </div>
-      <% end %>
-    </ul>
-</ul>
+
+    </div>
+    <% end %>
+  <% end %>
+</div>
