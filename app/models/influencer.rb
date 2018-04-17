@@ -36,6 +36,10 @@ class Influencer < ApplicationRecord
     end
   end
 
+  def media
+    JSON.parse(recent_media)
+  end
+
   def self.search(params)
     search_result = order(followers_count: :DESC)
     search_result = search_result.joins(:categories).where(categories: {id: params[:categories]}).distinct if params[:categories].present?

@@ -38,7 +38,8 @@ class Follower < ApplicationRecord
       followers_count: json['edge_followed_by']['count'],
       following_count: json['edge_follow']['count'],
       ig_pic_url: json['profile_pic_url_hd'],
-      verified: json['is_verified']
+      verified: json['is_verified'],
+      recent_media: json['edge_owner_to_timeline_media'].to_json.gsub('=>', ':').gsub('nil', 'null')
     )
     update(parsed_at: Time.now)
   end
