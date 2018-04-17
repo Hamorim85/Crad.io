@@ -1,2 +1,23 @@
-<h1>Mailings#index</h1>
-<p>Find me in app/views/mailings/index.html.erb</p>
+<div class="container" style="height: 100vh; background-color: #fafafa">
+  <div class="container" style="height: 100vh; background-color: #fafafa">
+    <ul>
+      <% @mailings.each do |mailing| %>
+        <div class="message">
+          <img class="avatar-large"> <i class="fas fa-envelope fa-3x", style="margin-right: 40px"> </i>
+          <div class="message-name">
+            <%= mailing.brand.email %>
+          </div>
+          <div class="message-body">
+            <%= mailing.content %>
+          </div>
+          <div class="message-status">
+            <% mailing.influencers.each do |influencer| %>
+              <div class="avatar">
+              x
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </ul>
+</ul>

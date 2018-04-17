@@ -3,22 +3,32 @@
 <p><%= @mailing.brand.email %></p>
 <p><%= @mailing.content %></p>
 </div> -->
-<div class="container" style="height: 400px">
-<div class="message">
-  <img class="avatar-large" src="https://kitt.lewagon.com/placeholder/users/gabriel-dehan">
-  <div class="message-name">
-    <h3>Gab Dehan</h3>
-    <p>10/07/17</p>
-  </div>
-  <div class="message-body">
-    <p><strong>Influencer Marketing Campaign April 2018, 1.0</strong></p>
-    <p>
-      <%= @mailing.content %>
-    </p>
-  </div>
-  <div class="message-status">
-    <p class="status pending">Influencers contacted</p>
-    <p class="Reach">6</p>
-  </div>
+<div class="container" style="height: 100vh; background-color: #fafafa">
+
+    <% @mailing.influencers.each do |influencer| %>
+    <div class="message">
+      <img class="avatar-large"> <i class="fas fa-envelope fa-3x", style="margin-right: 40px"> </i>
+     <!--  <a class="usp_symbol" href="#"><i class="fas fa-envelope fa-7x"> </i></a> -->
+      <div class="message-name">
+        <h3><%= influencer.username %></h3>
+        <p><%= @mailing.created_at.strftime("%B %d, %Y") %></p>
+      </div>
+      <div class="message-body">
+        <p><strong>Influencer Marketing Campaign April 2018, 1.0</strong></p>
+        <p>
+          <%= @mailing.content %>
+        </p>
+      </div>
+      <div class="message-status">
+        <p class="status pending">Influencers contacted</p>
+        <p class="Reach"><%= @mailing.influencers.count %></p>
+    </div>
 </div>
+    <% end %>
+
+
+
+
+
+
 </div>
