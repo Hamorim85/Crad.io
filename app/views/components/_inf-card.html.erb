@@ -4,7 +4,7 @@
 
 <div class="inf-card">
   <label for='<%= influencer.id %>'>
-    <div class="inf-header">
+    <div class="inf-header <%= active.present? ? 'active' : '' %>">
       <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
       <div class="inf-title">
         <%= influencer.name %>
@@ -19,7 +19,7 @@
           <% end %>
         </div>
       </div>
-      <%= link_to '', '#', id: influencer.id, type: "checkbox", name: "", value: "", class: "inf-selector #{active.present? ? 'active' : ''}" unless admin_card %>
+      <%= link_to '', '#', id: influencer.id, type: "checkbox", name: "", value: "", class: "inf-selector" unless admin_card %>
     </div>
     <div class="inf-subheader">
       <ul class="inf-subheader-data">
