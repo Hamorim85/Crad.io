@@ -1,20 +1,25 @@
-<div class="container" style="height: 100vh; background-color: #fafafa">
-  <div class="container" style="height: 100vh; background-color: #fafafa">
+<div class="container" style="height: 100%; background-color: #fafafa">
+  <div class="container" style="height: 100%; background-color: #fafafa">
     <ul>
       <% @mailings.each do |mailing| %>
         <div class="message">
-          <img class="avatar-large"> <i class="fas fa-envelope fa-3x", style="margin-right: 40px"> </i>
+          <%= mailing.created_at.strftime("%B %d, %Y") %>
           <div class="message-name">
-            <%= mailing.brand.email %>
+            Email Title
           </div>
           <div class="message-body">
             <%= mailing.content %>
           </div>
           <div class="message-status">
-            <% mailing.influencers.each do |influencer| %>
-              <div class="avatar">
-              x
-              </div>
+            <% if mailing.influencers.count < 4 %>
+              <% mailing.influencers.each do |influencer| %>
+                <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
+              <% end %>
+            <% else %>
+              <% mailing.influencers[0..2].each do |influencer| %>
+                <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
+                <% end %>
+              <div class="fas fa-plus fa-2x" style="border: solid 1px;"></div>
             <% end %>
           </div>
         </div>
