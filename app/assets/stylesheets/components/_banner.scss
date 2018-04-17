@@ -1,6 +1,6 @@
 .banner {
   color: black;
-  height: 700px;
+  height: 650px;
   background-size: cover !important;
   display: flex;
   justify-content: center;
@@ -14,7 +14,7 @@
 }
 
 .banner p {
-  font-size: 25px;
+  font-size: 22px;
   font-weight: lighter;
   color: rgb(0,0,0);
   opacity: 0.6;
@@ -26,6 +26,7 @@
   background-color: rgba(255,255,255,0.8);
   box-shadow: 3px 3px 3px rgba(0,0,0,0.05);
   padding: 50px;
+  padding-top: 2%;
   margin: 30px auto;
   margin-bottom: 110px;
   width: 600px;
@@ -39,4 +40,25 @@
 
 #followers {
   margin-top: 30px;
+}
+
+.layout {
+  float: right;
+  margin-right: 6%;
+  margin-top: 9%;
+}
+.margin {
+  line-height: 1.7;
+  text-align: center;
+}
+.margin-s {
+  margin-top: 3%;
+}
+.title {
+  margin-left: 8%;
+  float:left;
+}
+
+.rangeslider {
+  margin-top: 7%;
 }
