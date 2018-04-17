@@ -3,22 +3,24 @@
 <p><%= @mailing.brand.email %></p>
 <p><%= @mailing.content %></p>
 </div> -->
-<div class="container" style="height: 400px">
-<div class="message">
-  <img class="avatar-large" src="https://kitt.lewagon.com/placeholder/users/gabriel-dehan">
-  <div class="message-name">
-    <h3>Gab Dehan</h3>
-    <p>10/07/17</p>
-  </div>
-  <div class="message-body">
-    <p><strong>Influencer Marketing Campaign April 2018, 1.0</strong></p>
-    <p>
-      <%= @mailing.content %>
-    </p>
-  </div>
-  <div class="message-status">
-    <p class="status pending">Influencers contacted</p>
-    <p class="Reach">6</p>
-  </div>
-</div>
+<div class="container" style="background-color: #fafafa">
+  <% @mailing.influencers.each do |influencer| %>
+    <div class="message">
+      <p style="color: #EA338C;"><strong><%= @mailing.created_at.strftime("%B %d, %Y") %></strong></p>
+<!--       <img class="avatar-large"> <i class="fas fa-envelope fa-3x", style="margin-right: 40px"> </i> -->
+      <div class="message-name">
+        <h3><%= influencer.username %></h3>
+        <p>Followers: <%= influencer.followers_count %></p>
+      </div>
+      <div class="message-body">
+        <p><strong><%= @mailing.subject %></strong></p>
+        <p>
+          <%= truncate(@mailing.content, :length => 120 , :separator => ' ') %>
+        </p>
+      </div>
+      <div class="message-status">
+        <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
+      </div>
+    </div>
+  <% end %>
 </div>

@@ -9,6 +9,7 @@
     <% sample_mail = "Dear <InfluencerName>, we are a company that produces vegan fitness nutrition under the brand HappyVeganSupplements. We are currently looking for Influencers that live a vegan lifestyle and would have an interest in a promotional cooperation. Please let us know if we could arouse youre interest, have a look at our product portfolio for further infos: www.happyvegansupplements.com. Kind regards, Your Team XYZ"%>
       <div class="sticky-mailing">
         <%= simple_form_for @mailing do |f| %>
+          <%= f.input :subject, label: "Subject:", placeholder: "write a subject", as: :text, input_html: {rows: 1, class: "mail_text_field"} %>
           <%= f.input :content, label: "Write your message:", placeholder: sample_mail, as: :text, input_html: {rows: 16, class: "mail_text_field"} %>
           <%= f.input :influencers_array, as: :hidden %>
           <%= f.submit "send", class: "btn btn-primary" %>
@@ -20,6 +21,8 @@
 <% content_for(:after_js) do %>
   <script>
     const myArray = "<%= params[:influencers_ids] %>".split(',');
+    document.getElementById("mailing_influencers_array").value = myArray;
+
     document.querySelectorAll(".inf-selector").forEach((field) => {
       field.addEventListener("click", (event) => {
         event.currentTarget.classList.toggle("active");

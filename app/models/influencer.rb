@@ -1,5 +1,7 @@
 class Influencer < ApplicationRecord
   belongs_to :follower, optional: true # Temporary solution
+  has_many :influencer_mails, dependent: :destroy
+  has_many :mailings, through: :influencer_mails
   has_many :influencer_categories, dependent: :destroy
   has_many :categories, through: :influencer_categories
   validates :username, uniqueness: true
