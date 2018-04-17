@@ -5,7 +5,7 @@
         <div class="message">
           <%= mailing.created_at.strftime("%B %d, %Y") %>
           <div class="message-name">
-            Email Title
+            <%= mailing.subject %>
           </div>
           <div class="message-body">
             <%= mailing.content %>

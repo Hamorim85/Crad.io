@@ -43,7 +43,7 @@ class MailingsController < ApplicationController
   private
 
   def mailing_params
-    params.require(:mailing).permit(:content, :influencers_array)
+    params.require(:mailing).permit(:content, :influencers_array, :subject)
   end
 
 end

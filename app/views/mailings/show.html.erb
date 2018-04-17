@@ -14,7 +14,7 @@
         <p><%= @mailing.created_at.strftime("%B %d, %Y") %></p>
       </div>
       <div class="message-body">
-        <p><strong>Influencer Marketing Campaign April 2018, 1.0</strong></p>
+        <p><strong><%= @mailing.subject %></strong></p>
         <p>
           <%= @mailing.content %>
         </p>
