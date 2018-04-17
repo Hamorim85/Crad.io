@@ -37,7 +37,15 @@ class Influencer < ApplicationRecord
   end
 
   def media
-    JSON.parse(recent_media)
+    JSON.parse(recent_media)['edges']
+  end
+
+  def score
+    interactions = media.inject(0) do |score, medium|
+      node = medium['node']
+      score + node['edge_liked_by']['count'] + node['edge_media_to_comment']['count']
+    end
+    interactions / media.count
   end
 
   def self.search(params)
