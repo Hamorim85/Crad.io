@@ -2,6 +2,7 @@ class Admin::InfluencersController < ApplicationController
   before_action :set_influencer, only: %i[show edit update destroy]
 
   def index
+    authorize [:admin, :influencer], :index?
     @influencers = ParseService.bio_search(params[:search][:bio])
     @influencers = @influencers.where.not(email: '') if params[:search][:email] == 'true'
   end
