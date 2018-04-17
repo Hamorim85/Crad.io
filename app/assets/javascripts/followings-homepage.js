@@ -4,3 +4,4 @@ const q = document.getElementById("followings"),
 q.addEventListener("input", function() {
     result.innerHTML = q.value;
 }, false);
+

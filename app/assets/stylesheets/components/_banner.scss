@@ -1,33 +1,35 @@
 .banner {
-  color: white;
+  color: black;
   height: 700px;
   background-size: cover !important;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
 }
 
 .banner h1 {
   font-size: 50px;
   font-weight: bold;
   text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+  justify: center;
 }
 
 .banner p {
   font-size: 25px;
   font-weight: lighter;
-  color: rgb(255, 255, 255);
+  color: rgb(0,0,0);
   opacity: 0.6;
+  justify: center;
+
 }
 .banner-content {
   top: 0 !important;
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(255,255,255,0.8);
   box-shadow: 3px 3px 3px rgba(0,0,0,0.05);
   padding: 50px;
   margin: 30px auto;
-  margin-left: 170px;
-  float: right;
-  margin-bottom: 160px;
+  margin-bottom: 110px;
+  width: 600px;
+  line-height: 1,4;
 }
 
 .card1 {
