@@ -33,6 +33,7 @@ gem 'faker' # Removed it from development to run the seeds for initial test
 gem 'httparty'
 gem 'kaminari'
 
+
 group :development do
   gem 'web-console', '>= 3.3.0'
 end
