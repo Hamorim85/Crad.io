@@ -9,7 +9,7 @@
     <% end %>
   </div>
   <div class="inf-data">
-    <%= link_to "Select", new_mailing_path, class: "btn btn-primary", id: "stupid_button" %>
+    <%= link_to "Select", new_mailing_path, class: "btn btn-primary sticky", id: "stupid_button" %>
   </div>
 </div>
 <%= render 'components/loader', id: 'inf' %>
@@ -34,7 +34,7 @@
 
       if (element && element.classList.contains('inf-selector')) {
         event.preventDefault();
-        element.classList.toggle("active");
+        element.parentElement.classList.toggle("active");
         if (myArray.includes(element.id)) {
           let x = myArray.findIndex(x => x == element.id);
           myArray.splice(x, 1);

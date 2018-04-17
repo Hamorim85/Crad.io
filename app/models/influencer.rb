@@ -21,6 +21,19 @@ class Influencer < ApplicationRecord
     full_name.empty? ? username : full_name
   end
 
+  def json
+    follower.json
+  end
+
+  def email
+    parse_email if super.nil? || super.empty?
+    super
+  end
+
+  def parse_email
+    ParseService.email(self)
+  end
+
   def ig_followers
     number_humanizer(followers_count)
   end

@@ -7,18 +7,16 @@ class MailingsController < ApplicationController
   def show
     # All the information about this specific mailing
     @mailing = Mailing.find(params[:id])
+    authorize @mailing
   end
 
   def new
-    # Need to create a test scenario
-    # , faking a influencer selection
-    # For Example:
-    # @influencers = Influencer.all.limit(3)
     if params[:influencers_ids].present?
       @influencers = Influencer.where(id: params[:influencers_ids].split(","))
     end
 
     @mailing = Mailing.new
+    authorize @mailing
   end
 
   def create
@@ -28,7 +26,7 @@ class MailingsController < ApplicationController
     @influencers = Influencer.where(id: @mailing.influencers_array.split(","))
 
     @mailing.influencers << @influencers
-
+    authorize @mailing
     if @mailing.save
       @influencers.each do |influencer|
         InfluencerMailer.inquiry(influencer, @mailing).deliver_now
