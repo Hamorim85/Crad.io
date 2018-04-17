@@ -3,7 +3,8 @@ class Admin::InfluencersController < ApplicationController
   skip_before_action :authenticate_admin!, only: %i[index]
 
   def index
-    @influencers = ParseService.bio_search(params[:search][:bio]).page(params[:page])
+    @influencers = ParseService.bio_search(params[:search][:bio])
+    @influencers = @influencers.where.not(email: '') if params[:search][:email] == 'true'
   end
 
   def show; end

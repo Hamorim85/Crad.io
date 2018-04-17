@@ -1,5 +1,11 @@
-<div id="card-grid" class="inf-card-grid" style="padding: 32px">
-  <% @influencers.each do |influencer| %>
+<h2 class="text-center">Showing <%= pluralize @influencers.count, 'influencer' %> results for "<%= params[:search][:bio] %>"</h2>
+<div class="inf-container">
+  <div id="card-grid" class="inf-card-grid">
+    <% @influencers.each do |influencer| %>
     <%= render 'components/inf-card', influencer: influencer, admin_card: true %>
-  <% end %>
+    <% end %>
+  </div>
+  <div class="inf-data">
+    <%= render 'admin/components/admin_search' %>
+  </div>
 </div>

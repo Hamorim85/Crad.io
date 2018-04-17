@@ -24,7 +24,7 @@ class Influencer < ApplicationRecord
   end
 
   def email
-    parse_email if super.empty? || super.nil?
+    parse_email if super.nil? || super.empty?
     super
   end
 

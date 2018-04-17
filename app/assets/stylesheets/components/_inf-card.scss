@@ -11,7 +11,6 @@ $inf-card-strong-weight: 600;
 
 .inf-container {
   display: flex;
-  padding: $inf-gutter;
 }
 
 .inf-data {
@@ -24,8 +23,9 @@ $inf-card-strong-weight: 600;
 .inf-card-grid {
   flex-grow: 1;
   display: grid;
-  grid-template-columns: repeat($inf-cards-per-row, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-gap: $inf-gutter;
+  padding: $inf-gutter;
 }
 
 .inf-card {
@@ -132,5 +132,6 @@ $inf-card-strong-weight: 600;
 
 .inf-content {
   padding: $inf-card-padding;
-  padding-left: $inf-avatar-size + $inf-card-padding * 2;
+  font-size: 14px;
+  // padding-left: $inf-avatar-size + $inf-card-padding * 2;
 }

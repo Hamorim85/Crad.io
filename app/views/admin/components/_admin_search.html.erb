@@ -1,0 +1,9 @@
+<div class="panel panel-default sticky">
+  <div class="panel-heading">Admin search</div>
+  <div class="panel-body">
+    <%= simple_form_for :search, url: admin_influencers_path, method: :get do |f| %>
+      <%= f.input :bio, as: :string, required: false, value: params[:search][:bio] %>
+      <%= f.input :email, as: :select, label: 'Show only influencers with e-mail?', value: params[:search][:email] %>
+    <% end %>
+  </div>
+</div>
