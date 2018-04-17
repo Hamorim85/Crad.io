@@ -27,6 +27,8 @@ class NodeService
   def start
     p 'Requesting first page...'
     doc = HTTParty.get(@curl, headers: @headers)
+    p "Response: #{doc.code}"
+
     doc = doc['data']['user']['edge_followed_by']
     followers = doc['edges']
 
@@ -45,6 +47,13 @@ class NodeService
       @curl = "https://www.instagram.com/graphql/query/?query_hash=#{@user_hash}&variables=%7B%22id%22%3A%22#{@node.igid}%22%2C%22first%22%3A#{@followers_per_request}%2C%22after%22%3A%22#{@next_page_key}%22%7D"
 
       doc = HTTParty.get(@curl, headers: @headers)
+      p "Response: #{doc.code}"
+
+      if doc.code != 200
+        print_doc
+        next
+      end
+
       doc = doc['data']['user']['edge_followed_by']
       followers = doc['edges']
 
@@ -65,5 +74,12 @@ class NodeService
       follower.nodes << @node unless follower.nodes.include?(@node)
       follower.update(verified: follower_info['is_verified'], username: follower_info['username'])
     end
+  end
+
+  def print_doc(doc)
+    wait_time = rand(2..4) * 60
+    p doc
+    p "Waiting #{wait_time / 60} minutes before trying again"
+    sleep wait_time
   end
 end

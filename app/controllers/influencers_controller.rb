@@ -1,31 +1,20 @@
 class InfluencersController < ApplicationController
   before_action :set_influencer, only: [:show, :edit, :update, :destroy]
 
-  # GET /influencers
-  # GET /influencers.json
   def index
-    # @influencers = policy_scope(Influencer).search(params).order(created_at: :desc)
-    # authorize @influencers
-    @influencers = Influencer.all.search(params).order(created_at: :desc)
-    # InfluencerMailer.inquiry(Influencer.find(21)).deliver_now
+    @influencers = Influencer.search(params).page(params[:page])
   end
 
-  # GET /influencers/1
-  # GET /influencers/1.json
   def show
   end
 
-  # GET /influencers/new
   def new
     @influencer = Influencer.new
   end
 
-  # GET /influencers/1/edit
   def edit
   end
 
-  # POST /influencers
-  # POST /influencers.json
   def create
     @influencer = Influencer.new(influencer_params)
 
@@ -40,8 +29,6 @@ class InfluencersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /influencers/1
-  # PATCH/PUT /influencers/1.json
   def update
     respond_to do |format|
       if @influencer.update(influencer_params)
@@ -54,8 +41,6 @@ class InfluencersController < ApplicationController
     end
   end
 
-  # DELETE /influencers/1
-  # DELETE /influencers/1.json
   def destroy
     @influencer.destroy
     respond_to do |format|

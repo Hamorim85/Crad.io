@@ -1,40 +1,21 @@
-<div class="secondary_filter">
-  <div>
-  </div>
+<!-- <div class="secondary_filter">
   <div class="searchresults">
-
-
-
-    <%= link_to "Select", new_mailing_path, class: "btn btn-primary", id: "stupid_button" %>
   </div>
-
-</div>
-
-
-<div class="container">
-  <div class="row">
-     <% @influencers.each do |influencer| %>
-    <div class="col-xs-12 col-sm-4">
-        <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://kitt.lewagon.com/placeholder/cities/shanghai');">
-          <div class="card-description">
-            <h2><%= influencer.username %></h2>
-            <h2><%= influencer.followers_count %></h2>
-            <h2><i class="fas fa-chevron-<%= influencer.follow_ratio > 1 ? "up green" : "down red" %>"></i></h2>
-          </div>
-
-          <%#= form_for(influencer) do |f| %>
-          <div class="form-selectbox">
-            <div id="<%= influencer.id %>" class="selection_field" style="width: 30px; height: 30px;"></div>
-            <%#= f.submit "Action 1", class: "selection_field" %>
-          </div>
-          <%# end %>
-
-        <a class="card-link" href="#"></a>
-      </div>
-    </div>
+</div> -->
+<div class="inf-container">
+  <div id="card-grid" class="inf-card-grid">
+    <% @influencers.each do |influencer| %>
+      <%= render 'components/inf-card', influencer: influencer %>
     <% end %>
   </div>
+  <div class="inf-data">
+    <%= link_to "Select", new_mailing_path, class: "btn btn-primary", id: "stupid_button" %>
+  </div>
 </div>
+<%= render 'components/loader', id: 'inf' %>
+
+<% conditions = {page: params[:page] || 1, followers_count: params[:followers_count], following_count: params[:following_count]} %>
+<%= link_to 'More', influencers_path(conditions), remote: true, format: :js, id: "pagination-ajax" %>
 
 <!-- - Make the button hidden, show it after the guy selects one influencer
 - Make the influencer go out of the array when de-selects
@@ -43,12 +24,27 @@
 <% content_for(:after_js) do %>
   <script>
     const myArray = [];
-    document.querySelectorAll(".selection_field").forEach((field) => {
-      field.addEventListener("click", (event) => {
-        event.currentTarget.classList.toggle("selection-field-circle");
-        myArray.push(field.id);
-      });
-    });
+    const bindSelector = (event) => {
+      element = event.target;
+      if (element.classList.contains('inf-card-grid')) {
+        element = event.target;
+      } else if (!element.classList.contains('inf-selector')) {
+        element = event.target.querySelector('.inf-selector');
+      }
+
+      if (element && element.classList.contains('inf-selector')) {
+        event.preventDefault();
+        element.classList.toggle("active");
+        if (myArray.includes(element.id)) {
+          let x = myArray.findIndex(x => x == element.id);
+          myArray.splice(x, 1);
+        } else {
+          myArray.push(element.id);
+        };
+      }
+    }
+
+    document.getElementById('card-grid').addEventListener("click", bindSelector);
 
     const button = document.getElementById("stupid_button");
     button.addEventListener("click", (event) => {
@@ -60,5 +56,22 @@
       }
 
     });
+
+    let page = 1;
+    const infLoader = document.getElementById('inf-loader');
+
+    infiniteScroll = (event) => {
+      if (document.documentElement.scrollHeight - window.innerHeight - event.pageY < 600) {
+        window.removeEventListener("scroll", infiniteScroll);
+        infLoader.style.display = 'block';
+
+        $.get({
+          url: "<%= "#{influencers_path}?followers_count=""#{params[:followers_count]}&followers_count=#{params[:following_count]}&page=" %>" + ++page,
+          dataType: 'jsonp'
+        });
+      }
+    }
+    window.addEventListener("scroll", infiniteScroll);
+
   </script>
 <% end %>
