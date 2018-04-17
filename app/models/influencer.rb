@@ -1,5 +1,7 @@
 class Influencer < ApplicationRecord
   belongs_to :follower, optional: true # Temporary solution
+  has_many :influencer_mails, dependent: :destroy
+  has_many :mailings, through: :influencer_mails
   has_many :influencer_categories, dependent: :destroy
   has_many :categories, through: :influencer_categories
   validates :username, uniqueness: true
@@ -28,12 +30,14 @@ class Influencer < ApplicationRecord
   end
 
   def update_photo
-    begin
-      self.remote_photo_url = ig_pic_url
-      save
-    rescue Cloudinary::CarrierWave::UploadError => exs
-      p exs.to_s
-    end
+    self.remote_photo_url = ig_pic_url
+    save
+  rescue Cloudinary::CarrierWave::UploadError => exs
+    p exs.to_s
+    follower.visit
+    follower.promote!
+    reload
+    retry
   end
 
   def media
