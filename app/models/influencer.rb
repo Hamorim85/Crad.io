@@ -1,5 +1,7 @@
 class Influencer < ApplicationRecord
   belongs_to :follower, optional: true # Temporary solution
+  has_many :influencer_mails, dependent: :destroy
+  has_many :mailings, through: :influencer_mails
   has_many :influencer_categories, dependent: :destroy
   has_many :categories, through: :influencer_categories
   validates :username, uniqueness: true
@@ -17,6 +19,19 @@ class Influencer < ApplicationRecord
 
   def name
     full_name.empty? ? username : full_name
+  end
+
+  def json
+    follower.json
+  end
+
+  def email
+    parse_email if super.nil? || super.empty?
+    super
+  end
+
+  def parse_email
+    ParseService.email(self)
   end
 
   def ig_followers

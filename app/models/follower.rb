@@ -27,20 +27,7 @@ class Follower < ApplicationRecord
   end
 
   def promote!
-    Influencer.find_or_initialize_by(
-      follower: self
-    ).update(
-      igid: json['id'],
-      username: json['username'],
-      full_name: json['full_name'],
-      bio: json['biography'],
-      external_url: json['external_url'],
-      followers_count: json['edge_followed_by']['count'],
-      following_count: json['edge_follow']['count'],
-      ig_pic_url: json['profile_pic_url_hd'],
-      verified: json['is_verified']
-    )
-    update(parsed_at: Time.now)
+    ParseService.promote!(self)
   end
 
   def self.progress

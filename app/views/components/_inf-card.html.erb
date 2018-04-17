@@ -1,5 +1,7 @@
-<% summary = summary || false %>
-<% active  = active || false %>
+<% summary    = summary || false %>
+<% admin_card = admin_card || false %>
+<% active     = active || false %>
+
 <div class="inf-card">
   <label for='<%= influencer.id %>'>
     <div class="inf-header">
@@ -13,10 +15,11 @@
           <%= link_to influencer.instagram_path, target: '_blank' do %>
             <i class="fab fa-instagram"></i>
             <%= influencer.username %>
+            <span class="inf-more-info">(more info)</span>
           <% end %>
         </div>
       </div>
-      <%= link_to '', '#', id: influencer.id, type: "checkbox", name: "", value: "", class: "inf-selector #{active.present? ? 'active' : ''}" %>
+      <%= link_to '', '#', id: influencer.id, type: "checkbox", name: "", value: "", class: "inf-selector #{active.present? ? 'active' : ''}" unless admin_card %>
     </div>
     <div class="inf-subheader">
       <ul class="inf-subheader-data">
@@ -26,10 +29,10 @@
     </div>
   </label>
 
-  <!-- <%# unless summary %>
+  <% if admin_card %>
     <div class="inf-content">
-      <p></p>
-      <%#= image_tag 'http://placehold.it/400x150/fafafa/eee/?text=Data' %>
+      <p><strong>E-mail:</strong> <%= influencer.email %></p>
+      <p><%= influencer.bio %></p>
     </div>
-  <%# end %> -->
+  <% end %>
 </div>
