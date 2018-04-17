@@ -1,7 +1,7 @@
 class MailingsController < ApplicationController
   def index
     # All the former mailings that the brand created
-    @mailings = current_brand.mailings
+    @mailings = current_brand.mailings.order(created_at: :desc)
   end
 
   def show
@@ -29,9 +29,9 @@ class MailingsController < ApplicationController
     authorize @mailing
     if @mailing.save
       @influencers.each do |influencer|
-        InfluencerMailer.inquiry(influencer).deliver_now
+        InfluencerMailer.inquiry(influencer, @mailing).deliver_now
       end
-      redirect_to mailing_path(@mailing)
+      redirect_to mailings_path
     else
       puts @mailing.errors.full_messages
       render :new
@@ -41,7 +41,7 @@ class MailingsController < ApplicationController
   private
 
   def mailing_params
-    params.require(:mailing).permit(:content, :influencers_array)
+    params.require(:mailing).permit(:content, :influencers_array, :subject)
   end
 
 end
