@@ -18,28 +18,23 @@
     <div class="rangeslider">
 
       <div class="margin">
-        <input id="ex2" type="text" class="span2 form-group" name="followers[]" value=""  data-slider-ticks="[5k,10k,50k,500k,1m,5m]" data-slider-ticks-labels="[5k,10k,50k,500k,1m,5m]" data-slider-step="100" data-slider-value="[100,500]"/>
-
+        <input id="followersmin" type="range" class="span2 form-group special-slider" min="0" max="20"/>
         <div class="title">
-          <p class="note form-group">Followers: <span id="currentValue">5000</span></p>
+          <p class="note form-group">Followers-min: <span id="currentValue">158k</span></p>
         </div>
       </div>
 
       <div class="margin">
-        <input id="ex3" type="text" class="span2 form-group" name="following[]" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/>
+        <input id="followers-max" type="range" class="span2 form-group special-slider" min="0" max="20"/>
         <div class="title">
-          <p class="note form-group">Followings: <span id="currentValue2">2500</span></p>
+          <p class="note form-group">Followers-max: <span id="currentValue2">158k</span></p>
         </div>
       </div>
+      <br><br>
     </div>
       <div class="layout">
         <%= submit_tag "Search", class: 'btn btn-success btn-lg'%>
       </div>
-      <!--       <input class="form-group" id="followers" name="followers_count" type="range" min="0" max="10000" step="10"/>
-      <p class="note">Followers: <span id="currentValue">5000</span></p>
-      <input class="form-group" id="followings" name="following_count" type="range" min="0" max="5000" step="10"/>
-      <p class="note">Followings: <span id="currentValue2">2500</span></p> -->
-      <%#= select_tag :categories, options_for_select(Category.all.map{|c| [c.name, c.id]}, nil), :include_blank => 'Any category', class: "form-control" %>
     </div>
     <% end %>
   </div>
@@ -54,10 +49,73 @@
       });
 
     });
-    var slider = new Slider('#ex2', {
 
-    });
-    // $("#ex2").slider({});
-    var slider = new Slider('#ex3', {});
+
+function LogSlider(options) {
+   options = options || {};
+   this.minpos = options.minpos || 0;
+   this.maxpos = options.maxpos || 100;
+   this.minlval = Math.log(options.minval || 1);
+   this.maxlval = Math.log(options.maxval || 100000);
+
+   this.scale = (this.maxlval - this.minlval) / (this.maxpos - this.minpos);
+}
+
+function FormatNumber(num) {
+    var si = [
+    { value: 1, symbol: "" },
+    { value: 1E3, symbol: "k" },
+    { value: 1E6, symbol: "M" }
+  ];
+  var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+  var i;
+  for (i = si.length - 1; i > 0; i--) {
+    if (num >= si[i].value) {
+      break;
+    }
+  }
+
+  return (num / si[i].value).toFixed(0).replace(rx, "$1") + si[i].symbol;
+}
+
+
+LogSlider.prototype = {
+   // Calculate value from a slider position
+   value: function(position) {
+      return Math.exp((position - this.minpos) * this.scale + this.minlval);
+   },
+   // Calculate slider position from a value
+   position: function(value) {
+      return this.minpos + (Math.log(value) - this.minlval) / this.scale;
+   }
+};
+
+// Usage:
+
+var logsl = new LogSlider({maxpos: 20, minval: 5000, maxval: 5000000});
+
+$('#followersmin').on('change', function() {
+   var val = logsl.value(+$(this).val());
+
+
+  $('#currentValue').text(FormatNumber(val));
+
+
+   //$('#currentValue').text(val > 999 ? (val/1000).toFixed(1) + 'k' : val);
+});
+
+$('#followers-max').on('change', function() {
+   var val = logsl.value(+$(this).val());
+
+
+   $('#currentValue2').text(FormatNumber(val));
+});
+
+
+//$('#currentValue').val("1000").trigger("keyup");
+
+
+
+
   </script>
 <% end %>
