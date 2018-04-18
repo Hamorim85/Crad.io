@@ -4,8 +4,9 @@ $inf-cards-per-row: 4;
 
 // Cards
 $inf-avatar-size: 40px;
+$inf-avatar-offset: 4px;
 $inf-card-padding: 12px;
-$inf-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+$inf-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
 $inf-card-divider: 1px solid #f0f0f0;
 $inf-card-strong-weight: 600;
 
@@ -23,7 +24,7 @@ $inf-card-strong-weight: 600;
 .inf-card-grid {
   flex-grow: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(337px, 1fr));
   grid-gap: $inf-gutter;
   padding: $inf-gutter;
 }
@@ -82,22 +83,10 @@ $inf-card-strong-weight: 600;
     color: darken($brand-primary, 30%);
 
     .inf-selector {
-      border-color: lighten($pink, 20%);
+      border-color: $pink;
       border-width: 2px;
     }
   }
-
-  // Pink circle around avatars. Needs more work
-  // &:after {
-  //   position: absolute;
-  //   top: 7px;
-  //   left: 7px;
-  //   content: '';
-  //   height: 50px;
-  //   width: 50px;
-  //   border: 2px solid $pink;
-  //   border-radius: 50%;
-  // }
 }
 
 .inf-title {
@@ -121,9 +110,26 @@ $inf-card-strong-weight: 600;
 
   .inf-selector {
     background-color: $pink;
+    border-color: $pink;
+  }
+
+  // Pink circle around avatars. Needs more work
+  &:after {
+    position: absolute;
+    top: $inf-card-padding - $inf-avatar-offset;
+    left: $inf-card-padding - $inf-avatar-offset;
+    content: '';
+    height: $inf-avatar-size + ($inf-avatar-offset * 2);
+    width: $inf-avatar-size + ($inf-avatar-offset * 2);
+    border: 2px solid #FF1467;
+    border-radius: 50%;
   }
 }
 
+.inf-engagement {
+  color: $pink;
+  font-size: 14px;
+}
 
 .inf-info {
   color: $faded-text;

@@ -1,0 +1,3 @@
+$('#inf-modal').modal('show')
+document.getElementById('modal-title').innerText = "<%= j @influencer.name %>"
+document.getElementById('modal-body').innerHTML = "<%= j render 'show' %>"
