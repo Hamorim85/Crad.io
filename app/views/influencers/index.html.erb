@@ -1,4 +1,4 @@
-<h2>Showing <%= pluralize(@influencers.count, 'result') %></h2>
+<h2>Found <%= pluralize(@influencers.total_count, 'result') %></h2>
 <div class="inf-container">
   <div id="card-grid" class="inf-card-grid">
     <% @influencers.each do |influencer| %>
