@@ -61,8 +61,8 @@ class Influencer < ApplicationRecord
     # search_result = order(followers_count: :DESC)
     search_result = order(media_score: :DESC)
     search_result = search_result.joins(:categories).where(categories: {id: params[:categories]}).distinct if params[:categories].present?
-    search_result = search_result.where('following_count < ?', params[:following_count].to_i) if params[:following_count].present?
-    search_result = search_result.where('followers_count > ?', params[:followers_count].to_i) if params[:followers_count].present?
+    search_result = search_result.where('following.include?', params[:following].to_i) if params[:following_count].present?
+    search_result = search_result.where('followers.include?', params[:followers].to_i) if params[:followers_count].present?
     search_result
   end
 
@@ -74,3 +74,5 @@ class Influencer < ApplicationRecord
     number
   end
 end
+# > ? && following_count < ?
+# > ? && followers_count < ?
