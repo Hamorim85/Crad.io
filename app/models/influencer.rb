@@ -45,6 +45,11 @@ class Influencer < ApplicationRecord
   def update_photo
     self.remote_photo_url = ig_pic_url
     save
+  rescue CloudinaryException => exs
+    p exs.to_s
+    p 'Waiting 2 seconds to retry'
+    sleep 2
+    retry
   rescue Cloudinary::CarrierWave::UploadError => exs
     p exs.to_s
     follower.visit
