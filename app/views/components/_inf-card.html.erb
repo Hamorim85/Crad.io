@@ -24,13 +24,13 @@
     <div class="inf-subheader">
       <ul class="inf-subheader-data">
         <li title="Engagement">
-          <strong><%= influencer.ig_followers %></strong> followers <br>
+          <strong><%= number_humanizer(influencer.followers_count) %></strong> followers <br>
           <span class="inf-engagement">
             <%= number_to_percentage(influencer.engagement_rate, precision: 2) %>
             <i class="far fa-chart-bar"></i>
           </span>
         </li>
-        <li><strong><%= influencer.ig_following %></strong> following <br> &nbsp;</li>
+        <li><strong><%= number_humanizer(influencer.following_count) %></strong> following <br> &nbsp;</li>
       </ul>
 
     </div>

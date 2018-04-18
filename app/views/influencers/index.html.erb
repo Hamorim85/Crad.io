@@ -1,4 +1,9 @@
-<h2>Found <%= pluralize(@influencers.total_count, 'result') %></h2>
+<h4>
+  Found <%= pluralize(@influencers.total_count, 'influencer') %>
+  <%= "with #{number_humanizer(params[:min_f])} to #{number_humanizer(params[:max_f])} followers" %>
+  with interest in <%= Category.names(params[:categories]) %>
+</h4>
+
 <div class="inf-container">
   <div id="card-grid" class="inf-card-grid">
     <% @influencers.each do |influencer| %>
