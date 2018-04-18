@@ -1,11 +1,11 @@
-class InfluencerPolicy < ApplicationPolicy
+class MailingPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope
     end
   end
 
-  def index?
+  def create?
     true
   end
 end
