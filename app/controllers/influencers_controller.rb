@@ -3,7 +3,7 @@ class InfluencersController < ApplicationController
   skip_before_action :authenticate_person!
 
   def index
-    @influencers = policy_scope(Influencer).validated.has_email.search(params).where('followers_count BETWEEN 1000000 AND 5000000')
+    @influencers = policy_scope(Influencer).validated.has_email.search(params)
     authorize @influencers
   end
 
