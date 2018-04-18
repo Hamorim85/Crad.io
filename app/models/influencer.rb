@@ -9,6 +9,10 @@ class Influencer < ApplicationRecord
 
   mount_uploader :photo, PhotoUploader
 
+  # scope :validated, -> { where("email <> '' AND media_score > 50") } might be useful later
+  scope :validated, -> { where('media_score > 50 AND engagement_rate < 9') }
+  scope :has_email, -> { where.not(email: '' || nil) }
+
   def instagram_path
     "http://www.instagram.com/#{username}"
   end
@@ -23,11 +27,6 @@ class Influencer < ApplicationRecord
 
   def json
     follower.json
-  end
-
-  def email
-    parse_email if super.nil? || super.empty?
-    super
   end
 
   def parse_email
@@ -59,11 +58,12 @@ class Influencer < ApplicationRecord
   end
 
   def reparse!
+    parse_email
     follower.promote!
   end
 
-  def engagement_rate
-    media_score / followers_count.to_f * 100
+  def parse_engagement_rate
+    update(engagement_rate: media_score / followers_count.to_f * 100.0)
   end
 
   def self.search(params)

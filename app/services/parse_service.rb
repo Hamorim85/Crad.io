@@ -6,9 +6,8 @@ class ParseService
     json = follower.json
     media = json['edge_owner_to_timeline_media']
 
-    Influencer.find_or_initialize_by(
-      follower: follower
-    ).update(
+    influencer = Influencer.find_or_initialize_by(follower: follower)
+    influencer.update(
       igid: json['id'],
       username: json['username'],
       full_name: json['full_name'],
@@ -36,8 +35,8 @@ class ParseService
 
   def self.email(influencer)
     email_regex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/i
-    email = influencer.bio.scan(email_regex).first
-    influencer.update(email: email)
+    email = influencer.bio.scan(email_regex).flatten.first
+    influencer.update(email: email.nil? ? nil : email.downcase)
     email
   end
 
