@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# app/models/influencer.rb
 class Influencer < ApplicationRecord
   belongs_to :follower, optional: true # Temporary solution
   has_many :influencer_mails, dependent: :destroy
