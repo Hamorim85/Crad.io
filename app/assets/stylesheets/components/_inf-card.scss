@@ -4,14 +4,14 @@ $inf-cards-per-row: 4;
 
 // Cards
 $inf-avatar-size: 40px;
+$inf-avatar-offset: 4px;
 $inf-card-padding: 12px;
-$inf-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+$inf-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
 $inf-card-divider: 1px solid #f0f0f0;
 $inf-card-strong-weight: 600;
 
 .inf-container {
   display: flex;
-  padding: $inf-gutter;
 }
 
 .inf-data {
@@ -24,8 +24,16 @@ $inf-card-strong-weight: 600;
 .inf-card-grid {
   flex-grow: 1;
   display: grid;
-  grid-template-columns: repeat($inf-cards-per-row, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(337px, 1fr));
   grid-gap: $inf-gutter;
+  padding: $inf-gutter;
+}
+
+.inf-more-info {
+  font-size: 12px;
+  opacity: 0.7;
+  display: none;
+  line-height: 1;
 }
 
 .inf-card {
@@ -40,14 +48,11 @@ $inf-card-strong-weight: 600;
   }
 
   &:hover {
-    box-shadow: 0 1px 2px transparentize($brand-primary, 0.65);
-    background-color: lighten($brand-primary, 41%);
-    color: darken($brand-primary, 30%);
-
-    .inf-selector {
-      border-color: lighten($pink, 20%);
-      border-width: 2px;
+    .inf-more-info {
+      display: inline;
     }
+
+    box-shadow: 0 1px 2px transparentize($brand-primary, 0.65);
   }
 
   img {
@@ -62,7 +67,7 @@ $inf-card-strong-weight: 600;
 .inf-header {
   display: flex;
   align-items: center;
-  padding: $inf-card-padding $inf-card-padding 0;
+  padding: $inf-card-padding;
   // border-bottom: $inf-card-divider;
   line-height: 18px;
   position: relative;
@@ -73,17 +78,15 @@ $inf-card-strong-weight: 600;
     margin-right: $inf-card-padding;
   }
 
-  // Pink circle around avatars. Needs more work
-  // &:after {
-  //   position: absolute;
-  //   top: 7px;
-  //   left: 7px;
-  //   content: '';
-  //   height: 50px;
-  //   width: 50px;
-  //   border: 2px solid $pink;
-  //   border-radius: 50%;
-  // }
+  &:hover {
+    background-color: lighten($brand-primary, 39%);
+    color: darken($brand-primary, 30%);
+
+    .inf-selector {
+      border-color: $pink;
+      border-width: 2px;
+    }
+  }
 }
 
 .inf-title {
@@ -100,10 +103,32 @@ $inf-card-strong-weight: 600;
   height: $inf-avatar-size / 2;
   width: $inf-avatar-size / 2;
 
-  &.active {
+}
+
+.active {
+  background-color: lighten($brand-primary, 39.5%);
+
+  .inf-selector {
     background-color: $pink;
-    // border: 1px solid $pink;
+    border-color: $pink;
   }
+
+  // Pink circle around avatars. Needs more work
+  &:after {
+    position: absolute;
+    top: $inf-card-padding - $inf-avatar-offset;
+    left: $inf-card-padding - $inf-avatar-offset;
+    content: '';
+    height: $inf-avatar-size + ($inf-avatar-offset * 2);
+    width: $inf-avatar-size + ($inf-avatar-offset * 2);
+    border: 2px solid #FF1467;
+    border-radius: 50%;
+  }
+}
+
+.inf-engagement {
+  color: $pink;
+  font-size: 14px;
 }
 
 .inf-info {
@@ -131,6 +156,6 @@ $inf-card-strong-weight: 600;
 }
 
 .inf-content {
-  // padding: $inf-card-padding;
-  color: $faded-text;
+  padding: $inf-card-padding $inf-card-padding 0;
+  font-size: 14px;
 }

@@ -4,4 +4,8 @@ class InfluencerPolicy < ApplicationPolicy
       scope
     end
   end
+
+  def index?
+    true
+  end
 end

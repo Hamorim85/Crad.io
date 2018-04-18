@@ -1,7 +1,3 @@
-<!-- <div class="secondary_filter">
-  <div class="searchresults">
-  </div>
-</div> -->
 <div class="inf-container">
   <div id="card-grid" class="inf-card-grid">
     <% @influencers.each do |influencer| %>
@@ -9,7 +5,7 @@
     <% end %>
   </div>
   <div class="inf-data">
-    <%= link_to "Select", new_mailing_path, class: "btn btn-primary", id: "stupid_button" %>
+    <%= link_to "Select", new_mailing_path, class: "btn btn-primary sticky", id: "stupid_button" %>
   </div>
 </div>
 <%= render 'components/loader', id: 'inf' %>
@@ -34,7 +30,7 @@
 
       if (element && element.classList.contains('inf-selector')) {
         event.preventDefault();
-        element.classList.toggle("active");
+        element.parentElement.classList.toggle("active");
         if (myArray.includes(element.id)) {
           let x = myArray.findIndex(x => x == element.id);
           myArray.splice(x, 1);

@@ -2,40 +2,41 @@
   rows: 10;
   background-color: white;
   color: grey;
-  width: 100%;
 }
 
-
-.messenger {
-  flex: 0 0 450px;
-  height: 100vh;
-  position: sticky;
-  top: 0;
-}
+// .messenger {
+//   flex: 0 0 450px;
+//   // height: 100vh;
+//   position: sticky;
+//   top: 0;
+// }
 
 .mailings-content {
   display: flex;
   background-color: #FAFAFA;
-  padding-left: 0px;
-  padding-right: 30px;
-  height: 100vh;
+  // padding-left: 0px;
+  // padding-right: 30px;
+  // height: 100%;
 }
 
 .mailings-list {
   flex: 0.1 0 auto;
-  padding-top: 3px;
+  padding-top: 16px;
 }
 
 .mailings-form {
-  padding-top: 40px;
-  padding-left: 30px;
+  padding-top: 32px;
+  padding-left: 32px;
   width: auto;
   flex: 1 0 auto;
 }
 
 .sticky-mailing {
-  position: fixed;
+  position: sticky;
+  top: 86px;
   align-self: flex-start;
-  width: 50%;
 }
 
+.link-without-decoration:hover {
+  text-decoration: none;
+}

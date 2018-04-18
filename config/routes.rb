@@ -1,11 +1,17 @@
 Rails.application.routes.draw do
-
-
+  devise_for :admins
   devise_for :brands
-  resources :influencers
 
-  resources :mailings, except: [:edit, :update, :destroy]
-  root to: 'pages#home'
+  resources :influencers, only: %i[index show]
+  resources :mailings, except: %i[edit update destroy]
+
+  namespace :admin do
+    get '/', to: 'pages#dashboard', as: :dashboard
+    resources :influencers
+  end
+
+  root to: 'pages#LandingPage'
+  get "/home", to: 'pages#home'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

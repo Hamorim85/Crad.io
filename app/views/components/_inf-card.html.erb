@@ -1,8 +1,10 @@
-<% summary = summary || false %>
-<% active  = active || false %>
+<% summary    = summary || false %>
+<% admin_card = admin_card || false %>
+<% active     = active || false %>
+
 <div class="inf-card">
   <label for='<%= influencer.id %>'>
-    <div class="inf-header">
+    <div class="inf-header <%= active.present? ? 'active' : '' %>">
       <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
       <div class="inf-title">
         <%= influencer.name %>
@@ -13,23 +15,42 @@
           <%= link_to influencer.instagram_path, target: '_blank' do %>
             <i class="fab fa-instagram"></i>
             <%= influencer.username %>
+            <span class="inf-more-info">(more info)</span>
           <% end %>
         </div>
       </div>
-      <%= link_to '', '#', id: influencer.id, type: "checkbox", name: "", value: "", class: "inf-selector #{active.present? ? 'active' : ''}" %>
+      <%= link_to '', '#', id: influencer.id, type: "checkbox", name: "", value: "", class: "inf-selector" unless admin_card %>
     </div>
     <div class="inf-subheader">
       <ul class="inf-subheader-data">
-        <li><strong><%= influencer.ig_followers %></strong> followers</li>
-        <li><strong><%= influencer.ig_following %></strong> following</li>
+        <li title="Engagement">
+          <strong><%= influencer.ig_followers %></strong> followers <br>
+          <span class="inf-engagement">
+            <%= number_to_percentage(influencer.influencer_score, precision: 2) %>
+            <i class="far fa-chart-bar"></i>
+          </span>
+        </li>
+        <li><strong><%= influencer.ig_following %></strong> following <br> &nbsp;</li>
       </ul>
+
     </div>
   </label>
 
-  <!-- <%# unless summary %>
+  <%= link_to 'More info', influencer_path(influencer), class: 'btn btn-block', data: { toggle: "modal", target: "#inf-modal" }, remote: true %>
+
+  <% unless summary %>
+    <!-- <div class="inf-content">
+      <%= link_to 'More info', influencer_path(influencer), class: 'btn btn-default', data: { toggle: "modal", target: "#inf-modal" }, remote: true %>
+      <p><%= number_to_percentage(influencer.influencer_score, precision: 2) %></p>
+      <p><%= influencer.media_score %></p>
+      <p><strong>E-mail:</strong> <%= influencer.email %></p>
+      <p><strong>Bio:</strong> <%= influencer.bio %></p>
+    </div> -->
+  <% end %>
+  <% if admin_card %>
     <div class="inf-content">
-      <p></p>
-      <%#= image_tag 'http://placehold.it/400x150/fafafa/eee/?text=Data' %>
+      <p><strong>E-mail:</strong> <%= influencer.email %></p>
+      <p><%= influencer.bio %></p>
     </div>
-  <%# end %> -->
+  <% end %>
 </div>
