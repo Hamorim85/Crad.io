@@ -3,18 +3,22 @@
 # app/models/influencer.rb
 class Influencer < ApplicationRecord
   belongs_to :follower, optional: true # Temporary solution
+
   has_many :influencer_mails, dependent: :destroy
   has_many :mailings, through: :influencer_mails
+
   has_many :influencer_categories, dependent: :destroy
   has_many :categories, through: :influencer_categories
+  has_many :nodes,      through: :influencer_categories
+
   validates :username, uniqueness: true
   validates :username, :followers_count, :following_count, presence: true
 
   mount_uploader :photo, PhotoUploader
 
-  # scope :validated, -> { where("email <> '' AND media_score > 50") } might be useful later
-  scope :validated, -> { where('media_score > 50 AND engagement_rate < 9') }
-  scope :has_email, -> { where.not(email: '' || nil) }
+  scope :validated, -> { where("email <> '' AND media_score > 50 AND engagement_rate < 9") }
+  # scope :validated, -> { where('media_score > 50 AND engagement_rate < 9') }
+  # scope :has_email, -> { where.not(email: '' || nil) }
 
   def instagram_path
     "http://www.instagram.com/#{username}"

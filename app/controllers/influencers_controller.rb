@@ -3,7 +3,7 @@ class InfluencersController < ApplicationController
   skip_before_action :authenticate_person!
 
   def index
-    @influencers = policy_scope(Influencer).validated.has_email.search(params)
+    @influencers = policy_scope(Influencer).validated.search(params).page(params[:page])
     authorize @influencers
   end
 
