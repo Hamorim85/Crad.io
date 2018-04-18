@@ -36,7 +36,7 @@ class ParseService
 
   def self.email(influencer)
     email_regex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/i
-    email = influencer.bio.scan(email_regex).join(', ')
+    email = influencer.bio.scan(email_regex).first
     influencer.update(email: email)
     email
   end
