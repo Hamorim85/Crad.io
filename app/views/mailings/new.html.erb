@@ -25,7 +25,7 @@
 
     document.querySelectorAll(".inf-selector").forEach((field) => {
       field.addEventListener("click", (event) => {
-        event.currentTarget.classList.toggle("active");
+        event.currentTarget.parentElement.classList.toggle("active");
         if (myArray.includes(field.id)) {
           let x = myArray.findIndex(x => x == field.id);
           myArray.splice(x, 1);

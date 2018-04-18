@@ -1,7 +1,7 @@
 class MailingsController < ApplicationController
   def index
     # All the former mailings that the brand created
-    @mailings = current_brand.mailings.order(created_at: :desc)
+    @mailings = policy_scope(Mailing).order(created_at: :desc)
   end
 
   def show
@@ -12,7 +12,7 @@ class MailingsController < ApplicationController
 
   def new
     if params[:influencers_ids].present?
-      @influencers = Influencer.where(id: params[:influencers_ids].split(","))
+      @influencers = policy_scope(Influencer).where(id: params[:influencers_ids].split(","))
     end
 
     @mailing = Mailing.new
