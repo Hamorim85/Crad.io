@@ -12,7 +12,7 @@
           <i class="fas fa-check-circle" title='Verified User'></i>
         <% end %>
         <div class="inf-info">
-          <%= link_to influencer.instagram_path, target: '_blank' do %>
+          <%= link_to influencer_path(influencer), remote: true, target: '_blank' do %>
             <i class="fab fa-instagram"></i>
             <%= influencer.username %>
             <span class="inf-more-info">(more info)</span>
@@ -36,9 +36,7 @@
     </div>
   </label>
 
-  <%= link_to 'More info', influencer_path(influencer), class: 'btn btn-block', data: { toggle: "modal", target: "#inf-modal" }, remote: true %>
-
-  <% unless summary %>
+  <!-- <% unless summary %> -->
     <!-- <div class="inf-content">
       <%= link_to 'More info', influencer_path(influencer), class: 'btn btn-default', data: { toggle: "modal", target: "#inf-modal" }, remote: true %>
       <p><%= number_to_percentage(influencer.influencer_score, precision: 2) %></p>
@@ -46,7 +44,7 @@
       <p><strong>E-mail:</strong> <%= influencer.email %></p>
       <p><strong>Bio:</strong> <%= influencer.bio %></p>
     </div> -->
-  <% end %>
+  <!-- <% end %> -->
   <% if admin_card %>
     <div class="inf-content">
       <p><strong>E-mail:</strong> <%= influencer.email %></p>

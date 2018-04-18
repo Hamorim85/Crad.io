@@ -3,6 +3,14 @@
 </h2>
 
 <p>
+  <%= link_to @influencer.instagram_path, target: '_blank' do %>
+  <i class="fab fa-instagram"></i>
+  <%= @influencer.username %>
+  <span class="inf-more-info">(more info)</span>
+  <% end %>
+</p>
+
+<p>
   <strong>Username:</strong>
   <%= @influencer.username %>
 </p>
@@ -60,5 +68,3 @@
   <strong>External url:</strong>
   <%= @influencer.external_url %>
 </p>
-
-<%= link_to 'Back', influencers_path %>
