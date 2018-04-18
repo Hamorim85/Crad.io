@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180417152349) do
+ActiveRecord::Schema.define(version: 20180417185459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,9 +111,11 @@ ActiveRecord::Schema.define(version: 20180417152349) do
     t.string "external_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "influencer_score"
+    t.float "influencer_score"
     t.bigint "follower_id"
     t.string "ig_pic_url"
+    t.string "recent_media"
+    t.integer "media_score"
     t.index ["follower_id"], name: "index_influencers_on_follower_id"
   end
 

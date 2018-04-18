@@ -7,7 +7,9 @@ class InfluencersController < ApplicationController
     authorize @influencers
   end
 
-  def show; end
+  def show
+    authorize @influencer
+  end
 
   private
 
