@@ -76,6 +76,7 @@ $inf-card-strong-weight: 600;
   .avatar {
     width: $inf-avatar-size;
     margin-right: $inf-card-padding;
+    flex-shrink: 0;
   }
 
   &:hover {
@@ -90,7 +91,14 @@ $inf-card-strong-weight: 600;
 }
 
 .inf-title {
-  margin-right: ($inf-avatar-size / 2) + $inf-card-padding
+  width: 100%;
+}
+
+.inf-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: calc(100% - 32px);
 }
 
 .inf-selector {
@@ -102,7 +110,6 @@ $inf-card-strong-weight: 600;
   right: $inf-card-padding;
   height: $inf-avatar-size / 2;
   width: $inf-avatar-size / 2;
-
 }
 
 .active {

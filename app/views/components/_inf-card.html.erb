@@ -7,7 +7,7 @@
     <div class="inf-header <%= active.present? ? 'active' : '' %>">
       <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
       <div class="inf-title">
-        <%= influencer.name %>
+        <div class="inf-name"><%= influencer.name %></div>
         <% if influencer.verified %>
           <i class="fas fa-check-circle" title='Verified User'></i>
         <% end %>
