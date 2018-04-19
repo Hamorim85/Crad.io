@@ -2,7 +2,7 @@
   Found <%= pluralize(@influencers.total_count, 'influencer') %>
   <%= "with #{number_humanizer(params[:min_f])} to #{number_humanizer(params[:max_f])} followers" %>
   with interest in
-  <% Category.names(@categories) %>
+  <%= Category.names(@categories) %>
 </h4>
 
 <div class="inf-container">
