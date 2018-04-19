@@ -9,7 +9,7 @@
     <div class="margin-s">
     <%= form_tag influencers_path, :method => :get, class: '' do %>
     <div class="form-group form-group-lg">
-      <select class="form-group selections" name="categories[]" multiple="multiple" placeholder="Select your categories">
+      <select class="form-group selections" name="categories" multiple="multiple" placeholder="Select your categories">
         <% Category.all.each do |c| %>
         <option value="<%= c.id %>"><%= c.name %></option>
         <% end %>
@@ -18,16 +18,18 @@
     <div class="rangeslider">
 
       <div class="margin">
-        <input id="followersmin" type="range" class="span2 form-group special-slider" min="0" max="20"/>
+        <input id="followersmin" type="range" class="span2 form-group special-slider" min="0" max="20" value="0"/>
+        <input id="min_f" name="min_f" type="hidden"/>
         <div class="title">
-          <p class="note form-group">Followers-min: <span id="currentValue">158k</span></p>
+          <p class="note form-group">Followers-min: <span id="currentValue">5k</span></p>
         </div>
       </div>
 
       <div class="margin">
-        <input id="followers-max" type="range" class="span2 form-group special-slider" min="0" max="20"/>
+        <input id="followers-max" type="range" class="span2 form-group special-slider" min="0" max="20" value="20"/>
+        <input id="max_f" name="max_f" type="hidden"/>
         <div class="title">
-          <p class="note form-group">Followers-max: <span id="currentValue2">158k</span></p>
+          <p class="note form-group">Followers-max: <span id="currentValue2">5m</span></p>
         </div>
       </div>
       <br><br>
@@ -99,6 +101,7 @@ $('#followersmin').on('change', function() {
 
 
   $('#currentValue').text(FormatNumber(val));
+  $('#min_f').val(Math.round(val));
 
 
    //$('#currentValue').text(val > 999 ? (val/1000).toFixed(1) + 'k' : val);
@@ -109,6 +112,9 @@ $('#followers-max').on('change', function() {
 
 
    $('#currentValue2').text(FormatNumber(val));
+   $('#max_f').val(Math.round(val));
+
+
 });
 
 

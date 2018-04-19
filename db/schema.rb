@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180417185459) do
+ActiveRecord::Schema.define(version: 20180419030114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,8 +83,10 @@ ActiveRecord::Schema.define(version: 20180417185459) do
     t.bigint "influencer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "node_id"
     t.index ["category_id"], name: "index_influencer_categories_on_category_id"
     t.index ["influencer_id"], name: "index_influencer_categories_on_influencer_id"
+    t.index ["node_id"], name: "index_influencer_categories_on_node_id"
   end
 
   create_table "influencer_mails", force: :cascade do |t|
@@ -111,11 +113,11 @@ ActiveRecord::Schema.define(version: 20180417185459) do
     t.string "external_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "influencer_score"
     t.bigint "follower_id"
     t.string "ig_pic_url"
     t.string "recent_media"
     t.integer "media_score"
+    t.float "engagement_rate"
     t.index ["follower_id"], name: "index_influencers_on_follower_id"
   end
 
@@ -150,6 +152,7 @@ ActiveRecord::Schema.define(version: 20180417185459) do
   add_foreign_key "follower_nodes", "nodes"
   add_foreign_key "influencer_categories", "categories"
   add_foreign_key "influencer_categories", "influencers"
+  add_foreign_key "influencer_categories", "nodes"
   add_foreign_key "influencer_mails", "influencers"
   add_foreign_key "influencer_mails", "mailings"
   add_foreign_key "influencers", "followers"

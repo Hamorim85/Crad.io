@@ -3,7 +3,8 @@ class InfluencersController < ApplicationController
   skip_before_action :authenticate_person!
 
   def index
-    @influencers = policy_scope(Influencer).search(params).page(params[:page])
+    @influencers = policy_scope(Influencer).validated.search(params).page(params[:page])
+    @categories = params[:categories].nil? ? [] : params[:categories].split(',')
     authorize @influencers
   end
 
@@ -18,6 +19,6 @@ class InfluencersController < ApplicationController
   end
 
   def influencer_params
-    params.require(:influencer).permit(:followers_count, :following_count)
+    params.require(:influencer).permit(:min_f, :max_f)
   end
 end

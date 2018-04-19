@@ -7,12 +7,14 @@
     <div class="inf-header <%= active.present? ? 'active' : '' %>">
       <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
       <div class="inf-title">
-        <%= influencer.name %>
-        <% if influencer.verified %>
-          <i class="fas fa-check-circle" title='Verified User'></i>
-        <% end %>
+        <div class="inf-name">
+          <%= influencer.name %>
+          <% if influencer.verified %>
+            <i class="fas fa-check-circle" title='Verified User'></i>
+          <% end %>
+        </div>
         <div class="inf-info">
-          <%= link_to influencer.instagram_path, target: '_blank' do %>
+          <%= link_to influencer_path(influencer), remote: true, target: '_blank' do %>
             <i class="fab fa-instagram"></i>
             <%= influencer.username %>
             <span class="inf-more-info">(more info)</span>
@@ -24,29 +26,26 @@
     <div class="inf-subheader">
       <ul class="inf-subheader-data">
         <li title="Engagement">
-          <strong><%= influencer.ig_followers %></strong> followers <br>
+          <strong><%= number_humanizer(influencer.followers_count) %></strong> followers <br>
           <span class="inf-engagement">
-            <%= number_to_percentage(influencer.influencer_score, precision: 2) %>
+            <%= number_to_percentage(influencer.engagement_rate, precision: 2) %>
             <i class="far fa-chart-bar"></i>
           </span>
         </li>
-        <li><strong><%= influencer.ig_following %></strong> following <br> &nbsp;</li>
+        <li><strong><%= number_humanizer(influencer.following_count) %></strong> following <br> &nbsp;</li>
       </ul>
 
     </div>
   </label>
 
-  <%= link_to 'More info', influencer_path(influencer), class: 'btn btn-block', data: { toggle: "modal", target: "#inf-modal" }, remote: true %>
-
   <% unless summary %>
-    <!-- <div class="inf-content">
-      <%= link_to 'More info', influencer_path(influencer), class: 'btn btn-default', data: { toggle: "modal", target: "#inf-modal" }, remote: true %>
-      <p><%= number_to_percentage(influencer.influencer_score, precision: 2) %></p>
-      <p><%= influencer.media_score %></p>
-      <p><strong>E-mail:</strong> <%= influencer.email %></p>
-      <p><strong>Bio:</strong> <%= influencer.bio %></p>
-    </div> -->
+    <div class="inf-footer">
+      <% influencer.categories.order(name: :ASC).each do |category| %>
+        <%= image_tag category.img_path(@categories), class: "inf-badge", title: "#{category.name} badge" %>
+      <% end %>
+    </div>
   <% end %>
+
   <% if admin_card %>
     <div class="inf-content">
       <p><strong>E-mail:</strong> <%= influencer.email %></p>
