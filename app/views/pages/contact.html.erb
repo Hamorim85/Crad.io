@@ -1,0 +1,57 @@
+<div class="row margin-top-bottom">
+
+ <div class="col-md-offset-3 col-sm-offset-2 col-md-6 col-sm-8">
+
+   <div class="row">
+     <form class="contact-us pattern-bg" action="/sendcontact" method="post">
+
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <input type="text" name="name" class="form-control" placeholder="Your Name">
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+         <input type="email" name="email" class="form-control" placeholder="Your Email">
+       </div>
+     </div>
+
+     <div class="col-sm-6">
+      <div class="form-group">
+        <input type="text" name="website" class="form-control" placeholder="Your Website">
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+        <input type="text" name="address" class="form-control" placeholder="Where are You From?">
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <select name="subject" class="form-group form-control">
+        <option value="" selected disabled>Subject</option>
+        <option>I am a Brand</option>
+        <option>I am an Influencer</option>
+        <option>I am an Agency</option>
+        <option>I Want to General Talk</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="textarea-message form-group">
+        <textarea name="message" class="textarea-message form-control" placeholder="Your Message" rows="5"></textarea>
+      </div>
+    </div>
+
+    <div class="text-center">
+     <button type="submit" class="button button-style button-style-dark button-style-color-2">Submit</button>
+   </div>
+ </form>
+</div>
+</div>
+</div>
+</div>

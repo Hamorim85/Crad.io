@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
   root to: 'pages#LandingPage'
   get "/home", to: 'pages#home'
+  get "/contact", to: 'pages#contact'
+  post "/sendcontact", to: 'pages#sendcontact'
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
