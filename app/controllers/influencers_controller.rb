@@ -4,7 +4,7 @@ class InfluencersController < ApplicationController
 
   def index
     @influencers = policy_scope(Influencer).validated.search(params).page(params[:page])
-    @categories = params[:categories].nil? ? [] : params[:categories].split(',')
+    @categories = params[:categories].present? ? params[:categories] : []
     authorize @influencers
   end
 
