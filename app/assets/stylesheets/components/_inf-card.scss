@@ -5,6 +5,8 @@ $inf-cards-per-row: 4;
 // Cards
 $inf-avatar-size: 40px;
 $inf-avatar-offset: 4px;
+$inf-badge-size: 32px;
+$inf-badge-offset: -12px;
 $inf-card-padding: 12px;
 $inf-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
 $inf-card-divider: 1px solid #f0f0f0;
@@ -72,6 +74,7 @@ $inf-card-strong-weight: 600;
   line-height: 18px;
   position: relative;
   cursor: pointer;
+  transition: background-color 0.25s;
 
   .avatar {
     width: $inf-avatar-size;
@@ -86,6 +89,27 @@ $inf-card-strong-weight: 600;
     .inf-selector {
       border-color: $pink;
       border-width: 2px;
+    }
+  }
+
+  &.active {
+    background-color: lighten($brand-primary, 39.5%);
+
+    .inf-selector {
+      background-color: $pink;
+      border-color: $pink;
+    }
+
+    // Pink circle around avatars. Needs more work
+    &:after {
+      position: absolute;
+      top: $inf-card-padding - $inf-avatar-offset;
+      left: $inf-card-padding - $inf-avatar-offset;
+      content: '';
+      height: $inf-avatar-size + ($inf-avatar-offset * 2);
+      width: $inf-avatar-size + ($inf-avatar-offset * 2);
+      border: 2px solid #FF1467;
+      border-radius: 50%;
     }
   }
 }
@@ -110,27 +134,8 @@ $inf-card-strong-weight: 600;
   right: $inf-card-padding;
   height: $inf-avatar-size / 2;
   width: $inf-avatar-size / 2;
-}
 
-.active {
-  background-color: lighten($brand-primary, 39.5%);
-
-  .inf-selector {
-    background-color: $pink;
-    border-color: $pink;
-  }
-
-  // Pink circle around avatars. Needs more work
-  &:after {
-    position: absolute;
-    top: $inf-card-padding - $inf-avatar-offset;
-    left: $inf-card-padding - $inf-avatar-offset;
-    content: '';
-    height: $inf-avatar-size + ($inf-avatar-offset * 2);
-    width: $inf-avatar-size + ($inf-avatar-offset * 2);
-    border: 2px solid #FF1467;
-    border-radius: 50%;
-  }
+  transition: background-color 0.25s;
 }
 
 .inf-engagement {
@@ -162,7 +167,18 @@ $inf-card-strong-weight: 600;
   }
 }
 
-.inf-content {
-  padding: $inf-card-padding $inf-card-padding 0;
-  font-size: 14px;
+.inf-footer {
+  font-size: 0;
+  padding: $inf-card-padding;
+  background-color: #fafafa;
+}
+
+.inf-badge {
+  width: $inf-badge-size;
+  margin-right: $inf-badge-offset;
+  // opacity: 0.375;
+  //
+  // &.active {
+  //   opacity: 1;
+  // }
 }

@@ -6,6 +6,6 @@ class InfluencerCategory < ApplicationRecord
   belongs_to :influencer
   belongs_to :node
 
-  validates :node, uniqueness: { scope: %i[category influencer] }
+  validates :influencer, uniqueness: { scope: %i[category node] }
   validates :category, :node, :influencer, presence: true
 end
