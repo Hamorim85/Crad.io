@@ -11,4 +11,8 @@ class Category < ApplicationRecord
   def self.names(categories)
     categories.split(',').map { |id| Category.find(id.to_i).name }.join(' and ')
   end
+
+  def img_path(categories)
+    "#{name.first(3).downcase}-badge#{categories.include?(id.to_s) ? '' : '-g'}"
+  end
 end

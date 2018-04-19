@@ -41,7 +41,7 @@
   <% unless summary %>
     <div class="inf-footer">
       <% influencer.categories.order(name: :ASC).each do |category| %>
-        <%= image_tag "badge#{category.id}", class: "inf-badge#{' active' if @categories.include?(category.id.to_s)}" %>
+        <%= image_tag category.img_path(@categories), class: "inf-badge", title: "#{category.name} badge" %>
       <% end %>
     </div>
   <% end %>
