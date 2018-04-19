@@ -9,9 +9,9 @@
     <div class="margin-s">
     <%= form_tag influencers_path, :method => :get, class: '' do %>
     <div class="form-group form-group-lg">
-      <select class="form-group selections" name="categories[]" multiple="multiple" placeholder="Select your categories">
+      <select class="form-group selections" name="categories[]" multiple="" placeholder="Select your categories">
         <% Category.all.each do |c| %>
-          <option value="<%= c.id %>"><%= c.name %></option>
+        <option value="<%= c.id %>"><%= c.name %></option>
         <% end %>
       </select>
     </div>
