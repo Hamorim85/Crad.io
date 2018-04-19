@@ -1,7 +1,11 @@
 <h4>
   Found <%= pluralize(@influencers.total_count, 'influencer') %>
   <%= "with #{number_humanizer(params[:min_f])} to #{number_humanizer(params[:max_f])} followers" %>
-  with interest in <%= Category.names(params[:categories]) %>
+  with interest in
+  <% @categories.each do |category| %>
+    <% category = Category.find(category.to_i) %>
+    <%= image_tag category.img_path(@categories), class: "inf-badge", title: "#{category.name}" %>
+  <% end %>
 </h4>
 
 <div class="inf-container">
