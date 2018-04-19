@@ -34,7 +34,9 @@
   <body>
     <%= render "components/navbar" %>
     <%= render "components/flashes" %>
-    <%= yield %>
+    <div class="content">
+      <%= yield %>
+    </div>
     <%= render "components/modal" %>
     <%= render "components/Footer" %>
     <%= javascript_include_tag 'application' %>
