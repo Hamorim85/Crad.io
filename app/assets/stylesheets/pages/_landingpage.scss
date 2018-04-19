@@ -1,103 +1,85 @@
 #cradLandingpage {
-
-      font-family : 'Montserrat', sans-serif;
-      font-size   : 16px;
-      line-height : 26px;
-      color       : #fff;
-      font-weight : 400;
-      margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  line-height: 26px;
+  font-weight: 400;
+  margin: 0;
 }
-  /*--------------------------------------
-   * TYPOGRAPHY
-   *--------------------------------------*/
+
+/*--------------------------------------
+ * TYPOGRAPHY
+ *------------------------------------*/
 .landingpage {
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
   h1 {
-      font-size   : 50px;
-      line-height: 1;
-      margin: 0;
-      color       : #fff;
-      }
-  h2{
-      font-size: 60px;
-      font-weight: normal;
-       color       : #fff;
+    font-size: 48px;
+    line-height: 1;
+    margin: 0;
+    color: #fff;
   }
 
-  h3{
-      font-size: 25px;
-      font-weight: normal;
-       color       : #fff;
+  h2 {
+    font-size: 40px;
+    font-weight: normal;
+    color: #fff;
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: normal;
+    color: #fff;
   }
 }
 
+/*-------------------------------------------------------------
+ * Countdown
+ *-------------------------------------------------------------*/
+.countdown-wrapper {
+  margin: 20px 0 50px;
+}
 
+#back-countdown {
+  color: #fff;
+  padding: 0;
 
-  /*-------------------------------------------------------------
-   * Countdown
-   *-------------------------------------------------------------*/
-  .countdown-wrapper {
-      margin: 20px 0 50px;
+  div {
+    display: inline-block;
+    text-align: center;
+    border: 3px solid rgba(255,255,255,.7);
+    border-radius: 2%;
+    position: relative;
+    padding: 16px 32px;
   }
 
-  #back-countdiown{
-      color: #fff;
-      padding: 0;
+  div p {
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0;
+    padding: 10px 0;
+    color: #fff;
+    border-top: 1px solid rgba(255,255,255,.7);
   }
 
-  #back-countdiown div {
-      display: inline-block;
-      margin-right: 15px;
-      text-align: center;
-      border: 3px solid rgba(255,255,255,.7);
-      border-radius: 2%;
-      position: relative;
+  div span {
+    display: block;
+    font-size: 40px;
+    margin-bottom: 8px;
+    font-weight: 700;
   }
 
-
-
-  #back-countdiown div:last-child {
-    margin-right: 0
+  div span:hover {
+    cursor: pointer;
   }
-  #back-countdiown div span {
-      display: block;
-      font-size: 50px;
-      padding: 0 35px;
-      font-weight: 700;
-  }
-  #back-countdiown div p{
-      text-transform: uppercase;
-      font-size: 20px;
-      font-weight: 300;
-      margin: 0;
-      padding: 10px 0;
-      color: #fff;
-      border-top: 1px solid rgba(255,255,255,.7);
-  }
-  #back-countdiown div span:hover {
-      cursor: pointer;
-  }
+}
 
-
-
-  .fullscreen-bg {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -100;
-  }
-
-  .landingpage {
-    height: 80vh;
-    display:flex;
-    flex-direction: column;
-  }
-
-
-
-
+.fullscreen-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -100;
+}
