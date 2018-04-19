@@ -9,7 +9,7 @@ class Category < ApplicationRecord
   validates :name, uniqueness: true, presence: true
 
   def self.names(categories)
-    categories.split(',').map { |id| Category.find(id.to_i).name }.join(' and ')
+    categories.map { |id| Category.find(id.to_i).name }.join(' and ')
   end
 
   def img_path(categories)
