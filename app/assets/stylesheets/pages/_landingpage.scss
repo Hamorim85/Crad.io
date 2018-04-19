@@ -7,6 +7,12 @@
   margin: 0;
 }
 
+.landing-wrapper {
+  height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+}
+
 /*--------------------------------------
  * TYPOGRAPHY
  *------------------------------------*/

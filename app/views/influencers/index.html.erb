@@ -71,8 +71,9 @@
       if (document.documentElement.scrollHeight - window.innerHeight - window.scrollY < 600 && max_page > page) {
         window.removeEventListener("scroll", infiniteScroll);
         infLoader.style.display = 'block';
+        const categoriesStr = "<%= "#{params[:categories].inject('') { |str, category| str + '&categories[]=' + category }}" %>";
         $.get({
-          url: "<%= "#{influencers_path}?min_f=#{params[:min_f]}&max_f=#{params[:max_f]}&categories=#{params[:categories]}&page=" %>" + ++page,
+          url: "<%= "#{influencers_path}?min_f=#{params[:min_f]}&max_f=#{params[:max_f]}&page=" %>" + ++page + categoriesStr,
           dataType: 'jsonp'
         });
       }
