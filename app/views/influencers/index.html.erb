@@ -60,15 +60,15 @@
     });
 
     let page = 1;
+    const max_page = <%= @influencers.total_pages %>;
     const infLoader = document.getElementById('inf-loader');
 
     infiniteScroll = (event) => {
-      if (document.documentElement.scrollHeight - window.innerHeight - event.pageY < 600) {
+      if (document.documentElement.scrollHeight - window.innerHeight - event.pageY < 600 && max_page > page) {
         window.removeEventListener("scroll", infiniteScroll);
         infLoader.style.display = 'block';
-
         $.get({
-          url: "<%= "#{influencers_path}?followers_count=""#{params[:followers_count]}&followers_count=#{params[:following_count]}&page=" %>" + ++page,
+          url: "<%= "#{influencers_path}?min_f=#{params[:min_f]}&max_f=#{params[:max_f]}&categories=#{params[:categories]}&page=" %>" + ++page,
           dataType: 'jsonp'
         });
       }
