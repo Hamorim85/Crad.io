@@ -7,10 +7,12 @@
     <div class="inf-header <%= active.present? ? 'active' : '' %>">
       <%= cl_image_tag influencer.photo.url(:thumbnail), class: 'avatar', alt: 'Img' %>
       <div class="inf-title">
-        <div class="inf-name"><%= influencer.name %></div>
-        <% if influencer.verified %>
-          <i class="fas fa-check-circle" title='Verified User'></i>
-        <% end %>
+        <div class="inf-name">
+          <%= influencer.name %>
+          <% if influencer.verified %>
+            <i class="fas fa-check-circle" title='Verified User'></i>
+          <% end %>
+        </div>
         <div class="inf-info">
           <%= link_to influencer_path(influencer), remote: true, target: '_blank' do %>
             <i class="fab fa-instagram"></i>
