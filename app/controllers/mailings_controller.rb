@@ -29,7 +29,11 @@ class MailingsController < ApplicationController
     authorize @mailing
     if @mailing.save
       @influencers.each do |influencer|
-        InfluencerMailer.inquiry(influencer, @mailing).deliver_now
+        temp_mailing = @mailing.dup
+        temp_mailing.content.prepend("Dear <InfluencerName>\n\n")
+        temp_mailing.content.gsub!(/<InfluencerName>/, influencer.name)
+        temp_mailing.content.gsub!(/\n/, '<br />')
+        InfluencerMailer.inquiry(influencer, temp_mailing).deliver_now
       end
       redirect_to mailings_path
     else

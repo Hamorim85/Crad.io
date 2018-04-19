@@ -1,45 +1,127 @@
-<div class="banner" style="background-image: url(<%= asset_path 'slack-imgs.jpg' %>);">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12 col-md-6">
-        <div class="card1">
-          <h1>Spread a cause</h1>
-          <p>Find Influencers with social and environmental interests.</p>
+<div class="banner" style="background-color: #e5f1fd";>
+  <div class="banner-content">
+    <div class="margin">
+      <h1>Spread a cause</h1>
+    </div>
+    <div class="margin">
+    <p>Find Influencers with social and environmental interests.</p>
+    </div>
+    <div class="margin-s">
+    <%= form_tag influencers_path, :method => :get, class: '' do %>
+    <div class="form-group form-group-lg">
+      <select class="form-group selections" name="categories" multiple="multiple" placeholder="Select your categories">
+        <% Category.all.each do |c| %>
+        <option value="<%= c.id %>"><%= c.name %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="rangeslider">
+
+      <div class="margin">
+        <input id="followersmin" type="range" class="span2 form-group special-slider" min="0" max="20" value="0"/>
+        <input id="min_f" name="min_f" type="hidden"/>
+        <div class="title">
+          <p class="note form-group">Followers-min: <span id="currentValue">5k</span></p>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6">
-        <div class="banner-content">
-          <%= form_tag influencers_path, :method => :get, class: '' do %>
-          <div class="form-group form-group-lg">
-            <select class="form-group selections" name="categories[]" multiple="multiple" placeholder="Select your categories">
-              <% Category.all.each do |c| %>
-              <option value="<%= c.id %>"><%= c.name %></option>
-              <% end %>
-            </select>
 
-            <input class="form-group" id="followers" name="followers_count" type="range" min="0" max="10000" step="10"/>
-            <p class="note">Followers: <span id="currentValue">5000</span></p>
-
-            <input class="form-group" id="followings" name="following_count" type="range" min="0" max="5000" step="10"/>
-            <p class="note">Followings: <span id="currentValue2">2500</span></p>
-            <%#= select_tag :categories, options_for_select(Category.all.map{|c| [c.name, c.id]}, nil), :include_blank => 'Any category', class: "form-control" %>
-            <%= submit_tag "Search", class: 'btn btn-success btn-lg'%>
-          </div>
-          <% end %>
+      <div class="margin">
+        <input id="followers-max" type="range" class="span2 form-group special-slider" min="0" max="20" value="20"/>
+        <input id="max_f" name="max_f" type="hidden"/>
+        <div class="title">
+          <p class="note form-group">Followers-max: <span id="currentValue2">5m</span></p>
         </div>
+      </div>
+      <br><br>
+    </div>
+      <div class="layout">
+        <%= submit_tag "Search", class: 'btn btn-success btn-lg'%>
       </div>
     </div>
+    <% end %>
   </div>
 </div>
 
 <%= content_for(:after_js) do %>
   <script>
     $(document).ready(function() {
-    $('.selections').select2({
-    placeholder: "Select your categories",
-    allowClear: true
-    });
-  });
-  </script>
+      $('.selections').select2({
+        placeholder: "Select your categories",
+        allowClear: true
+      });
 
+    });
+
+
+function LogSlider(options) {
+   options = options || {};
+   this.minpos = options.minpos || 0;
+   this.maxpos = options.maxpos || 100;
+   this.minlval = Math.log(options.minval || 1);
+   this.maxlval = Math.log(options.maxval || 100000);
+
+   this.scale = (this.maxlval - this.minlval) / (this.maxpos - this.minpos);
+}
+
+function FormatNumber(num) {
+    var si = [
+    { value: 1, symbol: "" },
+    { value: 1E3, symbol: "k" },
+    { value: 1E6, symbol: "M" }
+  ];
+  var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+  var i;
+  for (i = si.length - 1; i > 0; i--) {
+    if (num >= si[i].value) {
+      break;
+    }
+  }
+
+  return (num / si[i].value).toFixed(0).replace(rx, "$1") + si[i].symbol;
+}
+
+
+LogSlider.prototype = {
+   // Calculate value from a slider position
+   value: function(position) {
+      return Math.exp((position - this.minpos) * this.scale + this.minlval);
+   },
+   // Calculate slider position from a value
+   position: function(value) {
+      return this.minpos + (Math.log(value) - this.minlval) / this.scale;
+   }
+};
+
+// Usage:
+
+var logsl = new LogSlider({maxpos: 20, minval: 5000, maxval: 5000000});
+
+$('#followersmin').on('change', function() {
+   var val = logsl.value(+$(this).val());
+
+
+  $('#currentValue').text(FormatNumber(val));
+  $('#min_f').val(Math.round(val));
+
+
+   //$('#currentValue').text(val > 999 ? (val/1000).toFixed(1) + 'k' : val);
+});
+
+$('#followers-max').on('change', function() {
+   var val = logsl.value(+$(this).val());
+
+
+   $('#currentValue2').text(FormatNumber(val));
+   $('#max_f').val(Math.round(val));
+
+
+});
+
+
+//$('#currentValue').val("1000").trigger("keyup");
+
+
+
+
+  </script>
 <% end %>

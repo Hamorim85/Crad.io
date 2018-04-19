@@ -67,9 +67,13 @@ class Influencer < ApplicationRecord
 
   def self.search(params)
     # search_result = order(followers_count: :DESC)
+    params[:min_f] = 5_000 unless params[:min_f].present?
+    params[:max_f] = 5_000_000 unless params[:max_f].present?
     search_result = order(media_score: :DESC)
     search_result = search_result.joins(:categories).where(categories: {id: params[:categories]}).distinct if params[:categories].present?
     search_result = search_result.where('followers_count BETWEEN ? AND ?', params[:min_f], params[:max_f])
     search_result
   end
 end
+# > ? && following_count < ?
+# > ? && followers_count < ?
