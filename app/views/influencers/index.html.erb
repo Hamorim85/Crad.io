@@ -68,7 +68,7 @@
     const infLoader = document.getElementById('inf-loader');
 
     infiniteScroll = (event) => {
-      if (document.documentElement.scrollHeight - window.innerHeight - event.pageY < 600 && max_page > page) {
+      if (document.documentElement.scrollHeight - window.innerHeight - window.scrollY < 600 && max_page > page) {
         window.removeEventListener("scroll", infiniteScroll);
         infLoader.style.display = 'block';
         $.get({
