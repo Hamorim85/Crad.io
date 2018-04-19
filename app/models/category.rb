@@ -13,6 +13,6 @@ class Category < ApplicationRecord
   end
 
   def img_path(categories)
-    "#{name.first(3).downcase}-badge#{categories.include?(id.to_s) ? '' : '-g'}"
+    "#{name.first(3).downcase}-badge#{categories.include?(id.to_s) ? '' : '-g'}.png"
   end
 end
