@@ -269,6 +269,7 @@ DEPENDENCIES
   puma
   pundit
   rails (= 5.1.5)
+  rails-dom-testing
   redis
   sass-rails
   selenium-webdriver
@@ -283,4 +284,4 @@ RUBY VERSION
    ruby 2.4.3p205
 
 BUNDLED WITH
-   1.16.1
+   1.16.2

@@ -32,6 +32,7 @@ gem 'cloudinary'
 gem 'faker' # Removed it from development to run the seeds for initial test
 gem 'httparty'
 gem 'kaminari'
+gem 'rails-dom-testing'
 
 
 group :development do
